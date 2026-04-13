@@ -166,7 +166,7 @@ def fetch_soup(url):
 
 #     return list(links)
 
-results = get_urls("bmw")  
+results = get_urls("hyundai")  
 r = results[0]
 # print("Result 1: ",r)
 # info = extract_basic_info(r[1])
