@@ -109,7 +109,7 @@ def search_view(request):
 
             data = obj
 
-    return render(request, "search.html", {
+    return render(request, "admin/search.html", {
         "form": form,
         "data": data
     })

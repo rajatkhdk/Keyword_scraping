@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 # use regex to extract phone no.
 def extract_phones(text):
-    pattern = r'(\+?977[\s\-]?\d{9,10}|0\d{1,2}[\-\s]?\d{6,8}|9\d{9})'
+    pattern = r'\b(\+?977[\s\-]?9[6-8]\d{8}|01[\-\s]?\d{7}|9[6-8]\d{8})\b'
     phones = re.findall(pattern, text)
 
     # normalize
