@@ -2,9 +2,10 @@ import re
 from urllib.parse import urljoin, urlparse
 import requests
 from bs4 import BeautifulSoup
-import json
-from ddgs_search import get_urls
+# import json
+# from keywords_scraping.ddgs_search import get_urls
 
+# use regex to extract phone no.
 def extract_phones(text):
     pattern = r'(\+?977[\s\-]?\d{9,10}|0\d{1,2}[\-\s]?\d{6,8}|9\d{9})'
     phones = re.findall(pattern, text)
@@ -18,6 +19,7 @@ def extract_phones(text):
 
     return list(set(cleaned))
 
+# uses regex to extract email
 def extract_emails(text):
     pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
     emails = re.findall(pattern, text)
@@ -28,6 +30,7 @@ def extract_emails(text):
         if not any(x in e for x in ["example", "test", "noreply"])
     ]))
 
+# searches for brand logo in navbar, footer
 def extract_logo(soup, base_url: str):
     
     def to_full_url(src):
@@ -67,6 +70,7 @@ def extract_logo(soup, base_url: str):
 
     return None
 
+# returns all the internal links -> < a href "...">
 def extract_internal_links(soup, base_url):
     links = set()
     base_domain = urlparse(base_url).netloc
@@ -80,6 +84,7 @@ def extract_internal_links(soup, base_url):
 
     return list(links)
 
+# Check if the internal links contain the keywords that are most likely to have the required data
 def is_important(url):
     KEYWORDS = [
     "contact",
@@ -96,6 +101,7 @@ def is_important(url):
     url = url.lower()
     return any(k in url for k in KEYWORDS)
 
+# rank all the internal links using scores prioritizing certain keywords
 def rank_links(links):
     scored = []
 
@@ -116,6 +122,7 @@ def rank_links(links):
     scored.sort(reverse=True)
     return [url for score, url in scored]
 
+# get internal link, checks if they are important and ranks them and returns top 5 links
 def get_pages_to_scrape(homepage_soup, base_url):
     links = extract_internal_links(homepage_soup, base_url)
     filtered = [l for l in links if is_important(l)]
@@ -123,6 +130,50 @@ def get_pages_to_scrape(homepage_soup, base_url):
 
     return ranked[:5]  # limit crawl depth
 
+SOCIAL_PATTERNS = {
+    "facebook": ["facebook.com"],
+    "instagram": ["instagram.com"],
+    "twitter": ["twitter.com", "x.com"],
+    "linkedin": ["linkedin.com"],
+    "youtube": ["youtube.com", "youtu.be"],
+    "tiktok": ["tiktok.com"]
+}
+
+BAD_SOCIAL_PATTERNS = [
+    "share",
+    "intent",
+    "sharer",
+    "watch?",
+    "status",
+    "hashtag"
+]
+
+def extract_social_links(soup, base_url):
+    socials = {
+        "facebook": set(),
+        "instagram": set(),
+        "twitter": set(),
+        "linkedin": set(),
+        "youtube": set(),
+        "tiktok": set()
+    }
+
+    for a in soup.find_all("a", href=True):
+        href = a["href"].strip()
+        full_url = urljoin(base_url, href)
+
+        for platform, domains in SOCIAL_PATTERNS.items():
+            if any(domain in full_url for domain in domains):
+
+                if any(bad in full_url for bad in BAD_SOCIAL_PATTERNS):
+                    continue
+
+                socials[platform].add(full_url)
+
+    # convert sets → list
+    return {k: list(v) for k, v in socials.items()}
+
+# extracts the html from certain url and extracts the required info
 def extract_basic_info(url):
     headers = {"User-Agent": "Mozilla/5.0"}
     resp = requests.get(url, headers=headers, timeout=10)
@@ -133,14 +184,23 @@ def extract_basic_info(url):
     phones = extract_phones(text)
     emails = extract_emails(text)
     logo = extract_logo(soup, url)
+    socials = extract_social_links(soup, url)
 
     return {
         "website": url,
         "phones": phones,
         "emails": emails,
-        "logo": logo
+        "logo": logo,
+        
+        "facebook": socials["facebook"],
+        "instagram": socials["instagram"],
+        "twitter": socials["twitter"],
+        "linkedin": socials["linkedin"],
+        "youtube": socials["youtube"],
+        "tiktok": socials["tiktok"],
     }
 
+# extracts the html from certain url and returns the text soup
 def fetch_soup(url):
     headers = {"User-Agent": "Mozilla/5.0"}
     resp = requests.get(url, headers=headers, timeout=10)
@@ -166,46 +226,67 @@ def fetch_soup(url):
 
 #     return list(links)
 
-results = get_urls("hyundai")  
-r = results[0]
-# print("Result 1: ",r)
-# info = extract_basic_info(r[1])
-# print(info)
+# results = get_urls("hyundai")  
+# r = results[0]
+# # print("Result 1: ",r)
+# # info = extract_basic_info(r[1])
+# # print(info)
 
-base_url = r[1]
+# base_url = r[1]
 
-homepage_soup = fetch_soup(base_url)
+# homepage_soup = fetch_soup(base_url)
 
-pages = get_pages_to_scrape(homepage_soup, base_url)
+# pages = get_pages_to_scrape(homepage_soup, base_url)
 
-# include homepage itself
-pages = [base_url] + pages
+# # include homepage itself
+# pages = [base_url] + pages
 
-all_phones = []
-all_emails = []
-logo = None
+# all_phones = []
+# all_emails = []
+# logo = None
+# all_facebook = set()
+# all_instagram = set()
+# all_twitter = set()
+# all_linkedin = set()
+# all_youtube = set()
+# all_tiktok = set()
 
-for page in pages:
-    print(f"Scraping: {page}")
+# for page in pages:
+#     print(f"Scraping: {page}")
 
-    try:
-        data = extract_basic_info(page)
+#     try:
+#         data = extract_basic_info(page)
 
-        all_phones.extend(data["phones"])
-        all_emails.extend(data["emails"])
+#         all_phones.extend(data["phones"])
+#         all_emails.extend(data["emails"])
 
-        # keep first valid logo
-        if not logo and data["logo"]:
-            logo = data["logo"]
+#         # merge socials
+#         all_facebook.update(data["facebook"])
+#         all_instagram.update(data["instagram"])
+#         all_twitter.update(data["twitter"])
+#         all_linkedin.update(data["linkedin"])
+#         all_youtube.update(data["youtube"])
+#         all_tiktok.update(data["tiktok"])
 
-    except Exception as e:
-        print(f"Error: {e}")
+#         # keep first valid logo
+#         if not logo and data["logo"]:
+#             logo = data["logo"]
 
-final_data = {
-    "website": base_url,
-    "phones": list(set(all_phones)),
-    "emails": list(set(all_emails)),
-    "logo": logo
-}
+#     except Exception as e:
+#         print(f"Error: {e}")
 
-print(final_data)
+# final_data = {
+#     "website": base_url,
+#     "phones": list(set(all_phones)),
+#     "emails": list(set(all_emails)),
+#     "logo": logo,
+
+#     "facebook": list(all_facebook),
+#     "instagram": list(all_instagram),
+#     "twitter": list(all_twitter),
+#     "linkedin": list(all_linkedin),
+#     "youtube": list(all_youtube),
+#     "tiktok": list(all_tiktok),
+# }
+# 
+# print(final_data)

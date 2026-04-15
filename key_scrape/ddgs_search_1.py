@@ -1,6 +1,7 @@
 from ddgs import DDGS
 from urllib.parse import urlparse
 
+# Check if the brand name is present in the url
 def brand_in_domain(url, brand):
     try:
         hostname = urlparse(url).netloc.lower()
@@ -10,6 +11,7 @@ def brand_in_domain(url, brand):
     except:
         return False
 
+# Scores the url and returns the list of urls arranged in descending order of score
 def find_best_url(results, brand):
     """Score each url and return the most likely official/local one"""
 
@@ -55,6 +57,7 @@ def find_best_url(results, brand):
     scored.sort(reverse=True)
     return scored
 
+# finds all the urls based on keyword and ranks them
 def get_urls(brand):
     with DDGS() as ddgs:
         results = list(ddgs.text(f"{brand} Nepal official", max_results=15))
