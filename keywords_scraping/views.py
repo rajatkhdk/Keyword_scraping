@@ -102,6 +102,13 @@ def search_view(request):
                     print("Good result found, stopping early")
                     final_data = candidate_data
                     break
+                # else:
+                #     print("⚡ Retrying with dynamic:", page)
+    
+                #     html = fetch_dynamic_html(page)
+                #     if html:
+                #         soup = BeautifulSoup(html, "html.parser")
+                #         data = extract_basic_info_from_soup(soup)
 
                 # fallback: keep best partial result
                 if not final_data:

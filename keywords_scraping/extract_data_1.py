@@ -2,6 +2,7 @@ import re
 from urllib.parse import urljoin, urlparse
 import requests
 from bs4 import BeautifulSoup
+from playwright.sync_api import sync_playwright
 
 # use regex to extract phone no.
 def extract_phones(text):
@@ -195,9 +196,56 @@ def extract_basic_info(url):
         "tiktok": socials["tiktok"],
     }
 
+def fetch_dynamic_html(url):
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.lunch(headless=True)
+            page = browser.new_page()
+            
+            page.goto(url, timeout=60000)
+            page.wait_for_load_state("networkidle")
+
+            html = page.content()
+            browser.close()
+
+            return html
+    except Exception as e:
+        print("Dynamic fetch error: ",e)
+        return None
+    
+def fetch_static_html(url):
+    try:
+        headers = {"User-Agent": "Mozilla/5.0"}
+        res = requests.get(url, headers=headers, timeout=10)
+        if res.status_code == 200:
+            return res.text
+    except Exception as e:
+        print("Static fetch error: ", e)
+        return None
+    
+def is_dynamic_page(html):
+    if not html:
+        return True
+
+    # heuristics
+    if len(html) < 2000:
+        return True
+
+    if "id=\"root\"" in html or "id=\"__next\"" in html:
+        return True
+
+    return False
+
 # extracts the html from certain url and returns the text soup
 def fetch_soup(url):
-    headers = {"User-Agent": "Mozilla/5.0"}
-    resp = requests.get(url, headers=headers, timeout=10)
+    html = fetch_static_html(url)
+    
+    # decide if we need JS rendering
+    if is_dynamic_page(html):
+        print("Using dynamic scraping: ", url)
+        html = fetch_dynamic_html(url)
 
-    return BeautifulSoup(resp.text, "lxml")
+    if not html:
+        return None
+
+    return BeautifulSoup(html, "html.parser")
