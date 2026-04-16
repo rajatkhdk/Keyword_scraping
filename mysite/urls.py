@@ -21,5 +21,5 @@ from keywords_scraping import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('keywordsearch/', views.search_view, name='search'),
-    path('dashboard/', views.search_view, name='search'),
+    path('scrape-url/', views.scrape_url_view, name='scrape_url'),
 ]

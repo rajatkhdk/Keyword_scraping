@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import SearchForm
+from .forms import SearchForm, URLForm
 from .models import CarBrand
 from keywords_scraping.ddgs_search import get_urls
 from keywords_scraping.extract_data_1 import extract_basic_info, fetch_soup, get_pages_to_scrape
@@ -18,71 +18,95 @@ def search_view(request):
         if form.is_valid():
             keyword = form.cleaned_data["keyword"]
 
-            results = get_urls(keyword)  
-            r = results[0]
-            # print("Result 1: ",r)
-            # info = extract_basic_info(r[1])
-            # print(info)
+            results = get_urls(keyword) 
+            print("Result: ", results)
 
-            base_url = r[1]
+            MAX_TRIES = 5
 
-            homepage_soup = fetch_soup(base_url)
+            final_data = None
 
-            pages = get_pages_to_scrape(homepage_soup, base_url)
+            for i, r in enumerate(results[:MAX_TRIES]):
 
-            # include homepage itself
-            pages = [base_url] + pages
+                    
+                # r = results[0]
+                # print("Result 1: ",r)
+                # info = extract_basic_info(r[1])
+                # print(info)
 
-            all_phones = []
-            all_emails = []
-            logo = None
-            all_facebook = set()
-            all_instagram = set()
-            all_twitter = set()
-            all_linkedin = set()
-            all_youtube = set()
-            all_tiktok = set()
+                base_url = r[1]
 
-            for page in pages:
-                print(f"Scraping: {page}")
 
                 try:
-                    data = extract_basic_info(page)
+                    homepage_soup = fetch_soup(base_url)
 
-                    all_phones.extend(data["phones"])
-                    all_emails.extend(data["emails"])
+                    pages = get_pages_to_scrape(homepage_soup, base_url)
 
-                    # merge socials
-                    all_facebook.update(data["facebook"])
-                    all_instagram.update(data["instagram"])
-                    all_twitter.update(data["twitter"])
-                    all_linkedin.update(data["linkedin"])
-                    all_youtube.update(data["youtube"])
-                    all_tiktok.update(data["tiktok"])
+                    # include homepage itself
+                    pages = [base_url] + pages
 
-                    # keep first valid logo
-                    if not logo and data["logo"]:
-                        logo = data["logo"]
+                    all_phones = []
+                    all_emails = []
+                    logo = None
+                    all_facebook = set()
+                    all_instagram = set()
+                    all_twitter = set()
+                    all_linkedin = set()
+                    all_youtube = set()
+                    all_tiktok = set()
+
+                    for page in pages:
+                        print(f"Scraping: {page}")
+
+                        try:
+                            data = extract_basic_info(page)
+
+                            all_phones.extend(data["phones"])
+                            all_emails.extend(data["emails"])
+
+                            # merge socials
+                            all_facebook.update(data["facebook"])
+                            all_instagram.update(data["instagram"])
+                            all_twitter.update(data["twitter"])
+                            all_linkedin.update(data["linkedin"])
+                            all_youtube.update(data["youtube"])
+                            all_tiktok.update(data["tiktok"])
+
+                            # keep first valid logo
+                            if not logo and data["logo"]:
+                                logo = data["logo"]
+
+                        except Exception as e:
+                            print(f"Error: {e}")
+
+                    candidate_data = {
+                        "website": base_url,
+                        "phones": list(set(all_phones)),
+                        "emails": list(set(all_emails)),
+                        "logo": logo,
+
+                        "facebook": list(all_facebook),
+                        "instagram": list(all_instagram),
+                        "twitter": list(all_twitter),
+                        "linkedin": list(all_linkedin),
+                        "youtube": list(all_youtube),
+                        "tiktok": list(all_tiktok),
+                    }
+
+                    #  STOP CONDITION
+                    if candidate_data["logo"] and candidate_data["phones"]:
+                        print("Good result found, stopping early")
+                        final_data = candidate_data
+                        break
+
+                    # fallback: keep best partial result
+                    if not final_data:
+                        final_data = candidate_data
+
+                    # print(final_data)
+                    # print("website202: ", final_data.get("website"))
 
                 except Exception as e:
-                    print(f"Error: {e}")
-
-            final_data = {
-                "website": base_url,
-                "phones": list(set(all_phones)),
-                "emails": list(set(all_emails)),
-                "logo": logo,
-
-                "facebook": list(all_facebook),
-                "instagram": list(all_instagram),
-                "twitter": list(all_twitter),
-                "linkedin": list(all_linkedin),
-                "youtube": list(all_youtube),
-                "tiktok": list(all_tiktok),
-            }
-
-            print(final_data)
-            print("website202: ", final_data.get("website"))
+                    print(f"Site error: {e}")
 
             # Step 1: get best URL
             
@@ -114,3 +138,113 @@ def search_view(request):
         "data": data
     })
 # results = get_urls(keyword)
+
+def scrape_from_url(base_url, deep=True):
+    try:
+        homepage_soup = fetch_soup(base_url)
+
+        if not homepage_soup:
+            return None
+
+        if deep:
+            pages = get_pages_to_scrape(homepage_soup, base_url)
+            pages = [base_url] + pages
+        else:
+            pages = [base_url]
+
+        all_phones = []
+        all_emails = []
+        logo = None
+
+        all_facebook = set()
+        all_instagram = set()
+        all_twitter = set()
+        all_linkedin = set()
+        all_youtube = set()
+        all_tiktok = set()
+
+        for page in pages:
+            print(f"Scraping: {page}")
+
+            try:
+                data = extract_basic_info(page)
+
+                if not data:
+                    continue
+
+                all_phones.extend(data.get("phones", []))
+                all_emails.extend(data.get("emails", []))
+
+                all_facebook.update(data.get("facebook", []))
+                all_instagram.update(data.get("instagram", []))
+                all_twitter.update(data.get("twitter", []))
+                all_linkedin.update(data.get("linkedin", []))
+                all_youtube.update(data.get("youtube", []))
+                all_tiktok.update(data.get("tiktok", []))
+
+                if not logo and data.get("logo"):
+                    logo = data["logo"]
+
+            except Exception as e:
+                print(f"Page error: {e}")
+
+        return {
+            "website": base_url,
+            "phones": list(set(all_phones)),
+            "emails": list(set(all_emails)),
+            "logo": logo,
+            "facebook": list(all_facebook),
+            "instagram": list(all_instagram),
+            "twitter": list(all_twitter),
+            "linkedin": list(all_linkedin),
+            "youtube": list(all_youtube),
+            "tiktok": list(all_tiktok),
+        }
+
+    except Exception as e:
+        print(f"Site error: {e}")
+        return None
+
+def scrape_url_view(request):
+    form = URLForm()
+    data = None
+
+    if request.method == "POST":
+        form = URLForm(request.POST)
+
+        if form.is_valid():
+            url = form.cleaned_data["url"]
+            mode = form.cleaned_data["mode"]
+
+            deep = True if mode == "deep" else False
+
+            result = scrape_from_url(url, deep=deep)
+
+            if not result:
+                result = {
+                    "website": url,
+                    "phones": [],
+                    "emails": [],
+                    "logo": None,
+                }
+
+            obj = CarBrand.objects.create(
+                keyword="manual",
+                website=result.get("website"),
+                phones=result.get("phones"),
+                emails=result.get("emails"),
+                logo=result.get("logo"),
+                facebook=result.get("facebook"),
+                instagram=result.get("instagram"),
+                twitter=result.get("twitter"),
+                linkedin=result.get("linkedin"),
+                tiktok=result.get("tiktok"),
+                youtube=result.get("youtube"),
+            )
+
+            data = obj
+
+    return render(request, "admin/url_scrape.html", {
+        "form": form,
+        "data": data
+    })
