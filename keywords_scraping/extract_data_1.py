@@ -2,8 +2,6 @@ import re
 from urllib.parse import urljoin, urlparse
 import requests
 from bs4 import BeautifulSoup
-# import json
-# from keywords_scraping.ddgs_search import get_urls
 
 # use regex to extract phone no.
 def extract_phones(text):
@@ -175,10 +173,7 @@ def extract_social_links(soup, base_url):
 
 # extracts the html from certain url and extracts the required info
 def extract_basic_info(url):
-    headers = {"User-Agent": "Mozilla/5.0"}
-    resp = requests.get(url, headers=headers, timeout=10)
-
-    soup = BeautifulSoup(resp.text, "lxml")
+    soup = fetch_soup(url)
     text = soup.get_text(" ")
 
     phones = extract_phones(text)
@@ -206,87 +201,3 @@ def fetch_soup(url):
     resp = requests.get(url, headers=headers, timeout=10)
 
     return BeautifulSoup(resp.text, "lxml")
-
-# PAGES = ["", "/contact", "/contact-us", "/about"]
-
-# for p in PAGES:
-#     full_url = urljoin(base_url, p)
-
-# def extract_internal_links(soup, base_url):
-#     links = set()
-
-#     for tag in soup.find_all("a", href=True):
-#         href = tag["href"]
-
-#         full_url = urljoin(base_url, href)
-
-#         # keep only same domain links
-#         if base_url.split("//")[1].split("/")[0] in full_url:
-#             links.add(full_url)
-
-#     return list(links)
-
-# results = get_urls("hyundai")  
-# r = results[0]
-# # print("Result 1: ",r)
-# # info = extract_basic_info(r[1])
-# # print(info)
-
-# base_url = r[1]
-
-# homepage_soup = fetch_soup(base_url)
-
-# pages = get_pages_to_scrape(homepage_soup, base_url)
-
-# # include homepage itself
-# pages = [base_url] + pages
-
-# all_phones = []
-# all_emails = []
-# logo = None
-# all_facebook = set()
-# all_instagram = set()
-# all_twitter = set()
-# all_linkedin = set()
-# all_youtube = set()
-# all_tiktok = set()
-
-# for page in pages:
-#     print(f"Scraping: {page}")
-
-#     try:
-#         data = extract_basic_info(page)
-
-#         all_phones.extend(data["phones"])
-#         all_emails.extend(data["emails"])
-
-#         # merge socials
-#         all_facebook.update(data["facebook"])
-#         all_instagram.update(data["instagram"])
-#         all_twitter.update(data["twitter"])
-#         all_linkedin.update(data["linkedin"])
-#         all_youtube.update(data["youtube"])
-#         all_tiktok.update(data["tiktok"])
-
-#         # keep first valid logo
-#         if not logo and data["logo"]:
-#             logo = data["logo"]
-
-#     except Exception as e:
-#         print(f"Error: {e}")
-
-# final_data = {
-#     "website": base_url,
-#     "phones": list(set(all_phones)),
-#     "emails": list(set(all_emails)),
-#     "logo": logo,
-
-#     "facebook": list(all_facebook),
-#     "instagram": list(all_instagram),
-#     "twitter": list(all_twitter),
-#     "linkedin": list(all_linkedin),
-#     "youtube": list(all_youtube),
-#     "tiktok": list(all_tiktok),
-# }
-# 
-# print(final_data)
