@@ -33,9 +33,16 @@ def extract_emails(text):
 def extract_logo(soup, base_url: str):
     
     def to_full_url(src):
-        if not src or src.startswith("data:"):
+        if not src or src.startswith(("data:", "blob:", "javascript:")):
+        # if not src:
             return None
+        
         return urljoin(base_url, src)
+
+    # ── 0. META TAG (MOST RELIABLE) ─────────────────────────────
+    og = soup.find("meta", property="og:image")
+    if og and og.get("content"):
+        return to_full_url(og["content"])
 
     # ── 1. Navbar: find img inside header/nav ─────────────────────
     for tag in soup.find_all(["header", "nav"]):
@@ -55,17 +62,37 @@ def extract_logo(soup, base_url: str):
         if "logo" in attrs:
             return to_full_url(img["src"])
 
-    # ── 3. Footer: find img inside footer ─────────────────────────
+    # ── 3. CSS background-image logos ───────────────────────────
+    for tag in soup.find_all(style=True):
+        style = tag["style"].lower()
+
+        if "toplogo" in style and "url(" in style:
+            match = re.search(r'url\(["\']?(.*?)["\']?\)', style)
+            if match:
+                return to_full_url(match.group(1))
+
+    # ── 4. SVG / XMLNS logos ────────────────────────────────────
+    # Look for SVG with logo hints
+    for svg in soup.find_all("svg"):
+        attrs = " ".join([
+            " ".join(svg.get("class", [])),
+            svg.get("id", "")
+        ]).lower()
+
+        if "logo" in attrs:
+            return "SVG_LOGO_DETECTED"
+
+    # also check <use href="#logo">
+    use_tag = soup.find("use")
+    if use_tag and use_tag.get("href"):
+        return use_tag["href"]
+
+    # ── 5. Footer: find img inside footer ─────────────────────────
     footer = soup.find("footer")
     if footer:
         img = footer.find("img", src=True)
         if img:
             return to_full_url(img["src"])
-
-    # ── 4. Fallback: first img in body ────────────────────────────
-    img = soup.find("img", src=True)
-    if img:
-        return to_full_url(img["src"])
 
     return None
 
@@ -148,66 +175,49 @@ BAD_SOCIAL_PATTERNS = [
 ]
 
 def extract_social_links(soup, base_url):
-    socials = {
-        "facebook": set(),
-        "instagram": set(),
-        "twitter": set(),
-        "linkedin": set(),
-        "youtube": set(),
-        "tiktok": set()
-    }
+    socials = {key: set() for key in SOCIAL_PATTERNS}
 
     for a in soup.find_all("a", href=True):
         href = a["href"].strip()
         full_url = urljoin(base_url, href)
 
+        parsed = urlparse(full_url)
+        domain = parsed.netloc.lower()
+
+        # remove "www." if present
+        if domain.startswith("www."):
+            domain = domain[4:]
+
         for platform, domains in SOCIAL_PATTERNS.items():
-            if any(domain in full_url for domain in domains):
+            for d in domains:
+                 if domain == d or domain.endswith("." + d): 
 
-                if any(bad in full_url for bad in BAD_SOCIAL_PATTERNS):
-                    continue
+                    if any(bad in full_url for bad in BAD_SOCIAL_PATTERNS):
+                        continue
 
-                socials[platform].add(full_url)
+                    socials[platform].add(full_url)
 
     # convert sets → list
     return {k: list(v) for k, v in socials.items()}
 
-# extracts the html from certain url and extracts the required info
-def extract_basic_info(url):
-    soup = fetch_soup(url)
-    text = soup.get_text(" ")
-
-    phones = extract_phones(text)
-    emails = extract_emails(text)
-    logo = extract_logo(soup, url)
-    socials = extract_social_links(soup, url)
-
-    return {
-        "website": url,
-        "phones": phones,
-        "emails": emails,
-        "logo": logo,
-        
-        "facebook": socials["facebook"],
-        "instagram": socials["instagram"],
-        "twitter": socials["twitter"],
-        "linkedin": socials["linkedin"],
-        "youtube": socials["youtube"],
-        "tiktok": socials["tiktok"],
-    }
-
 def fetch_dynamic_html(url):
     try:
         with sync_playwright() as p:
-            browser = p.chromium.lunch(headless=True)
-            page = browser.new_page()
+            browser = p.chromium.launch(headless=True)
+            page = browser.new_page(
+                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36"
+            )
             
             page.goto(url, timeout=60000)
-            page.wait_for_load_state("networkidle")
+            page.wait_for_load_state("domcontentloaded")
+
+            # ADD THIS
+            page.wait_for_timeout(5000)  # wait extra 5 seconds
 
             html = page.content()
             browser.close()
 
+            print("inside dynamic fetch")
             return html
     except Exception as e:
         print("Dynamic fetch error: ",e)
@@ -242,10 +252,52 @@ def fetch_soup(url):
     
     # decide if we need JS rendering
     if is_dynamic_page(html):
-        print("Using dynamic scraping: ", url)
+        print("Using dynamic scraping (fetch_soup): ", url)
         html = fetch_dynamic_html(url)
 
     if not html:
         return None
+    
+    # with open("page4.html", "w", encoding="utf-8") as f:
+    #     f.write(html)
 
     return BeautifulSoup(html, "html.parser")
+
+# extracts the html from certain url and extracts the required info
+def extract_basic_info(url):
+    soup = fetch_soup(url)
+
+    if not soup:
+        return {
+            "website": url,
+            "phones": [],
+            "emails": [],
+            "logo": None,
+            "facebook": [],
+            "instagram": [],
+            "twitter": [],
+            "linkedin": [],
+            "youtube": [],
+            "tiktok": [],
+        }
+    
+    text = soup.get_text(" ")
+
+    phones = extract_phones(text)
+    emails = extract_emails(text)
+    logo = extract_logo(soup, url)
+    socials = extract_social_links(soup, url)
+
+    return {
+        "website": url,
+        "phones": phones,
+        "emails": emails,
+        "logo": logo,
+        
+        "facebook": socials["facebook"],
+        "instagram": socials["instagram"],
+        "twitter": socials["twitter"],
+        "linkedin": socials["linkedin"],
+        "youtube": socials["youtube"],
+        "tiktok": socials["tiktok"],
+    }
