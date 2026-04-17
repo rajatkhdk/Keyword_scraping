@@ -39,34 +39,34 @@ def extract_logo(soup, base_url: str):
         
         return urljoin(base_url, src)
 
-    # ── 0. META TAG (MOST RELIABLE) ─────────────────────────────
-    og = soup.find("meta", property="og:image")
-    if og and og.get("content"):
-        return to_full_url(og["content"])
+    # # ── 0. META TAG (MOST RELIABLE) ─────────────────────────────
+    # og = soup.find("meta", property="og:image")
+    # if og and og.get("content"):
+    #     return to_full_url(og["content"])
 
-    # ── 1. Navbar: find img inside header/nav ─────────────────────
-    for tag in soup.find_all(["header", "nav"]):
-        img = tag.find("img", src=True)
-        if img:
-            return to_full_url(img["src"])
+    # # ── 1. Navbar: find img inside header/nav ─────────────────────
+    # for tag in soup.find_all(["header", "nav"]):
+    #     img = tag.find("img", src=True)
+    #     if img:
+    #         return to_full_url(img["src"])
 
-    # ── 2. Any tag whose class/id/alt contains "logo" ─────────────
-    for img in soup.find_all("img", src=True):
-        attrs = " ".join([
-            " ".join(img.get("class", [])),
-            img.get("id", ""),
-            img.get("alt", ""),
-            img.get("src", "")
-        ]).lower()
+    # # ── 2. Any tag whose class/id/alt contains "logo" ─────────────
+    # for img in soup.find_all("img", src=True):
+    #     attrs = " ".join([
+    #         " ".join(img.get("class", [])),
+    #         img.get("id", ""),
+    #         img.get("alt", ""),
+    #         img.get("src", "")
+    #     ]).lower()
 
-        if "logo" in attrs:
-            return to_full_url(img["src"])
+    #     if "logo" in attrs:
+    #         return to_full_url(img["src"])
 
     # ── 3. CSS background-image logos ───────────────────────────
     for tag in soup.find_all(style=True):
         style = tag["style"].lower()
 
-        if "toplogo" in style and "url(" in style:
+        if "logo" in style and "url(" in style:
             match = re.search(r'url\(["\']?(.*?)["\']?\)', style)
             if match:
                 return to_full_url(match.group(1))
