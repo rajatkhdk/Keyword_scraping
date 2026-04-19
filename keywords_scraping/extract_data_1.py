@@ -29,44 +29,254 @@ def extract_emails(text):
         if not any(x in e for x in ["example", "test", "noreply"])
     ]))
 
-# searches for brand logo in navbar, footer
-def extract_logo(soup, base_url: str):
+# # searches for brand logo in navbar, footer
+# def extract_logo(soup, base_url: str):
     
+#     def to_full_url(src):
+#         if not src or src.startswith(("data:", "blob:", "javascript:")):
+#         # if not src:
+#             return None
+        
+#         return urljoin(base_url, src)
+
+#     # ── 0. META TAG (MOST RELIABLE) ─────────────────────────────
+#     # og = soup.find("meta", property="og:image")
+#     # if og and og.get("content"):
+#     #     return to_full_url(og["content"])
+
+#     # ── 1. Navbar: find img inside header/nav ─────────────────────
+#     for tag in soup.find_all(["header", "nav"]):
+#         img = tag.find("img", src=True)
+#         if img:
+#             return to_full_url(img["src"])
+
+#         # 2. Try logo-like div/span
+#         for el in tag.find_all(True):  # all elements
+#             attrs = " ".join([
+#                 " ".join(el.get("class", [])),
+#                 el.get("id", "")
+#             ]).lower()
+
+#             if "logo" in attrs:
+                
+#                 # check inline style
+#                 style = el.get("style", "")
+#                 if "url(" in style:
+#                     match = re.search(r'url\(["\']?(.*?)["\']?\)', style)
+#                     if match:
+#                         return to_full_url(match.group(1))
+
+#     # ── 2. Any tag whose class/id/alt contains "logo" ─────────────
+#     for img in soup.find_all("img", src=True):
+#         attrs = " ".join([
+#             " ".join(img.get("class", [])),
+#             img.get("id", ""),
+#             img.get("alt", ""),
+#             img.get("src", "")
+#         ]).lower()
+
+#         if "logo" in attrs:
+#             return to_full_url(img["src"])
+
+#     # ── 3. CSS background-image logos ───────────────────────────
+#     for tag in soup.find_all(style=True):
+#         style = tag["style"].lower()
+
+#         if "logo" in style and "url(" in style:
+#             match = re.search(r'url\(["\']?(.*?)["\']?\)', style)
+#             if match:
+#                 return to_full_url(match.group(1))
+
+#     # ── 4. SVG / XMLNS logos ────────────────────────────────────
+#     # Look for SVG with logo hints
+#     for svg in soup.find_all("svg"):
+#         attrs = " ".join([
+#             " ".join(svg.get("class", [])),
+#             svg.get("id", "")
+#         ]).lower()
+
+#         if "logo" in attrs:
+#             return "SVG_LOGO_DETECTED"
+
+#     # also check <use href="#logo">
+#     use_tag = soup.find("use")
+#     if use_tag and use_tag.get("href"):
+#         return use_tag["href"]
+
+#     # ── 5. Footer: find img inside footer ─────────────────────────
+#     footer = soup.find("footer")
+#     if footer:
+#         img = footer.find("img", src=True)
+#         if img:
+#             return to_full_url(img["src"])
+
+#     return None
+
+def extract_logo_from_css(css_text, base_url):
+
+    # Match full CSS blocks: selector { ... }
+    blocks = re.findall(r'([^{]+)\{([^}]+)\}', css_text)
+
+    for selector, body in blocks:
+        selector_lower = selector.lower()
+
+        # check if selector relates to logo
+        if "logo" in selector_lower:
+
+            # extract background or background-image url
+            match = re.search(r'url\(["\']?(.*?)["\']?\)', body)
+            if match:
+                return urljoin(base_url, match.group(1))
+
+    return None
+
+# -----------------------------
+# MAIN FUNCTION
+# -----------------------------
+def extract_logo(soup, base_url):
+
+    # -----------------------------
+    # helpers
+    # -----------------------------
     def to_full_url(src):
         if not src or src.startswith(("data:", "blob:", "javascript:")):
-        # if not src:
             return None
-        
         return urljoin(base_url, src)
 
-    # ── 0. META TAG (MOST RELIABLE) ─────────────────────────────
+    def safe_get(url):
+        try:
+            r = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
+            if r.status_code == 200:
+                return r.text
+        except:
+            pass
+        return ""
+
+    def score_img(img, context_bonus=0):
+        attrs = " ".join([
+            " ".join(img.get("class", [])),
+            img.get("id", ""),
+            img.get("alt", ""),
+            img.get("src", "")
+        ]).lower()
+
+        score = 0
+
+        if "logo" in attrs:
+            score += 10
+        if img.find_parent(["header", "nav"]):
+            score += 3
+        if context_bonus:
+            score += context_bonus
+
+        return score
+
+    # -----------------------------
+    # 1. META TAG (og:image fallback)
+    # -----------------------------
     # og = soup.find("meta", property="og:image")
     # if og and og.get("content"):
     #     return to_full_url(og["content"])
 
-    # ── 1. Navbar: find img inside header/nav ─────────────────────
+    
+
+    
+
+    
+
+    # -----------------------------
+    # 5. INLINE CSS BACKGROUND LOGO
+    # -----------------------------
+    for tag in soup.find_all(style=True):
+        style = tag["style"].lower()
+        if "logo" in style and "url(" in style:
+            match = re.search(r'url\(["\']?(.*?)["\']?\)', style)
+            if match:
+                return to_full_url(match.group(1))
+
+    # -----------------------------
+    # 6. EXTERNAL CSS (basic scan)
+    # -----------------------------
+    css_links = []
+    for link in soup.find_all("link", rel="stylesheet"):
+        href = link.get("href")
+        if href:
+            css_links.append(urljoin(base_url, href))
+
+    for css_url in css_links[:5]:  # limit to avoid heavy scraping
+        css_text = safe_get(css_url)
+        print("CSS URL: ",css_url)
+        if not css_text:
+            print("No CSS Text: ",css_url)
+            continue
+
+        logo_url = extract_logo_from_css(css_text, css_url)
+
+        if logo_url:
+            print("Logo found:", logo_url)
+            return logo_url
+
+        # # find logo-related background images
+        # matches = re.findall(r'url\(["\']?(.*?)["\']?\)', css_text)
+
+        # # print("Matches : ",matches)
+
+        # for m in matches:
+        #     if "logo" in css_text.lower():
+        #         print("Logo found: ",m)
+        #         return to_full_url(m)
+        
+    # -----------------------------
+    # 3. HEADER + NAV IMAGE CANDIDATES
+    # -----------------------------
+    candidates = []
+
     for tag in soup.find_all(["header", "nav"]):
-        img = tag.find("img", src=True)
-        if img:
-            return to_full_url(img["src"])
+        
+        imgs = tag.find_all("img", src=True)
+        for img in imgs:
+            candidates.append((img, score_img(img, context_bonus=5)))
 
-        # 2. Try logo-like div/span
-        for el in tag.find_all(True):  # all elements
-            attrs = " ".join([
-                " ".join(el.get("class", [])),
-                el.get("id", "")
-            ]).lower()
+    # also global images
+    for img in soup.find_all("img", src=True):
+        candidates.append((img, score_img(img)))
 
-            if "logo" in attrs:
-                
-                # check inline style
-                style = el.get("style", "")
-                if "url(" in style:
-                    match = re.search(r'url\(["\']?(.*?)["\']?\)', style)
-                    if match:
-                        return to_full_url(match.group(1))
+    # pick best image
+    if candidates:
+        print("Candidates : ", candidates)
+        best_img = max(candidates, key=lambda x: x[1])[0]
+        return to_full_url(best_img["src"])
+    
+    # -----------------------------
+    # 2. SVG LOGO (sprite-safe)
+    # -----------------------------
+    for svg in soup.find_all("svg"):
+        attrs = " ".join([
+            " ".join(svg.get("class", [])),
+            svg.get("id", "")
+        ]).lower()
 
-    # ── 2. Any tag whose class/id/alt contains "logo" ─────────────
+        use_tag = svg.find("use")
+        if use_tag:
+            href = use_tag.get("href") or use_tag.get("xlink:href")
+            if href:
+                # return structured SVG reference (safe fallback)
+                if "logo" in attrs or "logo" in href.lower():
+                    return f"SVG_SPRITE:{href}"
+    # -----------------------------
+    # 7. FOOTER IMAGE FALLBACK
+    # -----------------------------
+    footer = soup.find("footer")
+    if footer:
+        imgs = footer.find_all("img", src=True)
+        if imgs:
+            best_footer = max(imgs, key=lambda i: score_img(i))
+            return to_full_url(best_footer["src"])
+
+    
+    # -----------------------------
+    # 4. INLINE / CLASS-BASED LOGOS
+    # -----------------------------
     for img in soup.find_all("img", src=True):
         attrs = " ".join([
             " ".join(img.get("class", [])),
@@ -77,39 +287,10 @@ def extract_logo(soup, base_url: str):
 
         if "logo" in attrs:
             return to_full_url(img["src"])
-
-    # ── 3. CSS background-image logos ───────────────────────────
-    for tag in soup.find_all(style=True):
-        style = tag["style"].lower()
-
-        if "logo" in style and "url(" in style:
-            match = re.search(r'url\(["\']?(.*?)["\']?\)', style)
-            if match:
-                return to_full_url(match.group(1))
-
-    # ── 4. SVG / XMLNS logos ────────────────────────────────────
-    # Look for SVG with logo hints
-    for svg in soup.find_all("svg"):
-        attrs = " ".join([
-            " ".join(svg.get("class", [])),
-            svg.get("id", "")
-        ]).lower()
-
-        if "logo" in attrs:
-            return "SVG_LOGO_DETECTED"
-
-    # also check <use href="#logo">
-    use_tag = soup.find("use")
-    if use_tag and use_tag.get("href"):
-        return use_tag["href"]
-
-    # ── 5. Footer: find img inside footer ─────────────────────────
-    footer = soup.find("footer")
-    if footer:
-        img = footer.find("img", src=True)
-        if img:
-            return to_full_url(img["src"])
-
+        
+    # -----------------------------
+    # NOTHING FOUND
+    # -----------------------------
     return None
 
 # returns all the internal links -> < a href "...">
@@ -294,8 +475,8 @@ def fetch_soup(url):
     if not html:
         return None
     
-    with open("page4.html", "w", encoding="utf-8") as f:
-        f.write(html)
+    # with open("page4.html", "w", encoding="utf-8") as f:
+    #     f.write(html)
 
     return BeautifulSoup(html, "html.parser")
 
