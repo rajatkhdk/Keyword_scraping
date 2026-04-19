@@ -39,28 +39,44 @@ def extract_logo(soup, base_url: str):
         
         return urljoin(base_url, src)
 
-    # # ── 0. META TAG (MOST RELIABLE) ─────────────────────────────
+    # ── 0. META TAG (MOST RELIABLE) ─────────────────────────────
     # og = soup.find("meta", property="og:image")
     # if og and og.get("content"):
     #     return to_full_url(og["content"])
 
-    # # ── 1. Navbar: find img inside header/nav ─────────────────────
-    # for tag in soup.find_all(["header", "nav"]):
-    #     img = tag.find("img", src=True)
-    #     if img:
-    #         return to_full_url(img["src"])
+    # ── 1. Navbar: find img inside header/nav ─────────────────────
+    for tag in soup.find_all(["header", "nav"]):
+        img = tag.find("img", src=True)
+        if img:
+            return to_full_url(img["src"])
 
-    # # ── 2. Any tag whose class/id/alt contains "logo" ─────────────
-    # for img in soup.find_all("img", src=True):
-    #     attrs = " ".join([
-    #         " ".join(img.get("class", [])),
-    #         img.get("id", ""),
-    #         img.get("alt", ""),
-    #         img.get("src", "")
-    #     ]).lower()
+        # 2. Try logo-like div/span
+        for el in tag.find_all(True):  # all elements
+            attrs = " ".join([
+                " ".join(el.get("class", [])),
+                el.get("id", "")
+            ]).lower()
 
-    #     if "logo" in attrs:
-    #         return to_full_url(img["src"])
+            if "logo" in attrs:
+                
+                # check inline style
+                style = el.get("style", "")
+                if "url(" in style:
+                    match = re.search(r'url\(["\']?(.*?)["\']?\)', style)
+                    if match:
+                        return to_full_url(match.group(1))
+
+    # ── 2. Any tag whose class/id/alt contains "logo" ─────────────
+    for img in soup.find_all("img", src=True):
+        attrs = " ".join([
+            " ".join(img.get("class", [])),
+            img.get("id", ""),
+            img.get("alt", ""),
+            img.get("src", "")
+        ]).lower()
+
+        if "logo" in attrs:
+            return to_full_url(img["src"])
 
     # ── 3. CSS background-image logos ───────────────────────────
     for tag in soup.find_all(style=True):
@@ -203,18 +219,38 @@ def extract_social_links(soup, base_url):
 def fetch_dynamic_html(url):
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            page = browser.new_page(
-                user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36"
-            )
+            browser = p.chromium.launch(headless=False)
+
+            context = browser.new_context()
+            page = context.new_page()
+
+            # page = browser.new_page(
+            #     user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36"
+            # )
             
             page.goto(url, timeout=60000)
             page.wait_for_load_state("domcontentloaded")
 
             # ADD THIS
-            page.wait_for_timeout(5000)  # wait extra 5 seconds
+            page.wait_for_timeout(8000)  # wait extra 5 seconds
+
+            # try to bypass redirect loop
+            for _ in range(3):
+                html = page.content()
+
+                if "Please wait while your request is being verified" not in html:
+                    break
+
+                print("Still on challenge page... waiting")
+                page.wait_for_timeout(5000)
 
             html = page.content()
+
+            # if "Please wait while your request is being verified" in html:
+            #     print("Bot protection detected, waiting...")
+            #     page.wait_for_timeout(8000)
+            #     html = page.content()
+
             browser.close()
 
             print("inside dynamic fetch")
@@ -258,8 +294,8 @@ def fetch_soup(url):
     if not html:
         return None
     
-    # with open("page4.html", "w", encoding="utf-8") as f:
-    #     f.write(html)
+    with open("page4.html", "w", encoding="utf-8") as f:
+        f.write(html)
 
     return BeautifulSoup(html, "html.parser")
 
