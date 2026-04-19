@@ -9,3 +9,12 @@ class SearchForm(forms.Form):
             "placeholder": "e.g. BMW"
         })
     )
+
+class URLForm(forms.Form):
+    url = forms.URLField()
+    mode = forms.ChoiceField(
+        choices=[
+            ("single", "Single Page"),
+            ("deep", "All Pages"),
+        ]
+    )

@@ -20,5 +20,6 @@ from keywords_scraping import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.search_view, name='search'),
+    path('keywordsearch/', views.search_view, name='search'),
+    path('scrape-url/', views.scrape_url_view, name='scrape_url'),
 ]
