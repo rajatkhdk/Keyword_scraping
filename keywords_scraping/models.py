@@ -1,6 +1,13 @@
 from django.db import models
 
 class CarBrand(models.Model):
+
+    # slug = models.SlugField(unique=True)
+
+    # keywords = models.JSONField(null=True, default=list, blank=True)
+
+    # brand = models.CharField(max_length=50, unique=True)
+
     keyword = models.CharField(max_length=500)
 
     website = models.URLField(null=True, blank=True)
