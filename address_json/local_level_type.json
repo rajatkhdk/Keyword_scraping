@@ -1,0 +1,22 @@
+[
+  {
+    "local_level_type_id": 1,
+    "name": "Metropolitan City",
+    "nepali_name": "महानगरपालिका"
+  },
+  {
+    "local_level_type_id": 2,
+    "name": "Sub-Metropolitan City",
+    "nepali_name": "उपमहानगरपालिका"
+  },
+  {
+    "local_level_type_id": 3,
+    "name": "Municipality",
+    "nepali_name": "नगरपालिका"
+  },
+  {
+    "local_level_type_id": 4,
+    "name": "Rural Municipality",
+    "nepali_name": "गाउँपालिका"
+  }
+]
