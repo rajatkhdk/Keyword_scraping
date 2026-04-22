@@ -181,3 +181,13 @@ def scrape_url_view(request):
         "form": form,
         "data": data
     })
+
+def index(request):
+    return render(request, "admin/index.html")
+
+def data(request):
+    return render(request, "admin/data.html")
+
+def table(request):
+    data = CarBrand.objects.all()
+    return render(request, "admin/table.html", {"data": data})

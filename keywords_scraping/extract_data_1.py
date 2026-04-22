@@ -29,6 +29,9 @@ def extract_emails(text):
         if not any(x in e for x in ["example", "test", "noreply"])
     ]))
 
+def extract_address(text):
+    pass
+
 # # searches for brand logo in navbar, footer
 # def extract_logo(soup, base_url: str):
     
@@ -499,6 +502,9 @@ def extract_basic_info(url):
         }
     
     text = soup.get_text(" ")
+
+    # with open("page_text.txt", "w", encoding="utf-8") as f:
+    #     f.write(text)
 
     phones = extract_phones(text)
     emails = extract_emails(text)

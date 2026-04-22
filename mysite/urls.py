@@ -22,4 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('keywordsearch/', views.search_view, name='search'),
     path('scrape-url/', views.scrape_url_view, name='scrape_url'),
+    path('index/', views.index, name='index'),
+    path('index/data', views.data, name='data'),
+    path('table/', views.table, name='table'),
 ]
