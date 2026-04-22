@@ -1,0 +1,7386 @@
+{
+  "pokhara": [
+    {
+      "name": "pokhara",
+      "type": "municipality",
+      "municipality": "pokhara",
+      "district": "kaski",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "bharatpur": [
+    {
+      "name": "bharatpur",
+      "type": "municipality",
+      "municipality": "bharatpur",
+      "district": "chitwan",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "birgunj": [
+    {
+      "name": "birgunj",
+      "type": "municipality",
+      "municipality": "birgunj",
+      "district": "parsa",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "biratnagar": [
+    {
+      "name": "biratnagar",
+      "type": "municipality",
+      "municipality": "biratnagar",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "kathmandu": [
+    {
+      "name": "kathmandu",
+      "type": "municipality",
+      "municipality": "kathmandu",
+      "district": "kathmandu",
+      "province": "bagmati pradesh"
+    },
+    {
+      "name": "kathmandu",
+      "type": "district",
+      "municipality": null,
+      "district": "kathmandu",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "lalitpur": [
+    {
+      "name": "lalitpur",
+      "type": "municipality",
+      "municipality": "lalitpur",
+      "district": "lalitpur",
+      "province": "bagmati pradesh"
+    },
+    {
+      "name": "lalitpur",
+      "type": "district",
+      "municipality": null,
+      "district": "lalitpur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "ghorahi": [
+    {
+      "name": "ghorahi",
+      "type": "municipality",
+      "municipality": "ghorahi",
+      "district": "dang",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "tulsipur": [
+    {
+      "name": "tulsipur",
+      "type": "municipality",
+      "municipality": "tulsipur",
+      "district": "dang",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "jitpursimara": [
+    {
+      "name": "jitpursimara",
+      "type": "municipality",
+      "municipality": "jitpursimara",
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "dhangadhi": [
+    {
+      "name": "dhangadhi",
+      "type": "municipality",
+      "municipality": "dhangadhi",
+      "district": "kailali",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "hetauda": [
+    {
+      "name": "hetauda",
+      "type": "municipality",
+      "municipality": "hetauda",
+      "district": "makwanpur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "dharan": [
+    {
+      "name": "dharan",
+      "type": "municipality",
+      "municipality": "dharan",
+      "district": "sunsari",
+      "province": "koshi pradesh"
+    }
+  ],
+  "kalaiya": [
+    {
+      "name": "kalaiya",
+      "type": "municipality",
+      "municipality": "kalaiya",
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "butwal": [
+    {
+      "name": "butwal",
+      "type": "municipality",
+      "municipality": "butwal",
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "itahari": [
+    {
+      "name": "itahari",
+      "type": "municipality",
+      "municipality": "itahari",
+      "district": "sunsari",
+      "province": "koshi pradesh"
+    }
+  ],
+  "janakpurdham": [
+    {
+      "name": "janakpurdham",
+      "type": "municipality",
+      "municipality": "janakpurdham",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "nepalgunj": [
+    {
+      "name": "nepalgunj",
+      "type": "municipality",
+      "municipality": "nepalgunj",
+      "district": "banke",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "phungling": [
+    {
+      "name": "phungling",
+      "type": "municipality",
+      "municipality": "phungling",
+      "district": "taplejung",
+      "province": "koshi pradesh"
+    }
+  ],
+  "dharmadevi": [
+    {
+      "name": "dharmadevi",
+      "type": "municipality",
+      "municipality": "dharmadevi",
+      "district": "sankhuwasabha",
+      "province": "koshi pradesh"
+    }
+  ],
+  "madi": [
+    {
+      "name": "madi",
+      "type": "municipality",
+      "municipality": "madi",
+      "district": "sankhuwasabha",
+      "province": "koshi pradesh"
+    },
+    {
+      "name": "madi",
+      "type": "municipality",
+      "municipality": "madi",
+      "district": "chitwan",
+      "province": "bagmati pradesh"
+    },
+    {
+      "name": "madi",
+      "type": "municipality",
+      "municipality": "madi",
+      "district": "kaski",
+      "province": "gandaki pradesh"
+    },
+    {
+      "name": "madi",
+      "type": "municipality",
+      "municipality": "madi",
+      "district": "rolpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "panchakhapan": [
+    {
+      "name": "panchakhapan",
+      "type": "municipality",
+      "municipality": "panchakhapan",
+      "district": "sankhuwasabha",
+      "province": "koshi pradesh"
+    }
+  ],
+  "chainpur": [
+    {
+      "name": "chainpur",
+      "type": "municipality",
+      "municipality": "chainpur",
+      "district": "sankhuwasabha",
+      "province": "koshi pradesh"
+    }
+  ],
+  "khandbari": [
+    {
+      "name": "khandbari",
+      "type": "municipality",
+      "municipality": "khandbari",
+      "district": "sankhuwasabha",
+      "province": "koshi pradesh"
+    }
+  ],
+  "solududhakunda": [
+    {
+      "name": "solududhakunda",
+      "type": "municipality",
+      "municipality": "solududhakunda",
+      "district": "solukhumbu",
+      "province": "koshi pradesh"
+    }
+  ],
+  "siddhicharan": [
+    {
+      "name": "siddhicharan",
+      "type": "municipality",
+      "municipality": "siddhicharan",
+      "district": "okhaldhunga",
+      "province": "koshi pradesh"
+    }
+  ],
+  "halesi tuwachung": [
+    {
+      "name": "halesi tuwachung",
+      "type": "municipality",
+      "municipality": "halesi tuwachung",
+      "district": "khotang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "diktel rupakot majhuwagadhi": [
+    {
+      "name": "diktel rupakot majhuwagadhi",
+      "type": "municipality",
+      "municipality": "diktel rupakot majhuwagadhi",
+      "district": "khotang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "shadananda": [
+    {
+      "name": "shadananda",
+      "type": "municipality",
+      "municipality": "shadananda",
+      "district": "bhojpur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "bhojpur": [
+    {
+      "name": "bhojpur",
+      "type": "municipality",
+      "municipality": "bhojpur",
+      "district": "bhojpur",
+      "province": "koshi pradesh"
+    },
+    {
+      "name": "bhojpur",
+      "type": "district",
+      "municipality": null,
+      "district": "bhojpur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "pakhribas": [
+    {
+      "name": "pakhribas",
+      "type": "municipality",
+      "municipality": "pakhribas",
+      "district": "dhankuta",
+      "province": "koshi pradesh"
+    }
+  ],
+  "mahalaxmi": [
+    {
+      "name": "mahalaxmi",
+      "type": "municipality",
+      "municipality": "mahalaxmi",
+      "district": "dhankuta",
+      "province": "koshi pradesh"
+    },
+    {
+      "name": "mahalaxmi",
+      "type": "municipality",
+      "municipality": "mahalaxmi",
+      "district": "lalitpur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "dhankuta": [
+    {
+      "name": "dhankuta",
+      "type": "municipality",
+      "municipality": "dhankuta",
+      "district": "dhankuta",
+      "province": "koshi pradesh"
+    },
+    {
+      "name": "dhankuta",
+      "type": "district",
+      "municipality": null,
+      "district": "dhankuta",
+      "province": "koshi pradesh"
+    }
+  ],
+  "laligurans": [
+    {
+      "name": "laligurans",
+      "type": "municipality",
+      "municipality": "laligurans",
+      "district": "terhathum",
+      "province": "koshi pradesh"
+    }
+  ],
+  "myanglung": [
+    {
+      "name": "myanglung",
+      "type": "municipality",
+      "municipality": "myanglung",
+      "district": "terhathum",
+      "province": "koshi pradesh"
+    }
+  ],
+  "phidim": [
+    {
+      "name": "phidim",
+      "type": "municipality",
+      "municipality": "phidim",
+      "district": "pachthar",
+      "province": "koshi pradesh"
+    }
+  ],
+  "illam": [
+    {
+      "name": "illam",
+      "type": "municipality",
+      "municipality": "illam",
+      "district": "ilam",
+      "province": "koshi pradesh"
+    }
+  ],
+  "mai": [
+    {
+      "name": "mai",
+      "type": "municipality",
+      "municipality": "mai",
+      "district": "ilam",
+      "province": "koshi pradesh"
+    }
+  ],
+  "deumai": [
+    {
+      "name": "deumai",
+      "type": "municipality",
+      "municipality": "deumai",
+      "district": "ilam",
+      "province": "koshi pradesh"
+    }
+  ],
+  "suryodaya": [
+    {
+      "name": "suryodaya",
+      "type": "municipality",
+      "municipality": "suryodaya",
+      "district": "ilam",
+      "province": "koshi pradesh"
+    }
+  ],
+  "shivasataxi": [
+    {
+      "name": "shivasataxi",
+      "type": "municipality",
+      "municipality": "shivasataxi",
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    }
+  ],
+  "bhadrapur": [
+    {
+      "name": "bhadrapur",
+      "type": "municipality",
+      "municipality": "bhadrapur",
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    }
+  ],
+  "kankai": [
+    {
+      "name": "kankai",
+      "type": "municipality",
+      "municipality": "kankai",
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    }
+  ],
+  "birtamod": [
+    {
+      "name": "birtamod",
+      "type": "municipality",
+      "municipality": "birtamod",
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    }
+  ],
+  "mechinagar": [
+    {
+      "name": "mechinagar",
+      "type": "municipality",
+      "municipality": "mechinagar",
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    }
+  ],
+  "damak": [
+    {
+      "name": "damak",
+      "type": "municipality",
+      "municipality": "damak",
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    }
+  ],
+  "arjundhara": [
+    {
+      "name": "arjundhara",
+      "type": "municipality",
+      "municipality": "arjundhara",
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    }
+  ],
+  "gauradhaha": [
+    {
+      "name": "gauradhaha",
+      "type": "municipality",
+      "municipality": "gauradhaha",
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    }
+  ],
+  "letang": [
+    {
+      "name": "letang",
+      "type": "municipality",
+      "municipality": "letang",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "sunwarshi": [
+    {
+      "name": "sunwarshi",
+      "type": "municipality",
+      "municipality": "sunwarshi",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "rangeli": [
+    {
+      "name": "rangeli",
+      "type": "municipality",
+      "municipality": "rangeli",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "pathari shanishchare": [
+    {
+      "name": "pathari shanishchare",
+      "type": "municipality",
+      "municipality": "pathari shanishchare",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "uralabari": [
+    {
+      "name": "uralabari",
+      "type": "municipality",
+      "municipality": "uralabari",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "belbari": [
+    {
+      "name": "belbari",
+      "type": "municipality",
+      "municipality": "belbari",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "sundarharaicha": [
+    {
+      "name": "sundarharaicha",
+      "type": "municipality",
+      "municipality": "sundarharaicha",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "ratuwamai": [
+    {
+      "name": "ratuwamai",
+      "type": "municipality",
+      "municipality": "ratuwamai",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "ramdhuni": [
+    {
+      "name": "ramdhuni",
+      "type": "municipality",
+      "municipality": "ramdhuni",
+      "district": "sunsari",
+      "province": "koshi pradesh"
+    }
+  ],
+  "barahchhetra": [
+    {
+      "name": "barahchhetra",
+      "type": "municipality",
+      "municipality": "barahchhetra",
+      "district": "sunsari",
+      "province": "koshi pradesh"
+    }
+  ],
+  "duhabi": [
+    {
+      "name": "duhabi",
+      "type": "municipality",
+      "municipality": "duhabi",
+      "district": "sunsari",
+      "province": "koshi pradesh"
+    }
+  ],
+  "inaruwa": [
+    {
+      "name": "inaruwa",
+      "type": "municipality",
+      "municipality": "inaruwa",
+      "district": "sunsari",
+      "province": "koshi pradesh"
+    }
+  ],
+  "triyuga": [
+    {
+      "name": "triyuga",
+      "type": "municipality",
+      "municipality": "triyuga",
+      "district": "udayapur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "katari": [
+    {
+      "name": "katari",
+      "type": "municipality",
+      "municipality": "katari",
+      "district": "udayapur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "chaudandigadhi": [
+    {
+      "name": "chaudandigadhi",
+      "type": "municipality",
+      "municipality": "chaudandigadhi",
+      "district": "udayapur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "belaka": [
+    {
+      "name": "belaka",
+      "type": "municipality",
+      "municipality": "belaka",
+      "district": "udayapur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "hanumannagar kankalini": [
+    {
+      "name": "hanumannagar kankalini",
+      "type": "municipality",
+      "municipality": "hanumannagar kankalini",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "kanchanrup": [
+    {
+      "name": "kanchanrup",
+      "type": "municipality",
+      "municipality": "kanchanrup",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "rajbiraj": [
+    {
+      "name": "rajbiraj",
+      "type": "municipality",
+      "municipality": "rajbiraj",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "khadak": [
+    {
+      "name": "khadak",
+      "type": "municipality",
+      "municipality": "khadak",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "dakneshwori": [
+    {
+      "name": "dakneshwori",
+      "type": "municipality",
+      "municipality": "dakneshwori",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "saptakoshi": [
+    {
+      "name": "saptakoshi",
+      "type": "municipality",
+      "municipality": "saptakoshi",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "surunga": [
+    {
+      "name": "surunga",
+      "type": "municipality",
+      "municipality": "surunga",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "shambhunath": [
+    {
+      "name": "shambhunath",
+      "type": "municipality",
+      "municipality": "shambhunath",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "bode barsain": [
+    {
+      "name": "bode barsain",
+      "type": "municipality",
+      "municipality": "bode barsain",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "mirchaiya": [
+    {
+      "name": "mirchaiya",
+      "type": "municipality",
+      "municipality": "mirchaiya",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "lahan": [
+    {
+      "name": "lahan",
+      "type": "municipality",
+      "municipality": "lahan",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "siraha": [
+    {
+      "name": "siraha",
+      "type": "municipality",
+      "municipality": "siraha",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    },
+    {
+      "name": "siraha",
+      "type": "district",
+      "municipality": null,
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "dhangadhimai": [
+    {
+      "name": "dhangadhimai",
+      "type": "municipality",
+      "municipality": "dhangadhimai",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "kalyanpur": [
+    {
+      "name": "kalyanpur",
+      "type": "municipality",
+      "municipality": "kalyanpur",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "karjanha": [
+    {
+      "name": "karjanha",
+      "type": "municipality",
+      "municipality": "karjanha",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "golbazar": [
+    {
+      "name": "golbazar",
+      "type": "municipality",
+      "municipality": "golbazar",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "sukhipur": [
+    {
+      "name": "sukhipur",
+      "type": "municipality",
+      "municipality": "sukhipur",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "mithila bihari": [
+    {
+      "name": "mithila bihari",
+      "type": "municipality",
+      "municipality": "mithila bihari",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "nagarain": [
+    {
+      "name": "nagarain",
+      "type": "municipality",
+      "municipality": "nagarain",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "ganeshman charnath": [
+    {
+      "name": "ganeshman charnath",
+      "type": "municipality",
+      "municipality": "ganeshman charnath",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "mithila": [
+    {
+      "name": "mithila",
+      "type": "municipality",
+      "municipality": "mithila",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "dhanusadham": [
+    {
+      "name": "dhanusadham",
+      "type": "municipality",
+      "municipality": "dhanusadham",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "bideha": [
+    {
+      "name": "bideha",
+      "type": "municipality",
+      "municipality": "bideha",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "sabaila": [
+    {
+      "name": "sabaila",
+      "type": "municipality",
+      "municipality": "sabaila",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "kamala": [
+    {
+      "name": "kamala",
+      "type": "municipality",
+      "municipality": "kamala",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "hansapur": [
+    {
+      "name": "hansapur",
+      "type": "municipality",
+      "municipality": "hansapur",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "sahidnagar": [
+    {
+      "name": "sahidnagar",
+      "type": "municipality",
+      "municipality": "sahidnagar",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "chhireshwarnath": [
+    {
+      "name": "chhireshwarnath",
+      "type": "municipality",
+      "municipality": "chhireshwarnath",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "gaushala": [
+    {
+      "name": "gaushala",
+      "type": "municipality",
+      "municipality": "gaushala",
+      "district": "mahottari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "ramgopalpur": [
+    {
+      "name": "ramgopalpur",
+      "type": "municipality",
+      "municipality": "ramgopalpur",
+      "district": "mahottari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "aurahi": [
+    {
+      "name": "aurahi",
+      "type": "municipality",
+      "municipality": "aurahi",
+      "district": "mahottari",
+      "province": "madhesh pradesh"
+    },
+    {
+      "name": "aurahi",
+      "type": "municipality",
+      "municipality": "aurahi",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "bardibas": [
+    {
+      "name": "bardibas",
+      "type": "municipality",
+      "municipality": "bardibas",
+      "district": "mahottari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "bhangaha": [
+    {
+      "name": "bhangaha",
+      "type": "municipality",
+      "municipality": "bhangaha",
+      "district": "mahottari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "jaleswor": [
+    {
+      "name": "jaleswor",
+      "type": "municipality",
+      "municipality": "jaleswor",
+      "district": "mahottari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "balwa": [
+    {
+      "name": "balwa",
+      "type": "municipality",
+      "municipality": "balwa",
+      "district": "mahottari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "manra siswa": [
+    {
+      "name": "manra siswa",
+      "type": "municipality",
+      "municipality": "manra siswa",
+      "district": "mahottari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "matihani": [
+    {
+      "name": "matihani",
+      "type": "municipality",
+      "municipality": "matihani",
+      "district": "mahottari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "loharpatti": [
+    {
+      "name": "loharpatti",
+      "type": "municipality",
+      "municipality": "loharpatti",
+      "district": "mahottari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "barahathawa": [
+    {
+      "name": "barahathawa",
+      "type": "municipality",
+      "municipality": "barahathawa",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "haripur": [
+    {
+      "name": "haripur",
+      "type": "municipality",
+      "municipality": "haripur",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "ishworpur": [
+    {
+      "name": "ishworpur",
+      "type": "municipality",
+      "municipality": "ishworpur",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "lalbandi": [
+    {
+      "name": "lalbandi",
+      "type": "municipality",
+      "municipality": "lalbandi",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "malangawa": [
+    {
+      "name": "malangawa",
+      "type": "municipality",
+      "municipality": "malangawa",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "kabilasi": [
+    {
+      "name": "kabilasi",
+      "type": "municipality",
+      "municipality": "kabilasi",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "bagmati": [
+    {
+      "name": "bagmati",
+      "type": "municipality",
+      "municipality": "bagmati",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    },
+    {
+      "name": "bagmati",
+      "type": "municipality",
+      "municipality": "bagmati",
+      "district": "lalitpur",
+      "province": "bagmati pradesh"
+    },
+    {
+      "name": "bagmati",
+      "type": "municipality",
+      "municipality": "bagmati",
+      "district": "makwanpur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "hariwan": [
+    {
+      "name": "hariwan",
+      "type": "municipality",
+      "municipality": "hariwan",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "balara": [
+    {
+      "name": "balara",
+      "type": "municipality",
+      "municipality": "balara",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "haripurwa": [
+    {
+      "name": "haripurwa",
+      "type": "municipality",
+      "municipality": "haripurwa",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "godaita": [
+    {
+      "name": "godaita",
+      "type": "municipality",
+      "municipality": "godaita",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "katahariya": [
+    {
+      "name": "katahariya",
+      "type": "municipality",
+      "municipality": "katahariya",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "maulapur": [
+    {
+      "name": "maulapur",
+      "type": "municipality",
+      "municipality": "maulapur",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "madhav narayan": [
+    {
+      "name": "madhav narayan",
+      "type": "municipality",
+      "municipality": "madhav narayan",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "gaur": [
+    {
+      "name": "gaur",
+      "type": "municipality",
+      "municipality": "gaur",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "gujara": [
+    {
+      "name": "gujara",
+      "type": "municipality",
+      "municipality": "gujara",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "garuda": [
+    {
+      "name": "garuda",
+      "type": "municipality",
+      "municipality": "garuda",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "ishanath": [
+    {
+      "name": "ishanath",
+      "type": "municipality",
+      "municipality": "ishanath",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "chandrapur": [
+    {
+      "name": "chandrapur",
+      "type": "municipality",
+      "municipality": "chandrapur",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "dewahi gonahi": [
+    {
+      "name": "dewahi gonahi",
+      "type": "municipality",
+      "municipality": "dewahi gonahi",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "brindaban": [
+    {
+      "name": "brindaban",
+      "type": "municipality",
+      "municipality": "brindaban",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "rajpur": [
+    {
+      "name": "rajpur",
+      "type": "municipality",
+      "municipality": "rajpur",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    },
+    {
+      "name": "rajpur",
+      "type": "municipality",
+      "municipality": "rajpur",
+      "district": "dang",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "rajdevi": [
+    {
+      "name": "rajdevi",
+      "type": "municipality",
+      "municipality": "rajdevi",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "gadhimai": [
+    {
+      "name": "gadhimai",
+      "type": "municipality",
+      "municipality": "gadhimai",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "phatuwa bijayapur": [
+    {
+      "name": "phatuwa bijayapur",
+      "type": "municipality",
+      "municipality": "phatuwa bijayapur",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "baudhimai": [
+    {
+      "name": "baudhimai",
+      "type": "municipality",
+      "municipality": "baudhimai",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "paroha": [
+    {
+      "name": "paroha",
+      "type": "municipality",
+      "municipality": "paroha",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "pacharauta": [
+    {
+      "name": "pacharauta",
+      "type": "municipality",
+      "municipality": "pacharauta",
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "nijgadh": [
+    {
+      "name": "nijgadh",
+      "type": "municipality",
+      "municipality": "nijgadh",
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "simraungadh": [
+    {
+      "name": "simraungadh",
+      "type": "municipality",
+      "municipality": "simraungadh",
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "mahagadhimai": [
+    {
+      "name": "mahagadhimai",
+      "type": "municipality",
+      "municipality": "mahagadhimai",
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "kolhabi": [
+    {
+      "name": "kolhabi",
+      "type": "municipality",
+      "municipality": "kolhabi",
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "bahudaramai": [
+    {
+      "name": "bahudaramai",
+      "type": "municipality",
+      "municipality": "bahudaramai",
+      "district": "parsa",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "pokhariya": [
+    {
+      "name": "pokhariya",
+      "type": "municipality",
+      "municipality": "pokhariya",
+      "district": "parsa",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "parsagadhi": [
+    {
+      "name": "parsagadhi",
+      "type": "municipality",
+      "municipality": "parsagadhi",
+      "district": "parsa",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "jiri": [
+    {
+      "name": "jiri",
+      "type": "municipality",
+      "municipality": "jiri",
+      "district": "dolakha",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "bhimeshwor": [
+    {
+      "name": "bhimeshwor",
+      "type": "municipality",
+      "municipality": "bhimeshwor",
+      "district": "dolakha",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "chautara sangachokgadhi": [
+    {
+      "name": "chautara sangachokgadhi",
+      "type": "municipality",
+      "municipality": "chautara sangachokgadhi",
+      "district": "sindhupalchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "barhabise": [
+    {
+      "name": "barhabise",
+      "type": "municipality",
+      "municipality": "barhabise",
+      "district": "sindhupalchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "melamchi": [
+    {
+      "name": "melamchi",
+      "type": "municipality",
+      "municipality": "melamchi",
+      "district": "sindhupalchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "nilakantha": [
+    {
+      "name": "nilakantha",
+      "type": "municipality",
+      "municipality": "nilakantha",
+      "district": "dhading",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "dhunibesi": [
+    {
+      "name": "dhunibesi",
+      "type": "municipality",
+      "municipality": "dhunibesi",
+      "district": "dhading",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "belkotgadhi": [
+    {
+      "name": "belkotgadhi",
+      "type": "municipality",
+      "municipality": "belkotgadhi",
+      "district": "nuwakot",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "bidur": [
+    {
+      "name": "bidur",
+      "type": "municipality",
+      "municipality": "bidur",
+      "district": "nuwakot",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "kirtipur": [
+    {
+      "name": "kirtipur",
+      "type": "municipality",
+      "municipality": "kirtipur",
+      "district": "kathmandu",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "shankharapur": [
+    {
+      "name": "shankharapur",
+      "type": "municipality",
+      "municipality": "shankharapur",
+      "district": "kathmandu",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "nagarjun": [
+    {
+      "name": "nagarjun",
+      "type": "municipality",
+      "municipality": "nagarjun",
+      "district": "kathmandu",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "kageshwori manahora": [
+    {
+      "name": "kageshwori manahora",
+      "type": "municipality",
+      "municipality": "kageshwori manahora",
+      "district": "kathmandu",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "dakshinkali": [
+    {
+      "name": "dakshinkali",
+      "type": "municipality",
+      "municipality": "dakshinkali",
+      "district": "kathmandu",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "budhanilakantha": [
+    {
+      "name": "budhanilakantha",
+      "type": "municipality",
+      "municipality": "budhanilakantha",
+      "district": "kathmandu",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "tarakeshwor": [
+    {
+      "name": "tarakeshwor",
+      "type": "municipality",
+      "municipality": "tarakeshwor",
+      "district": "kathmandu",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "tokha": [
+    {
+      "name": "tokha",
+      "type": "municipality",
+      "municipality": "tokha",
+      "district": "kathmandu",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "chandragiri": [
+    {
+      "name": "chandragiri",
+      "type": "municipality",
+      "municipality": "chandragiri",
+      "district": "kathmandu",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "gokarneshwor": [
+    {
+      "name": "gokarneshwor",
+      "type": "municipality",
+      "municipality": "gokarneshwor",
+      "district": "kathmandu",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "changunarayan": [
+    {
+      "name": "changunarayan",
+      "type": "municipality",
+      "municipality": "changunarayan",
+      "district": "bhaktapur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "suryabinayak": [
+    {
+      "name": "suryabinayak",
+      "type": "municipality",
+      "municipality": "suryabinayak",
+      "district": "bhaktapur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "bhaktapur": [
+    {
+      "name": "bhaktapur",
+      "type": "municipality",
+      "municipality": "bhaktapur",
+      "district": "bhaktapur",
+      "province": "bagmati pradesh"
+    },
+    {
+      "name": "bhaktapur",
+      "type": "district",
+      "municipality": null,
+      "district": "bhaktapur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "madhyapur thimi": [
+    {
+      "name": "madhyapur thimi",
+      "type": "municipality",
+      "municipality": "madhyapur thimi",
+      "district": "bhaktapur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "godawari": [
+    {
+      "name": "godawari",
+      "type": "municipality",
+      "municipality": "godawari",
+      "district": "lalitpur",
+      "province": "bagmati pradesh"
+    },
+    {
+      "name": "godawari",
+      "type": "municipality",
+      "municipality": "godawari",
+      "district": "kailali",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "banepa": [
+    {
+      "name": "banepa",
+      "type": "municipality",
+      "municipality": "banepa",
+      "district": "kavrepalanchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "mandandeupur": [
+    {
+      "name": "mandandeupur",
+      "type": "municipality",
+      "municipality": "mandandeupur",
+      "district": "kavrepalanchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "dhulikhel": [
+    {
+      "name": "dhulikhel",
+      "type": "municipality",
+      "municipality": "dhulikhel",
+      "district": "kavrepalanchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "panauti": [
+    {
+      "name": "panauti",
+      "type": "municipality",
+      "municipality": "panauti",
+      "district": "kavrepalanchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "namobuddha": [
+    {
+      "name": "namobuddha",
+      "type": "municipality",
+      "municipality": "namobuddha",
+      "district": "kavrepalanchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "panchkhal": [
+    {
+      "name": "panchkhal",
+      "type": "municipality",
+      "municipality": "panchkhal",
+      "district": "kavrepalanchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "manthali": [
+    {
+      "name": "manthali",
+      "type": "municipality",
+      "municipality": "manthali",
+      "district": "ramechhap",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "ramechhap": [
+    {
+      "name": "ramechhap",
+      "type": "municipality",
+      "municipality": "ramechhap",
+      "district": "ramechhap",
+      "province": "bagmati pradesh"
+    },
+    {
+      "name": "ramechhap",
+      "type": "district",
+      "municipality": null,
+      "district": "ramechhap",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "dudhouli": [
+    {
+      "name": "dudhouli",
+      "type": "municipality",
+      "municipality": "dudhouli",
+      "district": "sindhuli",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "kamalamai": [
+    {
+      "name": "kamalamai",
+      "type": "municipality",
+      "municipality": "kamalamai",
+      "district": "sindhuli",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "thaha": [
+    {
+      "name": "thaha",
+      "type": "municipality",
+      "municipality": "thaha",
+      "district": "makwanpur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "kalika": [
+    {
+      "name": "kalika",
+      "type": "municipality",
+      "municipality": "kalika",
+      "district": "chitwan",
+      "province": "bagmati pradesh"
+    },
+    {
+      "name": "kalika",
+      "type": "municipality",
+      "municipality": "kalika",
+      "district": "rasuwa",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "khairahani": [
+    {
+      "name": "khairahani",
+      "type": "municipality",
+      "municipality": "khairahani",
+      "district": "chitwan",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "rapti": [
+    {
+      "name": "rapti",
+      "type": "municipality",
+      "municipality": "rapti",
+      "district": "chitwan",
+      "province": "bagmati pradesh"
+    },
+    {
+      "name": "rapti",
+      "type": "municipality",
+      "municipality": "rapti",
+      "district": "dang",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "ratnanagar": [
+    {
+      "name": "ratnanagar",
+      "type": "municipality",
+      "municipality": "ratnanagar",
+      "district": "chitwan",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "palungtar": [
+    {
+      "name": "palungtar",
+      "type": "municipality",
+      "municipality": "palungtar",
+      "district": "gorkha",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "gorkha": [
+    {
+      "name": "gorkha",
+      "type": "municipality",
+      "municipality": "gorkha",
+      "district": "gorkha",
+      "province": "gandaki pradesh"
+    },
+    {
+      "name": "gorkha",
+      "type": "district",
+      "municipality": null,
+      "district": "gorkha",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "beni": [
+    {
+      "name": "beni",
+      "type": "municipality",
+      "municipality": "beni",
+      "district": "myagdi",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "sundarbazar": [
+    {
+      "name": "sundarbazar",
+      "type": "municipality",
+      "municipality": "sundarbazar",
+      "district": "lamjung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "besishahar": [
+    {
+      "name": "besishahar",
+      "type": "municipality",
+      "municipality": "besishahar",
+      "district": "lamjung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "rainas": [
+    {
+      "name": "rainas",
+      "type": "municipality",
+      "municipality": "rainas",
+      "district": "lamjung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "madhyanepal": [
+    {
+      "name": "madhyanepal",
+      "type": "municipality",
+      "municipality": "madhyanepal",
+      "district": "lamjung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "byas": [
+    {
+      "name": "byas",
+      "type": "municipality",
+      "municipality": "byas",
+      "district": "tanahu",
+      "province": "gandaki pradesh"
+    },
+    {
+      "name": "byas",
+      "type": "municipality",
+      "municipality": "byas",
+      "district": "darchula",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "shuklagandaki": [
+    {
+      "name": "shuklagandaki",
+      "type": "municipality",
+      "municipality": "shuklagandaki",
+      "district": "tanahu",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "bhimad": [
+    {
+      "name": "bhimad",
+      "type": "municipality",
+      "municipality": "bhimad",
+      "district": "tanahu",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "bhanu": [
+    {
+      "name": "bhanu",
+      "type": "municipality",
+      "municipality": "bhanu",
+      "district": "tanahu",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "madhyabindu": [
+    {
+      "name": "madhyabindu",
+      "type": "municipality",
+      "municipality": "madhyabindu",
+      "district": "nawalparari east",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "devchuli": [
+    {
+      "name": "devchuli",
+      "type": "municipality",
+      "municipality": "devchuli",
+      "district": "nawalparari east",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "gaidakot": [
+    {
+      "name": "gaidakot",
+      "type": "municipality",
+      "municipality": "gaidakot",
+      "district": "nawalparari east",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "kawasoti": [
+    {
+      "name": "kawasoti",
+      "type": "municipality",
+      "municipality": "kawasoti",
+      "district": "nawalparari east",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "putalibazar": [
+    {
+      "name": "putalibazar",
+      "type": "municipality",
+      "municipality": "putalibazar",
+      "district": "syangja",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "bhirkot": [
+    {
+      "name": "bhirkot",
+      "type": "municipality",
+      "municipality": "bhirkot",
+      "district": "syangja",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "galyang": [
+    {
+      "name": "galyang",
+      "type": "municipality",
+      "municipality": "galyang",
+      "district": "syangja",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "chapakot": [
+    {
+      "name": "chapakot",
+      "type": "municipality",
+      "municipality": "chapakot",
+      "district": "syangja",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "waling": [
+    {
+      "name": "waling",
+      "type": "municipality",
+      "municipality": "waling",
+      "district": "syangja",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "kushma": [
+    {
+      "name": "kushma",
+      "type": "municipality",
+      "municipality": "kushma",
+      "district": "parbat",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "phalebas": [
+    {
+      "name": "phalebas",
+      "type": "municipality",
+      "municipality": "phalebas",
+      "district": "parbat",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "jaimuni": [
+    {
+      "name": "jaimuni",
+      "type": "municipality",
+      "municipality": "jaimuni",
+      "district": "baglung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "baglung": [
+    {
+      "name": "baglung",
+      "type": "municipality",
+      "municipality": "baglung",
+      "district": "baglung",
+      "province": "gandaki pradesh"
+    },
+    {
+      "name": "baglung",
+      "type": "district",
+      "municipality": null,
+      "district": "baglung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "galkot": [
+    {
+      "name": "galkot",
+      "type": "municipality",
+      "municipality": "galkot",
+      "district": "baglung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "dhorpatan": [
+    {
+      "name": "dhorpatan",
+      "type": "municipality",
+      "municipality": "dhorpatan",
+      "district": "baglung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "rolpa": [
+    {
+      "name": "rolpa",
+      "type": "municipality",
+      "municipality": "rolpa",
+      "district": "rolpa",
+      "province": "lumbini pradesh"
+    },
+    {
+      "name": "rolpa",
+      "type": "district",
+      "municipality": null,
+      "district": "rolpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "pyuthan": [
+    {
+      "name": "pyuthan",
+      "type": "municipality",
+      "municipality": "pyuthan",
+      "district": "pyuthan",
+      "province": "lumbini pradesh"
+    },
+    {
+      "name": "pyuthan",
+      "type": "district",
+      "municipality": null,
+      "district": "pyuthan",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "sworgadwary": [
+    {
+      "name": "sworgadwary",
+      "type": "municipality",
+      "municipality": "sworgadwary",
+      "district": "pyuthan",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "resunga": [
+    {
+      "name": "resunga",
+      "type": "municipality",
+      "municipality": "resunga",
+      "district": "gulmi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "musikot": [
+    {
+      "name": "musikot",
+      "type": "municipality",
+      "municipality": "musikot",
+      "district": "gulmi",
+      "province": "lumbini pradesh"
+    },
+    {
+      "name": "musikot",
+      "type": "municipality",
+      "municipality": "musikot",
+      "district": "rukum west",
+      "province": "karnali pradesh"
+    }
+  ],
+  "bhumekasthan": [
+    {
+      "name": "bhumekasthan",
+      "type": "municipality",
+      "municipality": "bhumekasthan",
+      "district": "arghakhanchi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "sitganga": [
+    {
+      "name": "sitganga",
+      "type": "municipality",
+      "municipality": "sitganga",
+      "district": "arghakhanchi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "sandhikharka": [
+    {
+      "name": "sandhikharka",
+      "type": "municipality",
+      "municipality": "sandhikharka",
+      "district": "arghakhanchi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "tansen": [
+    {
+      "name": "tansen",
+      "type": "municipality",
+      "municipality": "tansen",
+      "district": "palpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "rampur": [
+    {
+      "name": "rampur",
+      "type": "municipality",
+      "municipality": "rampur",
+      "district": "palpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "bardaghat": [
+    {
+      "name": "bardaghat",
+      "type": "municipality",
+      "municipality": "bardaghat",
+      "district": "nawalparasi west",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "sunwal": [
+    {
+      "name": "sunwal",
+      "type": "municipality",
+      "municipality": "sunwal",
+      "district": "nawalparasi west",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "ramgram": [
+    {
+      "name": "ramgram",
+      "type": "municipality",
+      "municipality": "ramgram",
+      "district": "nawalparasi west",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "lumbini sanskritik": [
+    {
+      "name": "lumbini sanskritik",
+      "type": "municipality",
+      "municipality": "lumbini sanskritik",
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "devdaha": [
+    {
+      "name": "devdaha",
+      "type": "municipality",
+      "municipality": "devdaha",
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "sainamaina": [
+    {
+      "name": "sainamaina",
+      "type": "municipality",
+      "municipality": "sainamaina",
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "siddharthanagar": [
+    {
+      "name": "siddharthanagar",
+      "type": "municipality",
+      "municipality": "siddharthanagar",
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "tillotama": [
+    {
+      "name": "tillotama",
+      "type": "municipality",
+      "municipality": "tillotama",
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "shivaraj": [
+    {
+      "name": "shivaraj",
+      "type": "municipality",
+      "municipality": "shivaraj",
+      "district": "kapilbastu",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "kapilbastu": [
+    {
+      "name": "kapilbastu",
+      "type": "municipality",
+      "municipality": "kapilbastu",
+      "district": "kapilbastu",
+      "province": "lumbini pradesh"
+    },
+    {
+      "name": "kapilbastu",
+      "type": "district",
+      "municipality": null,
+      "district": "kapilbastu",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "buddhabhumi": [
+    {
+      "name": "buddhabhumi",
+      "type": "municipality",
+      "municipality": "buddhabhumi",
+      "district": "kapilbastu",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "maharajgunj": [
+    {
+      "name": "maharajgunj",
+      "type": "municipality",
+      "municipality": "maharajgunj",
+      "district": "kapilbastu",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "banganga": [
+    {
+      "name": "banganga",
+      "type": "municipality",
+      "municipality": "banganga",
+      "district": "kapilbastu",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "krishnanagar": [
+    {
+      "name": "krishnanagar",
+      "type": "municipality",
+      "municipality": "krishnanagar",
+      "district": "kapilbastu",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "lamahi": [
+    {
+      "name": "lamahi",
+      "type": "municipality",
+      "municipality": "lamahi",
+      "district": "dang",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "kohalpur": [
+    {
+      "name": "kohalpur",
+      "type": "municipality",
+      "municipality": "kohalpur",
+      "district": "banke",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "thakurbaba": [
+    {
+      "name": "thakurbaba",
+      "type": "municipality",
+      "municipality": "thakurbaba",
+      "district": "bardiya",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "bansagadhi": [
+    {
+      "name": "bansagadhi",
+      "type": "municipality",
+      "municipality": "bansagadhi",
+      "district": "bardiya",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "barbardiya": [
+    {
+      "name": "barbardiya",
+      "type": "municipality",
+      "municipality": "barbardiya",
+      "district": "bardiya",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "rajapur": [
+    {
+      "name": "rajapur",
+      "type": "municipality",
+      "municipality": "rajapur",
+      "district": "bardiya",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "madhuwan": [
+    {
+      "name": "madhuwan",
+      "type": "municipality",
+      "municipality": "madhuwan",
+      "district": "bardiya",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "gulariya": [
+    {
+      "name": "gulariya",
+      "type": "municipality",
+      "municipality": "gulariya",
+      "district": "bardiya",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "tripurasundari": [
+    {
+      "name": "tripurasundari",
+      "type": "municipality",
+      "municipality": "tripurasundari",
+      "district": "dolpa",
+      "province": "karnali pradesh"
+    },
+    {
+      "name": "tripurasundari",
+      "type": "municipality",
+      "municipality": "tripurasundari",
+      "district": "sindhupalchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "thuli bheri": [
+    {
+      "name": "thuli bheri",
+      "type": "municipality",
+      "municipality": "thuli bheri",
+      "district": "dolpa",
+      "province": "karnali pradesh"
+    }
+  ],
+  "chhayanath rara": [
+    {
+      "name": "chhayanath rara",
+      "type": "municipality",
+      "municipality": "chhayanath rara",
+      "district": "mugu",
+      "province": "karnali pradesh"
+    }
+  ],
+  "chandannath": [
+    {
+      "name": "chandannath",
+      "type": "municipality",
+      "municipality": "chandannath",
+      "district": "jumla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "khandachakra": [
+    {
+      "name": "khandachakra",
+      "type": "municipality",
+      "municipality": "khandachakra",
+      "district": "kalikot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "raskot": [
+    {
+      "name": "raskot",
+      "type": "municipality",
+      "municipality": "raskot",
+      "district": "kalikot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "tilagufa": [
+    {
+      "name": "tilagufa",
+      "type": "municipality",
+      "municipality": "tilagufa",
+      "district": "kalikot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "aathabis": [
+    {
+      "name": "aathabis",
+      "type": "municipality",
+      "municipality": "aathabis",
+      "district": "dailekh",
+      "province": "karnali pradesh"
+    }
+  ],
+  "dullu": [
+    {
+      "name": "dullu",
+      "type": "municipality",
+      "municipality": "dullu",
+      "district": "dailekh",
+      "province": "karnali pradesh"
+    }
+  ],
+  "chamunda bindrasaini": [
+    {
+      "name": "chamunda bindrasaini",
+      "type": "municipality",
+      "municipality": "chamunda bindrasaini",
+      "district": "dailekh",
+      "province": "karnali pradesh"
+    }
+  ],
+  "narayan": [
+    {
+      "name": "narayan",
+      "type": "municipality",
+      "municipality": "narayan",
+      "district": "dailekh",
+      "province": "karnali pradesh"
+    }
+  ],
+  "nalagad": [
+    {
+      "name": "nalagad",
+      "type": "municipality",
+      "municipality": "nalagad",
+      "district": "jajarkot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "bheri": [
+    {
+      "name": "bheri",
+      "type": "municipality",
+      "municipality": "bheri",
+      "district": "jajarkot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "chhedagad": [
+    {
+      "name": "chhedagad",
+      "type": "municipality",
+      "municipality": "chhedagad",
+      "district": "jajarkot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "aathbiskot": [
+    {
+      "name": "aathbiskot",
+      "type": "municipality",
+      "municipality": "aathbiskot",
+      "district": "rukum west",
+      "province": "karnali pradesh"
+    }
+  ],
+  "chaurjahari": [
+    {
+      "name": "chaurjahari",
+      "type": "municipality",
+      "municipality": "chaurjahari",
+      "district": "rukum west",
+      "province": "karnali pradesh"
+    }
+  ],
+  "sharada": [
+    {
+      "name": "sharada",
+      "type": "municipality",
+      "municipality": "sharada",
+      "district": "salyan",
+      "province": "karnali pradesh"
+    }
+  ],
+  "bangad": [
+    {
+      "name": "bangad",
+      "type": "municipality",
+      "municipality": "bangad",
+      "district": "salyan",
+      "province": "karnali pradesh"
+    }
+  ],
+  "bagchaur": [
+    {
+      "name": "bagchaur",
+      "type": "municipality",
+      "municipality": "bagchaur",
+      "district": "salyan",
+      "province": "karnali pradesh"
+    }
+  ],
+  "gurbhakot": [
+    {
+      "name": "gurbhakot",
+      "type": "municipality",
+      "municipality": "gurbhakot",
+      "district": "surkhet",
+      "province": "karnali pradesh"
+    }
+  ],
+  "panchpuri": [
+    {
+      "name": "panchpuri",
+      "type": "municipality",
+      "municipality": "panchpuri",
+      "district": "surkhet",
+      "province": "karnali pradesh"
+    }
+  ],
+  "bheriganga": [
+    {
+      "name": "bheriganga",
+      "type": "municipality",
+      "municipality": "bheriganga",
+      "district": "surkhet",
+      "province": "karnali pradesh"
+    }
+  ],
+  "lekbeshi": [
+    {
+      "name": "lekbeshi",
+      "type": "municipality",
+      "municipality": "lekbeshi",
+      "district": "surkhet",
+      "province": "karnali pradesh"
+    }
+  ],
+  "birendranagar": [
+    {
+      "name": "birendranagar",
+      "type": "municipality",
+      "municipality": "birendranagar",
+      "district": "surkhet",
+      "province": "karnali pradesh"
+    }
+  ],
+  "badimalika": [
+    {
+      "name": "badimalika",
+      "type": "municipality",
+      "municipality": "badimalika",
+      "district": "bajura",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "tribeni": [
+    {
+      "name": "tribeni",
+      "type": "municipality",
+      "municipality": "tribeni",
+      "district": "bajura",
+      "province": "sudurpashchim pradesh"
+    },
+    {
+      "name": "tribeni",
+      "type": "municipality",
+      "municipality": "tribeni",
+      "district": "rolpa",
+      "province": "lumbini pradesh"
+    },
+    {
+      "name": "tribeni",
+      "type": "municipality",
+      "municipality": "tribeni",
+      "district": "rukum west",
+      "province": "karnali pradesh"
+    },
+    {
+      "name": "tribeni",
+      "type": "municipality",
+      "municipality": "tribeni",
+      "district": "salyan",
+      "province": "karnali pradesh"
+    }
+  ],
+  "budhiganga": [
+    {
+      "name": "budhiganga",
+      "type": "municipality",
+      "municipality": "budhiganga",
+      "district": "bajura",
+      "province": "sudurpashchim pradesh"
+    },
+    {
+      "name": "budhiganga",
+      "type": "municipality",
+      "municipality": "budhiganga",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "budhinanda": [
+    {
+      "name": "budhinanda",
+      "type": "municipality",
+      "municipality": "budhinanda",
+      "district": "bajura",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "jayaprithivi": [
+    {
+      "name": "jayaprithivi",
+      "type": "municipality",
+      "municipality": "jayaprithivi",
+      "district": "bajhang",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "bungal": [
+    {
+      "name": "bungal",
+      "type": "municipality",
+      "municipality": "bungal",
+      "district": "bajhang",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "mahakali": [
+    {
+      "name": "mahakali",
+      "type": "municipality",
+      "municipality": "mahakali",
+      "district": "darchula",
+      "province": "sudurpashchim pradesh"
+    },
+    {
+      "name": "mahakali",
+      "type": "municipality",
+      "municipality": "mahakali",
+      "district": "kanchanpur",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "shailyashikhar": [
+    {
+      "name": "shailyashikhar",
+      "type": "municipality",
+      "municipality": "shailyashikhar",
+      "district": "darchula",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "melauli": [
+    {
+      "name": "melauli",
+      "type": "municipality",
+      "municipality": "melauli",
+      "district": "baitadi",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "dasharathchanda": [
+    {
+      "name": "dasharathchanda",
+      "type": "municipality",
+      "municipality": "dasharathchanda",
+      "district": "baitadi",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "purchaudi": [
+    {
+      "name": "purchaudi",
+      "type": "municipality",
+      "municipality": "purchaudi",
+      "district": "baitadi",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "patan": [
+    {
+      "name": "patan",
+      "type": "municipality",
+      "municipality": "patan",
+      "district": "baitadi",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "amargadhi": [
+    {
+      "name": "amargadhi",
+      "type": "municipality",
+      "municipality": "amargadhi",
+      "district": "dadeldhura",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "parashuram": [
+    {
+      "name": "parashuram",
+      "type": "municipality",
+      "municipality": "parashuram",
+      "district": "dadeldhura",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "dipayal silgadi": [
+    {
+      "name": "dipayal silgadi",
+      "type": "municipality",
+      "municipality": "dipayal silgadi",
+      "district": "doti",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "shikhar": [
+    {
+      "name": "shikhar",
+      "type": "municipality",
+      "municipality": "shikhar",
+      "district": "doti",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "sanphebagar": [
+    {
+      "name": "sanphebagar",
+      "type": "municipality",
+      "municipality": "sanphebagar",
+      "district": "achham",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "mangalsen": [
+    {
+      "name": "mangalsen",
+      "type": "municipality",
+      "municipality": "mangalsen",
+      "district": "achham",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "kamalbazar": [
+    {
+      "name": "kamalbazar",
+      "type": "municipality",
+      "municipality": "kamalbazar",
+      "district": "achham",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "panchadewal binayak": [
+    {
+      "name": "panchadewal binayak",
+      "type": "municipality",
+      "municipality": "panchadewal binayak",
+      "district": "achham",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "tikapur": [
+    {
+      "name": "tikapur",
+      "type": "municipality",
+      "municipality": "tikapur",
+      "district": "kailali",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "ghodaghodi": [
+    {
+      "name": "ghodaghodi",
+      "type": "municipality",
+      "municipality": "ghodaghodi",
+      "district": "kailali",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "bhajani": [
+    {
+      "name": "bhajani",
+      "type": "municipality",
+      "municipality": "bhajani",
+      "district": "kailali",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "gauriganga": [
+    {
+      "name": "gauriganga",
+      "type": "municipality",
+      "municipality": "gauriganga",
+      "district": "kailali",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "lamkichuha": [
+    {
+      "name": "lamkichuha",
+      "type": "municipality",
+      "municipality": "lamkichuha",
+      "district": "kailali",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "punarbas": [
+    {
+      "name": "punarbas",
+      "type": "municipality",
+      "municipality": "punarbas",
+      "district": "kanchanpur",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "krishnapur": [
+    {
+      "name": "krishnapur",
+      "type": "municipality",
+      "municipality": "krishnapur",
+      "district": "kanchanpur",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "bedkot": [
+    {
+      "name": "bedkot",
+      "type": "municipality",
+      "municipality": "bedkot",
+      "district": "kanchanpur",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "belauri": [
+    {
+      "name": "belauri",
+      "type": "municipality",
+      "municipality": "belauri",
+      "district": "kanchanpur",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "bhimdatta": [
+    {
+      "name": "bhimdatta",
+      "type": "municipality",
+      "municipality": "bhimdatta",
+      "district": "kanchanpur",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "shuklaphanta": [
+    {
+      "name": "shuklaphanta",
+      "type": "municipality",
+      "municipality": "shuklaphanta",
+      "district": "kanchanpur",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "sidingba": [
+    {
+      "name": "sidingba",
+      "type": "municipality",
+      "municipality": "sidingba",
+      "district": "taplejung",
+      "province": "koshi pradesh"
+    }
+  ],
+  "meringden": [
+    {
+      "name": "meringden",
+      "type": "municipality",
+      "municipality": "meringden",
+      "district": "taplejung",
+      "province": "koshi pradesh"
+    }
+  ],
+  "maiwakhola": [
+    {
+      "name": "maiwakhola",
+      "type": "municipality",
+      "municipality": "maiwakhola",
+      "district": "taplejung",
+      "province": "koshi pradesh"
+    }
+  ],
+  "phaktanglung": [
+    {
+      "name": "phaktanglung",
+      "type": "municipality",
+      "municipality": "phaktanglung",
+      "district": "taplejung",
+      "province": "koshi pradesh"
+    }
+  ],
+  "sirijangha": [
+    {
+      "name": "sirijangha",
+      "type": "municipality",
+      "municipality": "sirijangha",
+      "district": "taplejung",
+      "province": "koshi pradesh"
+    }
+  ],
+  "mikwakhola": [
+    {
+      "name": "mikwakhola",
+      "type": "municipality",
+      "municipality": "mikwakhola",
+      "district": "taplejung",
+      "province": "koshi pradesh"
+    }
+  ],
+  "aathrai tribeni": [
+    {
+      "name": "aathrai tribeni",
+      "type": "municipality",
+      "municipality": "aathrai tribeni",
+      "district": "taplejung",
+      "province": "koshi pradesh"
+    }
+  ],
+  "pathivara yangwarak": [
+    {
+      "name": "pathivara yangwarak",
+      "type": "municipality",
+      "municipality": "pathivara yangwarak",
+      "district": "taplejung",
+      "province": "koshi pradesh"
+    }
+  ],
+  "makalu": [
+    {
+      "name": "makalu",
+      "type": "municipality",
+      "municipality": "makalu",
+      "district": "sankhuwasabha",
+      "province": "koshi pradesh"
+    }
+  ],
+  "chichila": [
+    {
+      "name": "chichila",
+      "type": "municipality",
+      "municipality": "chichila",
+      "district": "sankhuwasabha",
+      "province": "koshi pradesh"
+    }
+  ],
+  "silichong": [
+    {
+      "name": "silichong",
+      "type": "municipality",
+      "municipality": "silichong",
+      "district": "sankhuwasabha",
+      "province": "koshi pradesh"
+    }
+  ],
+  "bhotkhola": [
+    {
+      "name": "bhotkhola",
+      "type": "municipality",
+      "municipality": "bhotkhola",
+      "district": "sankhuwasabha",
+      "province": "koshi pradesh"
+    }
+  ],
+  "sabhapokhari": [
+    {
+      "name": "sabhapokhari",
+      "type": "municipality",
+      "municipality": "sabhapokhari",
+      "district": "sankhuwasabha",
+      "province": "koshi pradesh"
+    }
+  ],
+  "sotang": [
+    {
+      "name": "sotang",
+      "type": "municipality",
+      "municipality": "sotang",
+      "district": "solukhumbu",
+      "province": "koshi pradesh"
+    }
+  ],
+  "mahakulung": [
+    {
+      "name": "mahakulung",
+      "type": "municipality",
+      "municipality": "mahakulung",
+      "district": "solukhumbu",
+      "province": "koshi pradesh"
+    }
+  ],
+  "likhupike": [
+    {
+      "name": "likhupike",
+      "type": "municipality",
+      "municipality": "likhupike",
+      "district": "solukhumbu",
+      "province": "koshi pradesh"
+    }
+  ],
+  "nechasalyan": [
+    {
+      "name": "nechasalyan",
+      "type": "municipality",
+      "municipality": "nechasalyan",
+      "district": "solukhumbu",
+      "province": "koshi pradesh"
+    }
+  ],
+  "thulung dudhkoshi": [
+    {
+      "name": "thulung dudhkoshi",
+      "type": "municipality",
+      "municipality": "thulung dudhkoshi",
+      "district": "solukhumbu",
+      "province": "koshi pradesh"
+    }
+  ],
+  "maapya dudhkoshi": [
+    {
+      "name": "maapya dudhkoshi",
+      "type": "municipality",
+      "municipality": "maapya dudhkoshi",
+      "district": "solukhumbu",
+      "province": "koshi pradesh"
+    }
+  ],
+  "khumbupasanglahmu": [
+    {
+      "name": "khumbupasanglahmu",
+      "type": "municipality",
+      "municipality": "khumbupasanglahmu",
+      "district": "solukhumbu",
+      "province": "koshi pradesh"
+    }
+  ],
+  "likhu": [
+    {
+      "name": "likhu",
+      "type": "municipality",
+      "municipality": "likhu",
+      "district": "okhaldhunga",
+      "province": "koshi pradesh"
+    },
+    {
+      "name": "likhu",
+      "type": "municipality",
+      "municipality": "likhu",
+      "district": "nuwakot",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "molung": [
+    {
+      "name": "molung",
+      "type": "municipality",
+      "municipality": "molung",
+      "district": "okhaldhunga",
+      "province": "koshi pradesh"
+    }
+  ],
+  "sunkoshi": [
+    {
+      "name": "sunkoshi",
+      "type": "municipality",
+      "municipality": "sunkoshi",
+      "district": "okhaldhunga",
+      "province": "koshi pradesh"
+    },
+    {
+      "name": "sunkoshi",
+      "type": "municipality",
+      "municipality": "sunkoshi",
+      "district": "sindhupalchok",
+      "province": "bagmati pradesh"
+    },
+    {
+      "name": "sunkoshi",
+      "type": "municipality",
+      "municipality": "sunkoshi",
+      "district": "sindhuli",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "champadevi": [
+    {
+      "name": "champadevi",
+      "type": "municipality",
+      "municipality": "champadevi",
+      "district": "okhaldhunga",
+      "province": "koshi pradesh"
+    }
+  ],
+  "chisankhugadhi": [
+    {
+      "name": "chisankhugadhi",
+      "type": "municipality",
+      "municipality": "chisankhugadhi",
+      "district": "okhaldhunga",
+      "province": "koshi pradesh"
+    }
+  ],
+  "khijidemba": [
+    {
+      "name": "khijidemba",
+      "type": "municipality",
+      "municipality": "khijidemba",
+      "district": "okhaldhunga",
+      "province": "koshi pradesh"
+    }
+  ],
+  "manebhanjyang": [
+    {
+      "name": "manebhanjyang",
+      "type": "municipality",
+      "municipality": "manebhanjyang",
+      "district": "okhaldhunga",
+      "province": "koshi pradesh"
+    }
+  ],
+  "sakela": [
+    {
+      "name": "sakela",
+      "type": "municipality",
+      "municipality": "sakela",
+      "district": "khotang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "khotehang": [
+    {
+      "name": "khotehang",
+      "type": "municipality",
+      "municipality": "khotehang",
+      "district": "khotang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "barahapokhari": [
+    {
+      "name": "barahapokhari",
+      "type": "municipality",
+      "municipality": "barahapokhari",
+      "district": "khotang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "ainselukhark": [
+    {
+      "name": "ainselukhark",
+      "type": "municipality",
+      "municipality": "ainselukhark",
+      "district": "khotang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "rawa besi": [
+    {
+      "name": "rawa besi",
+      "type": "municipality",
+      "municipality": "rawa besi",
+      "district": "khotang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "kepilasagadhi": [
+    {
+      "name": "kepilasagadhi",
+      "type": "municipality",
+      "municipality": "kepilasagadhi",
+      "district": "khotang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "jantedhunga": [
+    {
+      "name": "jantedhunga",
+      "type": "municipality",
+      "municipality": "jantedhunga",
+      "district": "khotang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "diprung": [
+    {
+      "name": "diprung",
+      "type": "municipality",
+      "municipality": "diprung",
+      "district": "khotang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "arun": [
+    {
+      "name": "arun",
+      "type": "municipality",
+      "municipality": "arun",
+      "district": "bhojpur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "aamchowk": [
+    {
+      "name": "aamchowk",
+      "type": "municipality",
+      "municipality": "aamchowk",
+      "district": "bhojpur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "hatuwagadhi": [
+    {
+      "name": "hatuwagadhi",
+      "type": "municipality",
+      "municipality": "hatuwagadhi",
+      "district": "bhojpur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "pauwadungma": [
+    {
+      "name": "pauwadungma",
+      "type": "municipality",
+      "municipality": "pauwadungma",
+      "district": "bhojpur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "temkemaiyung": [
+    {
+      "name": "temkemaiyung",
+      "type": "municipality",
+      "municipality": "temkemaiyung",
+      "district": "bhojpur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "salpasilichho": [
+    {
+      "name": "salpasilichho",
+      "type": "municipality",
+      "municipality": "salpasilichho",
+      "district": "bhojpur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "ramprasad": [
+    {
+      "name": "ramprasad",
+      "type": "municipality",
+      "municipality": "ramprasad",
+      "district": "bhojpur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "chaubise": [
+    {
+      "name": "chaubise",
+      "type": "municipality",
+      "municipality": "chaubise",
+      "district": "dhankuta",
+      "province": "koshi pradesh"
+    }
+  ],
+  "shahidbhumi": [
+    {
+      "name": "shahidbhumi",
+      "type": "municipality",
+      "municipality": "shahidbhumi",
+      "district": "dhankuta",
+      "province": "koshi pradesh"
+    }
+  ],
+  "sangurigadhi": [
+    {
+      "name": "sangurigadhi",
+      "type": "municipality",
+      "municipality": "sangurigadhi",
+      "district": "dhankuta",
+      "province": "koshi pradesh"
+    }
+  ],
+  "chhathar jorpati": [
+    {
+      "name": "chhathar jorpati",
+      "type": "municipality",
+      "municipality": "chhathar jorpati",
+      "district": "dhankuta",
+      "province": "koshi pradesh"
+    }
+  ],
+  "chhathar": [
+    {
+      "name": "chhathar",
+      "type": "municipality",
+      "municipality": "chhathar",
+      "district": "terhathum",
+      "province": "koshi pradesh"
+    }
+  ],
+  "phedap": [
+    {
+      "name": "phedap",
+      "type": "municipality",
+      "municipality": "phedap",
+      "district": "terhathum",
+      "province": "koshi pradesh"
+    }
+  ],
+  "aathrai": [
+    {
+      "name": "aathrai",
+      "type": "municipality",
+      "municipality": "aathrai",
+      "district": "terhathum",
+      "province": "koshi pradesh"
+    }
+  ],
+  "menchayam": [
+    {
+      "name": "menchayam",
+      "type": "municipality",
+      "municipality": "menchayam",
+      "district": "terhathum",
+      "province": "koshi pradesh"
+    }
+  ],
+  "yangwarak": [
+    {
+      "name": "yangwarak",
+      "type": "municipality",
+      "municipality": "yangwarak",
+      "district": "pachthar",
+      "province": "koshi pradesh"
+    }
+  ],
+  "hilihang": [
+    {
+      "name": "hilihang",
+      "type": "municipality",
+      "municipality": "hilihang",
+      "district": "pachthar",
+      "province": "koshi pradesh"
+    }
+  ],
+  "falelung": [
+    {
+      "name": "falelung",
+      "type": "municipality",
+      "municipality": "falelung",
+      "district": "pachthar",
+      "province": "koshi pradesh"
+    }
+  ],
+  "tumbewa": [
+    {
+      "name": "tumbewa",
+      "type": "municipality",
+      "municipality": "tumbewa",
+      "district": "pachthar",
+      "province": "koshi pradesh"
+    }
+  ],
+  "kummayak": [
+    {
+      "name": "kummayak",
+      "type": "municipality",
+      "municipality": "kummayak",
+      "district": "pachthar",
+      "province": "koshi pradesh"
+    }
+  ],
+  "miklajung": [
+    {
+      "name": "miklajung",
+      "type": "municipality",
+      "municipality": "miklajung",
+      "district": "pachthar",
+      "province": "koshi pradesh"
+    },
+    {
+      "name": "miklajung",
+      "type": "municipality",
+      "municipality": "miklajung",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "falgunanda": [
+    {
+      "name": "falgunanda",
+      "type": "municipality",
+      "municipality": "falgunanda",
+      "district": "pachthar",
+      "province": "koshi pradesh"
+    }
+  ],
+  "rong": [
+    {
+      "name": "rong",
+      "type": "municipality",
+      "municipality": "rong",
+      "district": "ilam",
+      "province": "koshi pradesh"
+    }
+  ],
+  "mangsebung": [
+    {
+      "name": "mangsebung",
+      "type": "municipality",
+      "municipality": "mangsebung",
+      "district": "ilam",
+      "province": "koshi pradesh"
+    }
+  ],
+  "chulachuli": [
+    {
+      "name": "chulachuli",
+      "type": "municipality",
+      "municipality": "chulachuli",
+      "district": "ilam",
+      "province": "koshi pradesh"
+    }
+  ],
+  "sandakpur": [
+    {
+      "name": "sandakpur",
+      "type": "municipality",
+      "municipality": "sandakpur",
+      "district": "ilam",
+      "province": "koshi pradesh"
+    }
+  ],
+  "fakphokthum": [
+    {
+      "name": "fakphokthum",
+      "type": "municipality",
+      "municipality": "fakphokthum",
+      "district": "ilam",
+      "province": "koshi pradesh"
+    }
+  ],
+  "maijogmai": [
+    {
+      "name": "maijogmai",
+      "type": "municipality",
+      "municipality": "maijogmai",
+      "district": "ilam",
+      "province": "koshi pradesh"
+    }
+  ],
+  "kamal": [
+    {
+      "name": "kamal",
+      "type": "municipality",
+      "municipality": "kamal",
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    }
+  ],
+  "jhapa": [
+    {
+      "name": "jhapa",
+      "type": "municipality",
+      "municipality": "jhapa",
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    },
+    {
+      "name": "jhapa",
+      "type": "district",
+      "municipality": null,
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    }
+  ],
+  "kachankawal": [
+    {
+      "name": "kachankawal",
+      "type": "municipality",
+      "municipality": "kachankawal",
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    }
+  ],
+  "gauriganj": [
+    {
+      "name": "gauriganj",
+      "type": "municipality",
+      "municipality": "gauriganj",
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    }
+  ],
+  "barhadashi": [
+    {
+      "name": "barhadashi",
+      "type": "municipality",
+      "municipality": "barhadashi",
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    }
+  ],
+  "haldibari": [
+    {
+      "name": "haldibari",
+      "type": "municipality",
+      "municipality": "haldibari",
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    }
+  ],
+  "buddhashanti": [
+    {
+      "name": "buddhashanti",
+      "type": "municipality",
+      "municipality": "buddhashanti",
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    }
+  ],
+  "jahada": [
+    {
+      "name": "jahada",
+      "type": "municipality",
+      "municipality": "jahada",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "katahari": [
+    {
+      "name": "katahari",
+      "type": "municipality",
+      "municipality": "katahari",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "gramthan": [
+    {
+      "name": "gramthan",
+      "type": "municipality",
+      "municipality": "gramthan",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "dhanpalthan": [
+    {
+      "name": "dhanpalthan",
+      "type": "municipality",
+      "municipality": "dhanpalthan",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "kerabari": [
+    {
+      "name": "kerabari",
+      "type": "municipality",
+      "municipality": "kerabari",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "kanepokhari": [
+    {
+      "name": "kanepokhari",
+      "type": "municipality",
+      "municipality": "kanepokhari",
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "gadhi": [
+    {
+      "name": "gadhi",
+      "type": "municipality",
+      "municipality": "gadhi",
+      "district": "sunsari",
+      "province": "koshi pradesh"
+    }
+  ],
+  "koshi": [
+    {
+      "name": "koshi",
+      "type": "municipality",
+      "municipality": "koshi",
+      "district": "sunsari",
+      "province": "koshi pradesh"
+    }
+  ],
+  "barju": [
+    {
+      "name": "barju",
+      "type": "municipality",
+      "municipality": "barju",
+      "district": "sunsari",
+      "province": "koshi pradesh"
+    }
+  ],
+  "harinagar": [
+    {
+      "name": "harinagar",
+      "type": "municipality",
+      "municipality": "harinagar",
+      "district": "sunsari",
+      "province": "koshi pradesh"
+    }
+  ],
+  "dewanganj": [
+    {
+      "name": "dewanganj",
+      "type": "municipality",
+      "municipality": "dewanganj",
+      "district": "sunsari",
+      "province": "koshi pradesh"
+    }
+  ],
+  "bhokraha narsing": [
+    {
+      "name": "bhokraha narsing",
+      "type": "municipality",
+      "municipality": "bhokraha narsing",
+      "district": "sunsari",
+      "province": "koshi pradesh"
+    }
+  ],
+  "tapli": [
+    {
+      "name": "tapli",
+      "type": "municipality",
+      "municipality": "tapli",
+      "district": "udayapur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "rautamai": [
+    {
+      "name": "rautamai",
+      "type": "municipality",
+      "municipality": "rautamai",
+      "district": "udayapur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "udayapurgadhi": [
+    {
+      "name": "udayapurgadhi",
+      "type": "municipality",
+      "municipality": "udayapurgadhi",
+      "district": "udayapur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "limchungbung": [
+    {
+      "name": "limchungbung",
+      "type": "municipality",
+      "municipality": "limchungbung",
+      "district": "udayapur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "rajgadh": [
+    {
+      "name": "rajgadh",
+      "type": "municipality",
+      "municipality": "rajgadh",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "rupani": [
+    {
+      "name": "rupani",
+      "type": "municipality",
+      "municipality": "rupani",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "tirahut": [
+    {
+      "name": "tirahut",
+      "type": "municipality",
+      "municipality": "tirahut",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "mahadeva": [
+    {
+      "name": "mahadeva",
+      "type": "municipality",
+      "municipality": "mahadeva",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "bishnupur": [
+    {
+      "name": "bishnupur",
+      "type": "municipality",
+      "municipality": "bishnupur",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    },
+    {
+      "name": "bishnupur",
+      "type": "municipality",
+      "municipality": "bishnupur",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "chhinnamasta": [
+    {
+      "name": "chhinnamasta",
+      "type": "municipality",
+      "municipality": "chhinnamasta",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "balan bihul": [
+    {
+      "name": "balan bihul",
+      "type": "municipality",
+      "municipality": "balan bihul",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "tilathi koiladi": [
+    {
+      "name": "tilathi koiladi",
+      "type": "municipality",
+      "municipality": "tilathi koiladi",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "agnisair krishna savaran": [
+    {
+      "name": "agnisair krishna savaran",
+      "type": "municipality",
+      "municipality": "agnisair krishna savaran",
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "naraha": [
+    {
+      "name": "naraha",
+      "type": "municipality",
+      "municipality": "naraha",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "arnama": [
+    {
+      "name": "arnama",
+      "type": "municipality",
+      "municipality": "arnama",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "bhagawanpur": [
+    {
+      "name": "bhagawanpur",
+      "type": "municipality",
+      "municipality": "bhagawanpur",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "nawarajpur": [
+    {
+      "name": "nawarajpur",
+      "type": "municipality",
+      "municipality": "nawarajpur",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "bariyarpatti": [
+    {
+      "name": "bariyarpatti",
+      "type": "municipality",
+      "municipality": "bariyarpatti",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "laxmipur patari": [
+    {
+      "name": "laxmipur patari",
+      "type": "municipality",
+      "municipality": "laxmipur patari",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "sakhuwanankarkatti": [
+    {
+      "name": "sakhuwanankarkatti",
+      "type": "municipality",
+      "municipality": "sakhuwanankarkatti",
+      "district": "siraha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "aaurahi": [
+    {
+      "name": "aaurahi",
+      "type": "municipality",
+      "municipality": "aaurahi",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "dhanauji": [
+    {
+      "name": "dhanauji",
+      "type": "municipality",
+      "municipality": "dhanauji",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "bateshwor": [
+    {
+      "name": "bateshwor",
+      "type": "municipality",
+      "municipality": "bateshwor",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "janaknandani": [
+    {
+      "name": "janaknandani",
+      "type": "municipality",
+      "municipality": "janaknandani",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "lakshminiya": [
+    {
+      "name": "lakshminiya",
+      "type": "municipality",
+      "municipality": "lakshminiya",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "mukhiyapatti musarmiya": [
+    {
+      "name": "mukhiyapatti musarmiya",
+      "type": "municipality",
+      "municipality": "mukhiyapatti musarmiya",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "pipra": [
+    {
+      "name": "pipra",
+      "type": "municipality",
+      "municipality": "pipra",
+      "district": "mahottari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "sonama": [
+    {
+      "name": "sonama",
+      "type": "municipality",
+      "municipality": "sonama",
+      "district": "mahottari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "samsi": [
+    {
+      "name": "samsi",
+      "type": "municipality",
+      "municipality": "samsi",
+      "district": "mahottari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "ekdanra": [
+    {
+      "name": "ekdanra",
+      "type": "municipality",
+      "municipality": "ekdanra",
+      "district": "mahottari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "mahottari": [
+    {
+      "name": "mahottari",
+      "type": "municipality",
+      "municipality": "mahottari",
+      "district": "mahottari",
+      "province": "madhesh pradesh"
+    },
+    {
+      "name": "mahottari",
+      "type": "district",
+      "municipality": null,
+      "district": "mahottari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "dhankaul": [
+    {
+      "name": "dhankaul",
+      "type": "municipality",
+      "municipality": "dhankaul",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "parsa": [
+    {
+      "name": "parsa",
+      "type": "municipality",
+      "municipality": "parsa",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    },
+    {
+      "name": "parsa",
+      "type": "district",
+      "municipality": null,
+      "district": "parsa",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "bishnu": [
+    {
+      "name": "bishnu",
+      "type": "municipality",
+      "municipality": "bishnu",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "ramnagar": [
+    {
+      "name": "ramnagar",
+      "type": "municipality",
+      "municipality": "ramnagar",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "kaudena": [
+    {
+      "name": "kaudena",
+      "type": "municipality",
+      "municipality": "kaudena",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "basbariya": [
+    {
+      "name": "basbariya",
+      "type": "municipality",
+      "municipality": "basbariya",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "chandranagar": [
+    {
+      "name": "chandranagar",
+      "type": "municipality",
+      "municipality": "chandranagar",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "chakraghatta": [
+    {
+      "name": "chakraghatta",
+      "type": "municipality",
+      "municipality": "chakraghatta",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "bramhapuri": [
+    {
+      "name": "bramhapuri",
+      "type": "municipality",
+      "municipality": "bramhapuri",
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "yemunamai": [
+    {
+      "name": "yemunamai",
+      "type": "municipality",
+      "municipality": "yemunamai",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "durga bhagwati": [
+    {
+      "name": "durga bhagwati",
+      "type": "municipality",
+      "municipality": "durga bhagwati",
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "pheta": [
+    {
+      "name": "pheta",
+      "type": "municipality",
+      "municipality": "pheta",
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "devtal": [
+    {
+      "name": "devtal",
+      "type": "municipality",
+      "municipality": "devtal",
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "prasauni": [
+    {
+      "name": "prasauni",
+      "type": "municipality",
+      "municipality": "prasauni",
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "suwarna": [
+    {
+      "name": "suwarna",
+      "type": "municipality",
+      "municipality": "suwarna",
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "baragadhi": [
+    {
+      "name": "baragadhi",
+      "type": "municipality",
+      "municipality": "baragadhi",
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "karaiyamai": [
+    {
+      "name": "karaiyamai",
+      "type": "municipality",
+      "municipality": "karaiyamai",
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "parwanipur": [
+    {
+      "name": "parwanipur",
+      "type": "municipality",
+      "municipality": "parwanipur",
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "bishrampur": [
+    {
+      "name": "bishrampur",
+      "type": "municipality",
+      "municipality": "bishrampur",
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "adarsh kotwal": [
+    {
+      "name": "adarsh kotwal",
+      "type": "municipality",
+      "municipality": "adarsh kotwal",
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "thori": [
+    {
+      "name": "thori",
+      "type": "municipality",
+      "municipality": "thori",
+      "district": "parsa",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "dhobini": [
+    {
+      "name": "dhobini",
+      "type": "municipality",
+      "municipality": "dhobini",
+      "district": "parsa",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "chhipaharmai": [
+    {
+      "name": "chhipaharmai",
+      "type": "municipality",
+      "municipality": "chhipaharmai",
+      "district": "parsa",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "jirabhawani": [
+    {
+      "name": "jirabhawani",
+      "type": "municipality",
+      "municipality": "jirabhawani",
+      "district": "parsa",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "jagarnathpur": [
+    {
+      "name": "jagarnathpur",
+      "type": "municipality",
+      "municipality": "jagarnathpur",
+      "district": "parsa",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "kalikamai": [
+    {
+      "name": "kalikamai",
+      "type": "municipality",
+      "municipality": "kalikamai",
+      "district": "parsa",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "bindabasini": [
+    {
+      "name": "bindabasini",
+      "type": "municipality",
+      "municipality": "bindabasini",
+      "district": "parsa",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "pakaha mainpur": [
+    {
+      "name": "pakaha mainpur",
+      "type": "municipality",
+      "municipality": "pakaha mainpur",
+      "district": "parsa",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "sakhuwa prasauni": [
+    {
+      "name": "sakhuwa prasauni",
+      "type": "municipality",
+      "municipality": "sakhuwa prasauni",
+      "district": "parsa",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "paterwa sugauli": [
+    {
+      "name": "paterwa sugauli",
+      "type": "municipality",
+      "municipality": "paterwa sugauli",
+      "district": "parsa",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "bigu": [
+    {
+      "name": "bigu",
+      "type": "municipality",
+      "municipality": "bigu",
+      "district": "dolakha",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "sailung": [
+    {
+      "name": "sailung",
+      "type": "municipality",
+      "municipality": "sailung",
+      "district": "dolakha",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "melung": [
+    {
+      "name": "melung",
+      "type": "municipality",
+      "municipality": "melung",
+      "district": "dolakha",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "baiteshwor": [
+    {
+      "name": "baiteshwor",
+      "type": "municipality",
+      "municipality": "baiteshwor",
+      "district": "dolakha",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "tamakoshi": [
+    {
+      "name": "tamakoshi",
+      "type": "municipality",
+      "municipality": "tamakoshi",
+      "district": "dolakha",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "gaurishankar": [
+    {
+      "name": "gaurishankar",
+      "type": "municipality",
+      "municipality": "gaurishankar",
+      "district": "dolakha",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "kalinchok": [
+    {
+      "name": "kalinchok",
+      "type": "municipality",
+      "municipality": "kalinchok",
+      "district": "dolakha",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "jugal": [
+    {
+      "name": "jugal",
+      "type": "municipality",
+      "municipality": "jugal",
+      "district": "sindhupalchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "balefi": [
+    {
+      "name": "balefi",
+      "type": "municipality",
+      "municipality": "balefi",
+      "district": "sindhupalchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "helambu": [
+    {
+      "name": "helambu",
+      "type": "municipality",
+      "municipality": "helambu",
+      "district": "sindhupalchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "bhotekoshi": [
+    {
+      "name": "bhotekoshi",
+      "type": "municipality",
+      "municipality": "bhotekoshi",
+      "district": "sindhupalchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "lisangkhu": [
+    {
+      "name": "lisangkhu",
+      "type": "municipality",
+      "municipality": "lisangkhu",
+      "district": "sindhupalchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "indrawati": [
+    {
+      "name": "indrawati",
+      "type": "municipality",
+      "municipality": "indrawati",
+      "district": "sindhupalchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "panchpokhari thangpal": [
+    {
+      "name": "panchpokhari thangpal",
+      "type": "municipality",
+      "municipality": "panchpokhari thangpal",
+      "district": "sindhupalchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "naukunda": [
+    {
+      "name": "naukunda",
+      "type": "municipality",
+      "municipality": "naukunda",
+      "district": "rasuwa",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "uttargaya": [
+    {
+      "name": "uttargaya",
+      "type": "municipality",
+      "municipality": "uttargaya",
+      "district": "rasuwa",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "gosaikunda": [
+    {
+      "name": "gosaikunda",
+      "type": "municipality",
+      "municipality": "gosaikunda",
+      "district": "rasuwa",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "amachodingmo": [
+    {
+      "name": "amachodingmo",
+      "type": "municipality",
+      "municipality": "amachodingmo",
+      "district": "rasuwa",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "gajuri": [
+    {
+      "name": "gajuri",
+      "type": "municipality",
+      "municipality": "gajuri",
+      "district": "dhading",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "galchi": [
+    {
+      "name": "galchi",
+      "type": "municipality",
+      "municipality": "galchi",
+      "district": "dhading",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "thakre": [
+    {
+      "name": "thakre",
+      "type": "municipality",
+      "municipality": "thakre",
+      "district": "dhading",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "siddhalek": [
+    {
+      "name": "siddhalek",
+      "type": "municipality",
+      "municipality": "siddhalek",
+      "district": "dhading",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "khaniyabash": [
+    {
+      "name": "khaniyabash",
+      "type": "municipality",
+      "municipality": "khaniyabash",
+      "district": "dhading",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "jwalamukhi": [
+    {
+      "name": "jwalamukhi",
+      "type": "municipality",
+      "municipality": "jwalamukhi",
+      "district": "dhading",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "gangajamuna": [
+    {
+      "name": "gangajamuna",
+      "type": "municipality",
+      "municipality": "gangajamuna",
+      "district": "dhading",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "rubi valley": [
+    {
+      "name": "rubi valley",
+      "type": "municipality",
+      "municipality": "rubi valley",
+      "district": "dhading",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "tripura sundari": [
+    {
+      "name": "tripura sundari",
+      "type": "municipality",
+      "municipality": "tripura sundari",
+      "district": "dhading",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "netrawati dabjong": [
+    {
+      "name": "netrawati dabjong",
+      "type": "municipality",
+      "municipality": "netrawati dabjong",
+      "district": "dhading",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "benighat rorang": [
+    {
+      "name": "benighat rorang",
+      "type": "municipality",
+      "municipality": "benighat rorang",
+      "district": "dhading",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "kakani": [
+    {
+      "name": "kakani",
+      "type": "municipality",
+      "municipality": "kakani",
+      "district": "nuwakot",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "tadi": [
+    {
+      "name": "tadi",
+      "type": "municipality",
+      "municipality": "tadi",
+      "district": "nuwakot",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "myagang": [
+    {
+      "name": "myagang",
+      "type": "municipality",
+      "municipality": "myagang",
+      "district": "nuwakot",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "shivapuri": [
+    {
+      "name": "shivapuri",
+      "type": "municipality",
+      "municipality": "shivapuri",
+      "district": "nuwakot",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "kispang": [
+    {
+      "name": "kispang",
+      "type": "municipality",
+      "municipality": "kispang",
+      "district": "nuwakot",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "suryagadhi": [
+    {
+      "name": "suryagadhi",
+      "type": "municipality",
+      "municipality": "suryagadhi",
+      "district": "nuwakot",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "tarkeshwar": [
+    {
+      "name": "tarkeshwar",
+      "type": "municipality",
+      "municipality": "tarkeshwar",
+      "district": "nuwakot",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "panchakanya": [
+    {
+      "name": "panchakanya",
+      "type": "municipality",
+      "municipality": "panchakanya",
+      "district": "nuwakot",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "dupcheshwar": [
+    {
+      "name": "dupcheshwar",
+      "type": "municipality",
+      "municipality": "dupcheshwar",
+      "district": "nuwakot",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "mahankal": [
+    {
+      "name": "mahankal",
+      "type": "municipality",
+      "municipality": "mahankal",
+      "district": "lalitpur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "konjyosom": [
+    {
+      "name": "konjyosom",
+      "type": "municipality",
+      "municipality": "konjyosom",
+      "district": "lalitpur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "roshi": [
+    {
+      "name": "roshi",
+      "type": "municipality",
+      "municipality": "roshi",
+      "district": "kavrepalanchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "temal": [
+    {
+      "name": "temal",
+      "type": "municipality",
+      "municipality": "temal",
+      "district": "kavrepalanchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "bhumlu": [
+    {
+      "name": "bhumlu",
+      "type": "municipality",
+      "municipality": "bhumlu",
+      "district": "kavrepalanchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "mahabharat": [
+    {
+      "name": "mahabharat",
+      "type": "municipality",
+      "municipality": "mahabharat",
+      "district": "kavrepalanchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "bethanchowk": [
+    {
+      "name": "bethanchowk",
+      "type": "municipality",
+      "municipality": "bethanchowk",
+      "district": "kavrepalanchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "khanikhola": [
+    {
+      "name": "khanikhola",
+      "type": "municipality",
+      "municipality": "khanikhola",
+      "district": "kavrepalanchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "chaurideurali": [
+    {
+      "name": "chaurideurali",
+      "type": "municipality",
+      "municipality": "chaurideurali",
+      "district": "kavrepalanchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "sunapati": [
+    {
+      "name": "sunapati",
+      "type": "municipality",
+      "municipality": "sunapati",
+      "district": "ramechhap",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "doramba": [
+    {
+      "name": "doramba",
+      "type": "municipality",
+      "municipality": "doramba",
+      "district": "ramechhap",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "umakunda": [
+    {
+      "name": "umakunda",
+      "type": "municipality",
+      "municipality": "umakunda",
+      "district": "ramechhap",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "khadadevi": [
+    {
+      "name": "khadadevi",
+      "type": "municipality",
+      "municipality": "khadadevi",
+      "district": "ramechhap",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "gokulganga": [
+    {
+      "name": "gokulganga",
+      "type": "municipality",
+      "municipality": "gokulganga",
+      "district": "ramechhap",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "likhu tamakoshi": [
+    {
+      "name": "likhu tamakoshi",
+      "type": "municipality",
+      "municipality": "likhu tamakoshi",
+      "district": "ramechhap",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "marin": [
+    {
+      "name": "marin",
+      "type": "municipality",
+      "municipality": "marin",
+      "district": "sindhuli",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "phikkal": [
+    {
+      "name": "phikkal",
+      "type": "municipality",
+      "municipality": "phikkal",
+      "district": "sindhuli",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "tinpatan": [
+    {
+      "name": "tinpatan",
+      "type": "municipality",
+      "municipality": "tinpatan",
+      "district": "sindhuli",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "golanjor": [
+    {
+      "name": "golanjor",
+      "type": "municipality",
+      "municipality": "golanjor",
+      "district": "sindhuli",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "ghanglekh": [
+    {
+      "name": "ghanglekh",
+      "type": "municipality",
+      "municipality": "ghanglekh",
+      "district": "sindhuli",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "hariharpurgadhi": [
+    {
+      "name": "hariharpurgadhi",
+      "type": "municipality",
+      "municipality": "hariharpurgadhi",
+      "district": "sindhuli",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "bakaiya": [
+    {
+      "name": "bakaiya",
+      "type": "municipality",
+      "municipality": "bakaiya",
+      "district": "makwanpur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "kailash": [
+    {
+      "name": "kailash",
+      "type": "municipality",
+      "municipality": "kailash",
+      "district": "makwanpur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "manahari": [
+    {
+      "name": "manahari",
+      "type": "municipality",
+      "municipality": "manahari",
+      "district": "makwanpur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "bhimphedi": [
+    {
+      "name": "bhimphedi",
+      "type": "municipality",
+      "municipality": "bhimphedi",
+      "district": "makwanpur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "raksirang": [
+    {
+      "name": "raksirang",
+      "type": "municipality",
+      "municipality": "raksirang",
+      "district": "makwanpur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "makawanpurgadhi": [
+    {
+      "name": "makawanpurgadhi",
+      "type": "municipality",
+      "municipality": "makawanpurgadhi",
+      "district": "makwanpur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "indrasarowar": [
+    {
+      "name": "indrasarowar",
+      "type": "municipality",
+      "municipality": "indrasarowar",
+      "district": "makwanpur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "ichchhyakamana": [
+    {
+      "name": "ichchhyakamana",
+      "type": "municipality",
+      "municipality": "ichchhyakamana",
+      "district": "chitwan",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "gandaki": [
+    {
+      "name": "gandaki",
+      "type": "municipality",
+      "municipality": "gandaki",
+      "district": "gorkha",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "dharche": [
+    {
+      "name": "dharche",
+      "type": "municipality",
+      "municipality": "dharche",
+      "district": "gorkha",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "aarughat": [
+    {
+      "name": "aarughat",
+      "type": "municipality",
+      "municipality": "aarughat",
+      "district": "gorkha",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "ajirkot": [
+    {
+      "name": "ajirkot",
+      "type": "municipality",
+      "municipality": "ajirkot",
+      "district": "gorkha",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "sahid lakhan": [
+    {
+      "name": "sahid lakhan",
+      "type": "municipality",
+      "municipality": "sahid lakhan",
+      "district": "gorkha",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "siranchok": [
+    {
+      "name": "siranchok",
+      "type": "municipality",
+      "municipality": "siranchok",
+      "district": "gorkha",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "bhimsenthapa": [
+    {
+      "name": "bhimsenthapa",
+      "type": "municipality",
+      "municipality": "bhimsenthapa",
+      "district": "gorkha",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "chum nubri": [
+    {
+      "name": "chum nubri",
+      "type": "municipality",
+      "municipality": "chum nubri",
+      "district": "gorkha",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "barpak sulikot": [
+    {
+      "name": "barpak sulikot",
+      "type": "municipality",
+      "municipality": "barpak sulikot",
+      "district": "gorkha",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "chame": [
+    {
+      "name": "chame",
+      "type": "municipality",
+      "municipality": "chame",
+      "district": "manang",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "narshon": [
+    {
+      "name": "narshon",
+      "type": "municipality",
+      "municipality": "narshon",
+      "district": "manang",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "narpa bhumi": [
+    {
+      "name": "narpa bhumi",
+      "type": "municipality",
+      "municipality": "narpa bhumi",
+      "district": "manang",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "manang ingshyang": [
+    {
+      "name": "manang ingshyang",
+      "type": "municipality",
+      "municipality": "manang ingshyang",
+      "district": "manang",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "thasang": [
+    {
+      "name": "thasang",
+      "type": "municipality",
+      "municipality": "thasang",
+      "district": "mustang",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "gharapjhong": [
+    {
+      "name": "gharapjhong",
+      "type": "municipality",
+      "municipality": "gharapjhong",
+      "district": "mustang",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "lomanthang": [
+    {
+      "name": "lomanthang",
+      "type": "municipality",
+      "municipality": "lomanthang",
+      "district": "mustang",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "lo-ghekar damodarkunda": [
+    {
+      "name": "lo-ghekar damodarkunda",
+      "type": "municipality",
+      "municipality": "lo-ghekar damodarkunda",
+      "district": "mustang",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "waragung muktikhsetra": [
+    {
+      "name": "waragung muktikhsetra",
+      "type": "municipality",
+      "municipality": "waragung muktikhsetra",
+      "district": "mustang",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "mangala": [
+    {
+      "name": "mangala",
+      "type": "municipality",
+      "municipality": "mangala",
+      "district": "myagdi",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "malika": [
+    {
+      "name": "malika",
+      "type": "municipality",
+      "municipality": "malika",
+      "district": "myagdi",
+      "province": "gandaki pradesh"
+    },
+    {
+      "name": "malika",
+      "type": "municipality",
+      "municipality": "malika",
+      "district": "gulmi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "raghuganga": [
+    {
+      "name": "raghuganga",
+      "type": "municipality",
+      "municipality": "raghuganga",
+      "district": "myagdi",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "dhaulagiri": [
+    {
+      "name": "dhaulagiri",
+      "type": "municipality",
+      "municipality": "dhaulagiri",
+      "district": "myagdi",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "annapurna": [
+    {
+      "name": "annapurna",
+      "type": "municipality",
+      "municipality": "annapurna",
+      "district": "myagdi",
+      "province": "gandaki pradesh"
+    },
+    {
+      "name": "annapurna",
+      "type": "municipality",
+      "municipality": "annapurna",
+      "district": "kaski",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "rupa": [
+    {
+      "name": "rupa",
+      "type": "municipality",
+      "municipality": "rupa",
+      "district": "kaski",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "machhapuchchhre": [
+    {
+      "name": "machhapuchchhre",
+      "type": "municipality",
+      "municipality": "machhapuchchhre",
+      "district": "kaski",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "dordi": [
+    {
+      "name": "dordi",
+      "type": "municipality",
+      "municipality": "dordi",
+      "district": "lamjung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "dudhpokhari": [
+    {
+      "name": "dudhpokhari",
+      "type": "municipality",
+      "municipality": "dudhpokhari",
+      "district": "lamjung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "marsyangdi": [
+    {
+      "name": "marsyangdi",
+      "type": "municipality",
+      "municipality": "marsyangdi",
+      "district": "lamjung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "kwholasothar": [
+    {
+      "name": "kwholasothar",
+      "type": "municipality",
+      "municipality": "kwholasothar",
+      "district": "lamjung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "ghiring": [
+    {
+      "name": "ghiring",
+      "type": "municipality",
+      "municipality": "ghiring",
+      "district": "tanahu",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "devghat": [
+    {
+      "name": "devghat",
+      "type": "municipality",
+      "municipality": "devghat",
+      "district": "tanahu",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "rhishing": [
+    {
+      "name": "rhishing",
+      "type": "municipality",
+      "municipality": "rhishing",
+      "district": "tanahu",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "myagde": [
+    {
+      "name": "myagde",
+      "type": "municipality",
+      "municipality": "myagde",
+      "district": "tanahu",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "bandipur": [
+    {
+      "name": "bandipur",
+      "type": "municipality",
+      "municipality": "bandipur",
+      "district": "tanahu",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "anbukhaireni": [
+    {
+      "name": "anbukhaireni",
+      "type": "municipality",
+      "municipality": "anbukhaireni",
+      "district": "tanahu",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "baudeekali": [
+    {
+      "name": "baudeekali",
+      "type": "municipality",
+      "municipality": "baudeekali",
+      "district": "nawalparari east",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "bulingtar": [
+    {
+      "name": "bulingtar",
+      "type": "municipality",
+      "municipality": "bulingtar",
+      "district": "nawalparari east",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "hupsekot": [
+    {
+      "name": "hupsekot",
+      "type": "municipality",
+      "municipality": "hupsekot",
+      "district": "nawalparari east",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "binayee": [
+    {
+      "name": "binayee",
+      "type": "municipality",
+      "municipality": "binayee",
+      "district": "nawalparari east",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "harinas": [
+    {
+      "name": "harinas",
+      "type": "municipality",
+      "municipality": "harinas",
+      "district": "syangja",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "biruwa": [
+    {
+      "name": "biruwa",
+      "type": "municipality",
+      "municipality": "biruwa",
+      "district": "syangja",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "aandhikhola": [
+    {
+      "name": "aandhikhola",
+      "type": "municipality",
+      "municipality": "aandhikhola",
+      "district": "syangja",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "phedikhola": [
+    {
+      "name": "phedikhola",
+      "type": "municipality",
+      "municipality": "phedikhola",
+      "district": "syangja",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "kaligandagi": [
+    {
+      "name": "kaligandagi",
+      "type": "municipality",
+      "municipality": "kaligandagi",
+      "district": "syangja",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "arjunchaupari": [
+    {
+      "name": "arjunchaupari",
+      "type": "municipality",
+      "municipality": "arjunchaupari",
+      "district": "syangja",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "modi": [
+    {
+      "name": "modi",
+      "type": "municipality",
+      "municipality": "modi",
+      "district": "parbat",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "painyu": [
+    {
+      "name": "painyu",
+      "type": "municipality",
+      "municipality": "painyu",
+      "district": "parbat",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "jaljala": [
+    {
+      "name": "jaljala",
+      "type": "municipality",
+      "municipality": "jaljala",
+      "district": "parbat",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "bihadi": [
+    {
+      "name": "bihadi",
+      "type": "municipality",
+      "municipality": "bihadi",
+      "district": "parbat",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "mahashila": [
+    {
+      "name": "mahashila",
+      "type": "municipality",
+      "municipality": "mahashila",
+      "district": "parbat",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "bareng": [
+    {
+      "name": "bareng",
+      "type": "municipality",
+      "municipality": "bareng",
+      "district": "baglung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "badigad": [
+    {
+      "name": "badigad",
+      "type": "municipality",
+      "municipality": "badigad",
+      "district": "baglung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "nisikhola": [
+    {
+      "name": "nisikhola",
+      "type": "municipality",
+      "municipality": "nisikhola",
+      "district": "baglung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "kanthekhola": [
+    {
+      "name": "kanthekhola",
+      "type": "municipality",
+      "municipality": "kanthekhola",
+      "district": "baglung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "tara khola": [
+    {
+      "name": "tara khola",
+      "type": "municipality",
+      "municipality": "tara khola",
+      "district": "baglung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "taman khola": [
+    {
+      "name": "taman khola",
+      "type": "municipality",
+      "municipality": "taman khola",
+      "district": "baglung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "bhume": [
+    {
+      "name": "bhume",
+      "type": "municipality",
+      "municipality": "bhume",
+      "district": "rukum east",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "sisne": [
+    {
+      "name": "sisne",
+      "type": "municipality",
+      "municipality": "sisne",
+      "district": "rukum east",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "putha uttarganga": [
+    {
+      "name": "putha uttarganga",
+      "type": "municipality",
+      "municipality": "putha uttarganga",
+      "district": "rukum east",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "thawang": [
+    {
+      "name": "thawang",
+      "type": "municipality",
+      "municipality": "thawang",
+      "district": "rolpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "sunchhahari": [
+    {
+      "name": "sunchhahari",
+      "type": "municipality",
+      "municipality": "sunchhahari",
+      "district": "rolpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "lungri": [
+    {
+      "name": "lungri",
+      "type": "municipality",
+      "municipality": "lungri",
+      "district": "rolpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "gangadev": [
+    {
+      "name": "gangadev",
+      "type": "municipality",
+      "municipality": "gangadev",
+      "district": "rolpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "pariwartan": [
+    {
+      "name": "pariwartan",
+      "type": "municipality",
+      "municipality": "pariwartan",
+      "district": "rolpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "runtigadi": [
+    {
+      "name": "runtigadi",
+      "type": "municipality",
+      "municipality": "runtigadi",
+      "district": "rolpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "sunil smriti": [
+    {
+      "name": "sunil smriti",
+      "type": "municipality",
+      "municipality": "sunil smriti",
+      "district": "rolpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "ayirabat": [
+    {
+      "name": "ayirabat",
+      "type": "municipality",
+      "municipality": "ayirabat",
+      "district": "pyuthan",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "gaumukhi": [
+    {
+      "name": "gaumukhi",
+      "type": "municipality",
+      "municipality": "gaumukhi",
+      "district": "pyuthan",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "jhimruk": [
+    {
+      "name": "jhimruk",
+      "type": "municipality",
+      "municipality": "jhimruk",
+      "district": "pyuthan",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "naubahini": [
+    {
+      "name": "naubahini",
+      "type": "municipality",
+      "municipality": "naubahini",
+      "district": "pyuthan",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "mandavi": [
+    {
+      "name": "mandavi",
+      "type": "municipality",
+      "municipality": "mandavi",
+      "district": "pyuthan",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "mallarani": [
+    {
+      "name": "mallarani",
+      "type": "municipality",
+      "municipality": "mallarani",
+      "district": "pyuthan",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "sarumarani": [
+    {
+      "name": "sarumarani",
+      "type": "municipality",
+      "municipality": "sarumarani",
+      "district": "pyuthan",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "ruru": [
+    {
+      "name": "ruru",
+      "type": "municipality",
+      "municipality": "ruru",
+      "district": "gulmi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "isma": [
+    {
+      "name": "isma",
+      "type": "municipality",
+      "municipality": "isma",
+      "district": "gulmi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "madane": [
+    {
+      "name": "madane",
+      "type": "municipality",
+      "municipality": "madane",
+      "district": "gulmi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "chatrakot": [
+    {
+      "name": "chatrakot",
+      "type": "municipality",
+      "municipality": "chatrakot",
+      "district": "gulmi",
+      "province": "lumbini pradesh"
+    },
+    {
+      "name": "chatrakot",
+      "type": "municipality",
+      "municipality": "chatrakot",
+      "district": "gulmi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "satyawati": [
+    {
+      "name": "satyawati",
+      "type": "municipality",
+      "municipality": "satyawati",
+      "district": "gulmi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "chandrakot": [
+    {
+      "name": "chandrakot",
+      "type": "municipality",
+      "municipality": "chandrakot",
+      "district": "gulmi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "kaligandaki": [
+    {
+      "name": "kaligandaki",
+      "type": "municipality",
+      "municipality": "kaligandaki",
+      "district": "gulmi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "gulmidarbar": [
+    {
+      "name": "gulmidarbar",
+      "type": "municipality",
+      "municipality": "gulmidarbar",
+      "district": "gulmi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "panini": [
+    {
+      "name": "panini",
+      "type": "municipality",
+      "municipality": "panini",
+      "district": "arghakhanchi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "chhatradev": [
+    {
+      "name": "chhatradev",
+      "type": "municipality",
+      "municipality": "chhatradev",
+      "district": "arghakhanchi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "malarani": [
+    {
+      "name": "malarani",
+      "type": "municipality",
+      "municipality": "malarani",
+      "district": "arghakhanchi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "rambha": [
+    {
+      "name": "rambha",
+      "type": "municipality",
+      "municipality": "rambha",
+      "district": "palpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "tinau": [
+    {
+      "name": "tinau",
+      "type": "municipality",
+      "municipality": "tinau",
+      "district": "palpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "nisdi": [
+    {
+      "name": "nisdi",
+      "type": "municipality",
+      "municipality": "nisdi",
+      "district": "palpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "mathagadhi": [
+    {
+      "name": "mathagadhi",
+      "type": "municipality",
+      "municipality": "mathagadhi",
+      "district": "palpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "ribdikot": [
+    {
+      "name": "ribdikot",
+      "type": "municipality",
+      "municipality": "ribdikot",
+      "district": "palpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "purbakhola": [
+    {
+      "name": "purbakhola",
+      "type": "municipality",
+      "municipality": "purbakhola",
+      "district": "palpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "bagnaskali": [
+    {
+      "name": "bagnaskali",
+      "type": "municipality",
+      "municipality": "bagnaskali",
+      "district": "palpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "rainadevi": [
+    {
+      "name": "rainadevi",
+      "type": "municipality",
+      "municipality": "rainadevi",
+      "district": "palpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "sarawal": [
+    {
+      "name": "sarawal",
+      "type": "municipality",
+      "municipality": "sarawal",
+      "district": "nawalparasi west",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "susta": [
+    {
+      "name": "susta",
+      "type": "municipality",
+      "municipality": "susta",
+      "district": "nawalparasi west",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "pratappur": [
+    {
+      "name": "pratappur",
+      "type": "municipality",
+      "municipality": "pratappur",
+      "district": "nawalparasi west",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "palhi nandan": [
+    {
+      "name": "palhi nandan",
+      "type": "municipality",
+      "municipality": "palhi nandan",
+      "district": "nawalparasi west",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "kanchan": [
+    {
+      "name": "kanchan",
+      "type": "municipality",
+      "municipality": "kanchan",
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "siyari": [
+    {
+      "name": "siyari",
+      "type": "municipality",
+      "municipality": "siyari",
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "rohini": [
+    {
+      "name": "rohini",
+      "type": "municipality",
+      "municipality": "rohini",
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "gaidahawa": [
+    {
+      "name": "gaidahawa",
+      "type": "municipality",
+      "municipality": "gaidahawa",
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "omsatiya": [
+    {
+      "name": "omsatiya",
+      "type": "municipality",
+      "municipality": "omsatiya",
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "sudhdhodhan": [
+    {
+      "name": "sudhdhodhan",
+      "type": "municipality",
+      "municipality": "sudhdhodhan",
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "mayadevi": [
+    {
+      "name": "mayadevi",
+      "type": "municipality",
+      "municipality": "mayadevi",
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    },
+    {
+      "name": "mayadevi",
+      "type": "municipality",
+      "municipality": "mayadevi",
+      "district": "kapilbastu",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "marchawari": [
+    {
+      "name": "marchawari",
+      "type": "municipality",
+      "municipality": "marchawari",
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "kotahimai": [
+    {
+      "name": "kotahimai",
+      "type": "municipality",
+      "municipality": "kotahimai",
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "sammarimai": [
+    {
+      "name": "sammarimai",
+      "type": "municipality",
+      "municipality": "sammarimai",
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "yashodhara": [
+    {
+      "name": "yashodhara",
+      "type": "municipality",
+      "municipality": "yashodhara",
+      "district": "kapilbastu",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "bijayanagar": [
+    {
+      "name": "bijayanagar",
+      "type": "municipality",
+      "municipality": "bijayanagar",
+      "district": "kapilbastu",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "suddhodhan": [
+    {
+      "name": "suddhodhan",
+      "type": "municipality",
+      "municipality": "suddhodhan",
+      "district": "kapilbastu",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "babai": [
+    {
+      "name": "babai",
+      "type": "municipality",
+      "municipality": "babai",
+      "district": "dang",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "gadhawa": [
+    {
+      "name": "gadhawa",
+      "type": "municipality",
+      "municipality": "gadhawa",
+      "district": "dang",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "dangisharan": [
+    {
+      "name": "dangisharan",
+      "type": "municipality",
+      "municipality": "dangisharan",
+      "district": "dang",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "shantinagar": [
+    {
+      "name": "shantinagar",
+      "type": "municipality",
+      "municipality": "shantinagar",
+      "district": "dang",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "banglachuli": [
+    {
+      "name": "banglachuli",
+      "type": "municipality",
+      "municipality": "banglachuli",
+      "district": "dang",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "khajura": [
+    {
+      "name": "khajura",
+      "type": "municipality",
+      "municipality": "khajura",
+      "district": "banke",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "janki": [
+    {
+      "name": "janki",
+      "type": "municipality",
+      "municipality": "janki",
+      "district": "banke",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "baijanath": [
+    {
+      "name": "baijanath",
+      "type": "municipality",
+      "municipality": "baijanath",
+      "district": "banke",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "duduwa": [
+    {
+      "name": "duduwa",
+      "type": "municipality",
+      "municipality": "duduwa",
+      "district": "banke",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "narainapur": [
+    {
+      "name": "narainapur",
+      "type": "municipality",
+      "municipality": "narainapur",
+      "district": "banke",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "rapti sonari": [
+    {
+      "name": "rapti sonari",
+      "type": "municipality",
+      "municipality": "rapti sonari",
+      "district": "banke",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "geruwa": [
+    {
+      "name": "geruwa",
+      "type": "municipality",
+      "municipality": "geruwa",
+      "district": "bardiya",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "badhaiyatal": [
+    {
+      "name": "badhaiyatal",
+      "type": "municipality",
+      "municipality": "badhaiyatal",
+      "district": "bardiya",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "kaike": [
+    {
+      "name": "kaike",
+      "type": "municipality",
+      "municipality": "kaike",
+      "district": "dolpa",
+      "province": "karnali pradesh"
+    }
+  ],
+  "jagadulla": [
+    {
+      "name": "jagadulla",
+      "type": "municipality",
+      "municipality": "jagadulla",
+      "district": "dolpa",
+      "province": "karnali pradesh"
+    }
+  ],
+  "mudkechula": [
+    {
+      "name": "mudkechula",
+      "type": "municipality",
+      "municipality": "mudkechula",
+      "district": "dolpa",
+      "province": "karnali pradesh"
+    }
+  ],
+  "dolpo buddha": [
+    {
+      "name": "dolpo buddha",
+      "type": "municipality",
+      "municipality": "dolpo buddha",
+      "district": "dolpa",
+      "province": "karnali pradesh"
+    }
+  ],
+  "shey phoksundo": [
+    {
+      "name": "shey phoksundo",
+      "type": "municipality",
+      "municipality": "shey phoksundo",
+      "district": "dolpa",
+      "province": "karnali pradesh"
+    }
+  ],
+  "chharka tangsong": [
+    {
+      "name": "chharka tangsong",
+      "type": "municipality",
+      "municipality": "chharka tangsong",
+      "district": "dolpa",
+      "province": "karnali pradesh"
+    }
+  ],
+  "soru": [
+    {
+      "name": "soru",
+      "type": "municipality",
+      "municipality": "soru",
+      "district": "mugu",
+      "province": "karnali pradesh"
+    }
+  ],
+  "khatyad": [
+    {
+      "name": "khatyad",
+      "type": "municipality",
+      "municipality": "khatyad",
+      "district": "mugu",
+      "province": "karnali pradesh"
+    }
+  ],
+  "mugum karmarong": [
+    {
+      "name": "mugum karmarong",
+      "type": "municipality",
+      "municipality": "mugum karmarong",
+      "district": "mugu",
+      "province": "karnali pradesh"
+    }
+  ],
+  "simkot": [
+    {
+      "name": "simkot",
+      "type": "municipality",
+      "municipality": "simkot",
+      "district": "humla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "namkha": [
+    {
+      "name": "namkha",
+      "type": "municipality",
+      "municipality": "namkha",
+      "district": "humla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "chankheli": [
+    {
+      "name": "chankheli",
+      "type": "municipality",
+      "municipality": "chankheli",
+      "district": "humla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "tanjakot": [
+    {
+      "name": "tanjakot",
+      "type": "municipality",
+      "municipality": "tanjakot",
+      "district": "humla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "sarkegad": [
+    {
+      "name": "sarkegad",
+      "type": "municipality",
+      "municipality": "sarkegad",
+      "district": "humla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "adanchuli": [
+    {
+      "name": "adanchuli",
+      "type": "municipality",
+      "municipality": "adanchuli",
+      "district": "humla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "kharpunath": [
+    {
+      "name": "kharpunath",
+      "type": "municipality",
+      "municipality": "kharpunath",
+      "district": "humla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "hima": [
+    {
+      "name": "hima",
+      "type": "municipality",
+      "municipality": "hima",
+      "district": "jumla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "tila": [
+    {
+      "name": "tila",
+      "type": "municipality",
+      "municipality": "tila",
+      "district": "jumla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "sinja": [
+    {
+      "name": "sinja",
+      "type": "municipality",
+      "municipality": "sinja",
+      "district": "jumla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "guthichaur": [
+    {
+      "name": "guthichaur",
+      "type": "municipality",
+      "municipality": "guthichaur",
+      "district": "jumla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "tatopani": [
+    {
+      "name": "tatopani",
+      "type": "municipality",
+      "municipality": "tatopani",
+      "district": "jumla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "patrasi": [
+    {
+      "name": "patrasi",
+      "type": "municipality",
+      "municipality": "patrasi",
+      "district": "jumla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "kanakasundari": [
+    {
+      "name": "kanakasundari",
+      "type": "municipality",
+      "municipality": "kanakasundari",
+      "district": "jumla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "mahawai": [
+    {
+      "name": "mahawai",
+      "type": "municipality",
+      "municipality": "mahawai",
+      "district": "kalikot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "palata": [
+    {
+      "name": "palata",
+      "type": "municipality",
+      "municipality": "palata",
+      "district": "kalikot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "naraharinath": [
+    {
+      "name": "naraharinath",
+      "type": "municipality",
+      "municipality": "naraharinath",
+      "district": "kalikot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "pachaljharana": [
+    {
+      "name": "pachaljharana",
+      "type": "municipality",
+      "municipality": "pachaljharana",
+      "district": "kalikot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "subha kalika": [
+    {
+      "name": "subha kalika",
+      "type": "municipality",
+      "municipality": "subha kalika",
+      "district": "kalikot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "sanni tribeni": [
+    {
+      "name": "sanni tribeni",
+      "type": "municipality",
+      "municipality": "sanni tribeni",
+      "district": "kalikot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "bhairabi": [
+    {
+      "name": "bhairabi",
+      "type": "municipality",
+      "municipality": "bhairabi",
+      "district": "dailekh",
+      "province": "karnali pradesh"
+    }
+  ],
+  "mahabu": [
+    {
+      "name": "mahabu",
+      "type": "municipality",
+      "municipality": "mahabu",
+      "district": "dailekh",
+      "province": "karnali pradesh"
+    }
+  ],
+  "gurans": [
+    {
+      "name": "gurans",
+      "type": "municipality",
+      "municipality": "gurans",
+      "district": "dailekh",
+      "province": "karnali pradesh"
+    }
+  ],
+  "naumule": [
+    {
+      "name": "naumule",
+      "type": "municipality",
+      "municipality": "naumule",
+      "district": "dailekh",
+      "province": "karnali pradesh"
+    }
+  ],
+  "bhagawatimai": [
+    {
+      "name": "bhagawatimai",
+      "type": "municipality",
+      "municipality": "bhagawatimai",
+      "district": "dailekh",
+      "province": "karnali pradesh"
+    }
+  ],
+  "thantikandh": [
+    {
+      "name": "thantikandh",
+      "type": "municipality",
+      "municipality": "thantikandh",
+      "district": "dailekh",
+      "province": "karnali pradesh"
+    }
+  ],
+  "dungeshwor": [
+    {
+      "name": "dungeshwor",
+      "type": "municipality",
+      "municipality": "dungeshwor",
+      "district": "dailekh",
+      "province": "karnali pradesh"
+    }
+  ],
+  "kuse": [
+    {
+      "name": "kuse",
+      "type": "municipality",
+      "municipality": "kuse",
+      "district": "jajarkot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "shiwalaya": [
+    {
+      "name": "shiwalaya",
+      "type": "municipality",
+      "municipality": "shiwalaya",
+      "district": "jajarkot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "barekot": [
+    {
+      "name": "barekot",
+      "type": "municipality",
+      "municipality": "barekot",
+      "district": "jajarkot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "junichande": [
+    {
+      "name": "junichande",
+      "type": "municipality",
+      "municipality": "junichande",
+      "district": "jajarkot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "sani bheri": [
+    {
+      "name": "sani bheri",
+      "type": "municipality",
+      "municipality": "sani bheri",
+      "district": "rukum west",
+      "province": "karnali pradesh"
+    }
+  ],
+  "banfikot": [
+    {
+      "name": "banfikot",
+      "type": "municipality",
+      "municipality": "banfikot",
+      "district": "rukum west",
+      "province": "karnali pradesh"
+    }
+  ],
+  "kumakh": [
+    {
+      "name": "kumakh",
+      "type": "municipality",
+      "municipality": "kumakh",
+      "district": "salyan",
+      "province": "karnali pradesh"
+    }
+  ],
+  "darma": [
+    {
+      "name": "darma",
+      "type": "municipality",
+      "municipality": "darma",
+      "district": "salyan",
+      "province": "karnali pradesh"
+    }
+  ],
+  "kapurkot": [
+    {
+      "name": "kapurkot",
+      "type": "municipality",
+      "municipality": "kapurkot",
+      "district": "salyan",
+      "province": "karnali pradesh"
+    }
+  ],
+  "kalimati": [
+    {
+      "name": "kalimati",
+      "type": "municipality",
+      "municipality": "kalimati",
+      "district": "salyan",
+      "province": "karnali pradesh"
+    }
+  ],
+  "chhatreshwori": [
+    {
+      "name": "chhatreshwori",
+      "type": "municipality",
+      "municipality": "chhatreshwori",
+      "district": "salyan",
+      "province": "karnali pradesh"
+    }
+  ],
+  "siddha kumakh": [
+    {
+      "name": "siddha kumakh",
+      "type": "municipality",
+      "municipality": "siddha kumakh",
+      "district": "salyan",
+      "province": "karnali pradesh"
+    }
+  ],
+  "chaukune": [
+    {
+      "name": "chaukune",
+      "type": "municipality",
+      "municipality": "chaukune",
+      "district": "surkhet",
+      "province": "karnali pradesh"
+    }
+  ],
+  "simta": [
+    {
+      "name": "simta",
+      "type": "municipality",
+      "municipality": "simta",
+      "district": "surkhet",
+      "province": "karnali pradesh"
+    }
+  ],
+  "chingad": [
+    {
+      "name": "chingad",
+      "type": "municipality",
+      "municipality": "chingad",
+      "district": "surkhet",
+      "province": "karnali pradesh"
+    }
+  ],
+  "barahtal": [
+    {
+      "name": "barahtal",
+      "type": "municipality",
+      "municipality": "barahtal",
+      "district": "surkhet",
+      "province": "karnali pradesh"
+    }
+  ],
+  "gaumul": [
+    {
+      "name": "gaumul",
+      "type": "municipality",
+      "municipality": "gaumul",
+      "district": "bajura",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "himali": [
+    {
+      "name": "himali",
+      "type": "municipality",
+      "municipality": "himali",
+      "district": "bajura",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "jagannath": [
+    {
+      "name": "jagannath",
+      "type": "municipality",
+      "municipality": "jagannath",
+      "district": "bajura",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "khaptad chhededaha": [
+    {
+      "name": "khaptad chhededaha",
+      "type": "municipality",
+      "municipality": "khaptad chhededaha",
+      "district": "bajura",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "swami kartik khaapar": [
+    {
+      "name": "swami kartik khaapar",
+      "type": "municipality",
+      "municipality": "swami kartik khaapar",
+      "district": "bajura",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "masta": [
+    {
+      "name": "masta",
+      "type": "municipality",
+      "municipality": "masta",
+      "district": "bajhang",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "thalara": [
+    {
+      "name": "thalara",
+      "type": "municipality",
+      "municipality": "thalara",
+      "district": "bajhang",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "talkot": [
+    {
+      "name": "talkot",
+      "type": "municipality",
+      "municipality": "talkot",
+      "district": "bajhang",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "surma": [
+    {
+      "name": "surma",
+      "type": "municipality",
+      "municipality": "surma",
+      "district": "bajhang",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "saipaal": [
+    {
+      "name": "saipaal",
+      "type": "municipality",
+      "municipality": "saipaal",
+      "district": "bajhang",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "durgathali": [
+    {
+      "name": "durgathali",
+      "type": "municipality",
+      "municipality": "durgathali",
+      "district": "bajhang",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "bithadchir": [
+    {
+      "name": "bithadchir",
+      "type": "municipality",
+      "municipality": "bithadchir",
+      "district": "bajhang",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "kedarseu": [
+    {
+      "name": "kedarseu",
+      "type": "municipality",
+      "municipality": "kedarseu",
+      "district": "bajhang",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "khaptadchhanna": [
+    {
+      "name": "khaptadchhanna",
+      "type": "municipality",
+      "municipality": "khaptadchhanna",
+      "district": "bajhang",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "chabispathivera": [
+    {
+      "name": "chabispathivera",
+      "type": "municipality",
+      "municipality": "chabispathivera",
+      "district": "bajhang",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "lekam": [
+    {
+      "name": "lekam",
+      "type": "municipality",
+      "municipality": "lekam",
+      "district": "darchula",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "naugad": [
+    {
+      "name": "naugad",
+      "type": "municipality",
+      "municipality": "naugad",
+      "district": "darchula",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "dunhu": [
+    {
+      "name": "dunhu",
+      "type": "municipality",
+      "municipality": "dunhu",
+      "district": "darchula",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "marma": [
+    {
+      "name": "marma",
+      "type": "municipality",
+      "municipality": "marma",
+      "district": "darchula",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "apihimal": [
+    {
+      "name": "apihimal",
+      "type": "municipality",
+      "municipality": "apihimal",
+      "district": "darchula",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "malikaarjun": [
+    {
+      "name": "malikaarjun",
+      "type": "municipality",
+      "municipality": "malikaarjun",
+      "district": "darchula",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "sigas": [
+    {
+      "name": "sigas",
+      "type": "municipality",
+      "municipality": "sigas",
+      "district": "baitadi",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "shivanath": [
+    {
+      "name": "shivanath",
+      "type": "municipality",
+      "municipality": "shivanath",
+      "district": "baitadi",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "surnaya": [
+    {
+      "name": "surnaya",
+      "type": "municipality",
+      "municipality": "surnaya",
+      "district": "baitadi",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "dilasaini": [
+    {
+      "name": "dilasaini",
+      "type": "municipality",
+      "municipality": "dilasaini",
+      "district": "baitadi",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "pancheshwar": [
+    {
+      "name": "pancheshwar",
+      "type": "municipality",
+      "municipality": "pancheshwar",
+      "district": "baitadi",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "dogadakedar": [
+    {
+      "name": "dogadakedar",
+      "type": "municipality",
+      "municipality": "dogadakedar",
+      "district": "baitadi",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "alital": [
+    {
+      "name": "alital",
+      "type": "municipality",
+      "municipality": "alital",
+      "district": "dadeldhura",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "ajaymeru": [
+    {
+      "name": "ajaymeru",
+      "type": "municipality",
+      "municipality": "ajaymeru",
+      "district": "dadeldhura",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "bhageshwar": [
+    {
+      "name": "bhageshwar",
+      "type": "municipality",
+      "municipality": "bhageshwar",
+      "district": "dadeldhura",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "nawadurga": [
+    {
+      "name": "nawadurga",
+      "type": "municipality",
+      "municipality": "nawadurga",
+      "district": "dadeldhura",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "ganayapdhura": [
+    {
+      "name": "ganayapdhura",
+      "type": "municipality",
+      "municipality": "ganayapdhura",
+      "district": "dadeldhura",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "sayal": [
+    {
+      "name": "sayal",
+      "type": "municipality",
+      "municipality": "sayal",
+      "district": "doti",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "adharsha": [
+    {
+      "name": "adharsha",
+      "type": "municipality",
+      "municipality": "adharsha",
+      "district": "doti",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "jorayal": [
+    {
+      "name": "jorayal",
+      "type": "municipality",
+      "municipality": "jorayal",
+      "district": "doti",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "badikedar": [
+    {
+      "name": "badikedar",
+      "type": "municipality",
+      "municipality": "badikedar",
+      "district": "doti",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "purbichauki": [
+    {
+      "name": "purbichauki",
+      "type": "municipality",
+      "municipality": "purbichauki",
+      "district": "doti",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "k i singh": [
+    {
+      "name": "k i singh",
+      "type": "municipality",
+      "municipality": "k i singh",
+      "district": "doti",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "bogtan foodsil": [
+    {
+      "name": "bogtan foodsil",
+      "type": "municipality",
+      "municipality": "bogtan foodsil",
+      "district": "doti",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "dhakari": [
+    {
+      "name": "dhakari",
+      "type": "municipality",
+      "municipality": "dhakari",
+      "district": "achham",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "mellekh": [
+    {
+      "name": "mellekh",
+      "type": "municipality",
+      "municipality": "mellekh",
+      "district": "achham",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "chaurpati": [
+    {
+      "name": "chaurpati",
+      "type": "municipality",
+      "municipality": "chaurpati",
+      "district": "achham",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "ramaroshan": [
+    {
+      "name": "ramaroshan",
+      "type": "municipality",
+      "municipality": "ramaroshan",
+      "district": "achham",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "turmakhad": [
+    {
+      "name": "turmakhad",
+      "type": "municipality",
+      "municipality": "turmakhad",
+      "district": "achham",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "bannigadhi": [
+    {
+      "name": "bannigadhi",
+      "type": "municipality",
+      "municipality": "bannigadhi",
+      "district": "achham",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "chure": [
+    {
+      "name": "chure",
+      "type": "municipality",
+      "municipality": "chure",
+      "district": "kailali",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "janaki": [
+    {
+      "name": "janaki",
+      "type": "municipality",
+      "municipality": "janaki",
+      "district": "kailali",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "kailari": [
+    {
+      "name": "kailari",
+      "type": "municipality",
+      "municipality": "kailari",
+      "district": "kailali",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "joshipur": [
+    {
+      "name": "joshipur",
+      "type": "municipality",
+      "municipality": "joshipur",
+      "district": "kailali",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "mohanyal": [
+    {
+      "name": "mohanyal",
+      "type": "municipality",
+      "municipality": "mohanyal",
+      "district": "kailali",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "bardagoriya": [
+    {
+      "name": "bardagoriya",
+      "type": "municipality",
+      "municipality": "bardagoriya",
+      "district": "kailali",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "beldandi": [
+    {
+      "name": "beldandi",
+      "type": "municipality",
+      "municipality": "beldandi",
+      "district": "kanchanpur",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "laljhandi": [
+    {
+      "name": "laljhandi",
+      "type": "municipality",
+      "municipality": "laljhandi",
+      "district": "kanchanpur",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "kaski": [
+    {
+      "name": "kaski",
+      "type": "district",
+      "municipality": null,
+      "district": "kaski",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "chitwan": [
+    {
+      "name": "chitwan",
+      "type": "district",
+      "municipality": null,
+      "district": "chitwan",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "morang": [
+    {
+      "name": "morang",
+      "type": "district",
+      "municipality": null,
+      "district": "morang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "dang": [
+    {
+      "name": "dang",
+      "type": "district",
+      "municipality": null,
+      "district": "dang",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "bara": [
+    {
+      "name": "bara",
+      "type": "district",
+      "municipality": null,
+      "district": "bara",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "kailali": [
+    {
+      "name": "kailali",
+      "type": "district",
+      "municipality": null,
+      "district": "kailali",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "makwanpur": [
+    {
+      "name": "makwanpur",
+      "type": "district",
+      "municipality": null,
+      "district": "makwanpur",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "sunsari": [
+    {
+      "name": "sunsari",
+      "type": "district",
+      "municipality": null,
+      "district": "sunsari",
+      "province": "koshi pradesh"
+    }
+  ],
+  "rupandehi": [
+    {
+      "name": "rupandehi",
+      "type": "district",
+      "municipality": null,
+      "district": "rupandehi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "humla": [
+    {
+      "name": "humla",
+      "type": "district",
+      "municipality": null,
+      "district": "humla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "banke": [
+    {
+      "name": "banke",
+      "type": "district",
+      "municipality": null,
+      "district": "banke",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "taplejung": [
+    {
+      "name": "taplejung",
+      "type": "district",
+      "municipality": null,
+      "district": "taplejung",
+      "province": "koshi pradesh"
+    }
+  ],
+  "sankhuwasabha": [
+    {
+      "name": "sankhuwasabha",
+      "type": "district",
+      "municipality": null,
+      "district": "sankhuwasabha",
+      "province": "koshi pradesh"
+    }
+  ],
+  "solukhumbu": [
+    {
+      "name": "solukhumbu",
+      "type": "district",
+      "municipality": null,
+      "district": "solukhumbu",
+      "province": "koshi pradesh"
+    }
+  ],
+  "okhaldhunga": [
+    {
+      "name": "okhaldhunga",
+      "type": "district",
+      "municipality": null,
+      "district": "okhaldhunga",
+      "province": "koshi pradesh"
+    }
+  ],
+  "khotang": [
+    {
+      "name": "khotang",
+      "type": "district",
+      "municipality": null,
+      "district": "khotang",
+      "province": "koshi pradesh"
+    }
+  ],
+  "terhathum": [
+    {
+      "name": "terhathum",
+      "type": "district",
+      "municipality": null,
+      "district": "terhathum",
+      "province": "koshi pradesh"
+    }
+  ],
+  "pachthar": [
+    {
+      "name": "pachthar",
+      "type": "district",
+      "municipality": null,
+      "district": "pachthar",
+      "province": "koshi pradesh"
+    }
+  ],
+  "ilam": [
+    {
+      "name": "ilam",
+      "type": "district",
+      "municipality": null,
+      "district": "ilam",
+      "province": "koshi pradesh"
+    }
+  ],
+  "udayapur": [
+    {
+      "name": "udayapur",
+      "type": "district",
+      "municipality": null,
+      "district": "udayapur",
+      "province": "koshi pradesh"
+    }
+  ],
+  "saptari": [
+    {
+      "name": "saptari",
+      "type": "district",
+      "municipality": null,
+      "district": "saptari",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "dhanusha": [
+    {
+      "name": "dhanusha",
+      "type": "district",
+      "municipality": null,
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "sarlahi": [
+    {
+      "name": "sarlahi",
+      "type": "district",
+      "municipality": null,
+      "district": "sarlahi",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "rautahat": [
+    {
+      "name": "rautahat",
+      "type": "district",
+      "municipality": null,
+      "district": "rautahat",
+      "province": "madhesh pradesh"
+    }
+  ],
+  "dolakha": [
+    {
+      "name": "dolakha",
+      "type": "district",
+      "municipality": null,
+      "district": "dolakha",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "sindhupalchok": [
+    {
+      "name": "sindhupalchok",
+      "type": "district",
+      "municipality": null,
+      "district": "sindhupalchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "dhading": [
+    {
+      "name": "dhading",
+      "type": "district",
+      "municipality": null,
+      "district": "dhading",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "nuwakot": [
+    {
+      "name": "nuwakot",
+      "type": "district",
+      "municipality": null,
+      "district": "nuwakot",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "kavrepalanchok": [
+    {
+      "name": "kavrepalanchok",
+      "type": "district",
+      "municipality": null,
+      "district": "kavrepalanchok",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "sindhuli": [
+    {
+      "name": "sindhuli",
+      "type": "district",
+      "municipality": null,
+      "district": "sindhuli",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "myagdi": [
+    {
+      "name": "myagdi",
+      "type": "district",
+      "municipality": null,
+      "district": "myagdi",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "lamjung": [
+    {
+      "name": "lamjung",
+      "type": "district",
+      "municipality": null,
+      "district": "lamjung",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "tanahu": [
+    {
+      "name": "tanahu",
+      "type": "district",
+      "municipality": null,
+      "district": "tanahu",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "nawalparari east": [
+    {
+      "name": "nawalparari east",
+      "type": "district",
+      "municipality": null,
+      "district": "nawalparari east",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "syangja": [
+    {
+      "name": "syangja",
+      "type": "district",
+      "municipality": null,
+      "district": "syangja",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "parbat": [
+    {
+      "name": "parbat",
+      "type": "district",
+      "municipality": null,
+      "district": "parbat",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "gulmi": [
+    {
+      "name": "gulmi",
+      "type": "district",
+      "municipality": null,
+      "district": "gulmi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "arghakhanchi": [
+    {
+      "name": "arghakhanchi",
+      "type": "district",
+      "municipality": null,
+      "district": "arghakhanchi",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "palpa": [
+    {
+      "name": "palpa",
+      "type": "district",
+      "municipality": null,
+      "district": "palpa",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "nawalparasi west": [
+    {
+      "name": "nawalparasi west",
+      "type": "district",
+      "municipality": null,
+      "district": "nawalparasi west",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "bardiya": [
+    {
+      "name": "bardiya",
+      "type": "district",
+      "municipality": null,
+      "district": "bardiya",
+      "province": "lumbini pradesh"
+    }
+  ],
+  "dolpa": [
+    {
+      "name": "dolpa",
+      "type": "district",
+      "municipality": null,
+      "district": "dolpa",
+      "province": "karnali pradesh"
+    }
+  ],
+  "mugu": [
+    {
+      "name": "mugu",
+      "type": "district",
+      "municipality": null,
+      "district": "mugu",
+      "province": "karnali pradesh"
+    }
+  ],
+  "jumla": [
+    {
+      "name": "jumla",
+      "type": "district",
+      "municipality": null,
+      "district": "jumla",
+      "province": "karnali pradesh"
+    }
+  ],
+  "kalikot": [
+    {
+      "name": "kalikot",
+      "type": "district",
+      "municipality": null,
+      "district": "kalikot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "dailekh": [
+    {
+      "name": "dailekh",
+      "type": "district",
+      "municipality": null,
+      "district": "dailekh",
+      "province": "karnali pradesh"
+    }
+  ],
+  "jajarkot": [
+    {
+      "name": "jajarkot",
+      "type": "district",
+      "municipality": null,
+      "district": "jajarkot",
+      "province": "karnali pradesh"
+    }
+  ],
+  "rukum west": [
+    {
+      "name": "rukum west",
+      "type": "district",
+      "municipality": null,
+      "district": "rukum west",
+      "province": "karnali pradesh"
+    }
+  ],
+  "salyan": [
+    {
+      "name": "salyan",
+      "type": "district",
+      "municipality": null,
+      "district": "salyan",
+      "province": "karnali pradesh"
+    }
+  ],
+  "surkhet": [
+    {
+      "name": "surkhet",
+      "type": "district",
+      "municipality": null,
+      "district": "surkhet",
+      "province": "karnali pradesh"
+    }
+  ],
+  "bajura": [
+    {
+      "name": "bajura",
+      "type": "district",
+      "municipality": null,
+      "district": "bajura",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "bajhang": [
+    {
+      "name": "bajhang",
+      "type": "district",
+      "municipality": null,
+      "district": "bajhang",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "darchula": [
+    {
+      "name": "darchula",
+      "type": "district",
+      "municipality": null,
+      "district": "darchula",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "baitadi": [
+    {
+      "name": "baitadi",
+      "type": "district",
+      "municipality": null,
+      "district": "baitadi",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "dadeldhura": [
+    {
+      "name": "dadeldhura",
+      "type": "district",
+      "municipality": null,
+      "district": "dadeldhura",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "doti": [
+    {
+      "name": "doti",
+      "type": "district",
+      "municipality": null,
+      "district": "doti",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "achham": [
+    {
+      "name": "achham",
+      "type": "district",
+      "municipality": null,
+      "district": "achham",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "kanchanpur": [
+    {
+      "name": "kanchanpur",
+      "type": "district",
+      "municipality": null,
+      "district": "kanchanpur",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+  "rasuwa": [
+    {
+      "name": "rasuwa",
+      "type": "district",
+      "municipality": null,
+      "district": "rasuwa",
+      "province": "bagmati pradesh"
+    }
+  ],
+  "manang": [
+    {
+      "name": "manang",
+      "type": "district",
+      "municipality": null,
+      "district": "manang",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "mustang": [
+    {
+      "name": "mustang",
+      "type": "district",
+      "municipality": null,
+      "district": "mustang",
+      "province": "gandaki pradesh"
+    }
+  ],
+  "rukum east": [
+    {
+      "name": "rukum east",
+      "type": "district",
+      "municipality": null,
+      "district": "rukum east",
+      "province": "lumbini pradesh"
+    }
+  ]
+}
