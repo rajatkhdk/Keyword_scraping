@@ -1,8 +1,8 @@
 {
   "omodajaecoonepal.com": [
     {
-      "name": "",
-      "address": "",
+      "name": "Banepa",
+      "address": "Banepa",
       "phone": [
         "9851275562",
         "9851123994"
@@ -12,6 +12,38 @@
     {
       "name": "",
       "address": "",
+      "phone": [
+        "9801234126"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "",
+      "phone": [
+        "9801142931"
+      ],
+      "email": []
+    },
+    {
+      "name": "Bhaktapur",
+      "address": "Bhaktapur",
+      "phone": [
+        "9801849740"
+      ],
+      "email": []
+    },
+    {
+      "name": "Biratnagar",
+      "address": "Biratnagar",
+      "phone": [
+        "9801142933"
+      ],
+      "email": []
+    },
+    {
+      "name": "Birgunj",
+      "address": "Birgunj",
       "phone": [
         "9815200728",
         "9823919916"
@@ -28,8 +60,32 @@
       "email": []
     },
     {
+      "name": "Chabahil",
+      "address": "Chabahil",
+      "phone": [
+        "9851170119"
+      ],
+      "email": []
+    },
+    {
       "name": "",
       "address": "",
+      "phone": [
+        "9801353895"
+      ],
+      "email": []
+    },
+    {
+      "name": "Dhangadhi",
+      "address": "Dhangadhi",
+      "phone": [
+        "9767675555"
+      ],
+      "email": []
+    },
+    {
+      "name": "Itahari",
+      "address": "Itahari",
       "phone": [
         "9802911502",
         "9802911501"
@@ -37,8 +93,16 @@
       "email": []
     },
     {
-      "name": "",
-      "address": "",
+      "name": "Lalitpur",
+      "address": "Lalitpur",
+      "phone": [
+        "9709080354"
+      ],
+      "email": []
+    },
+    {
+      "name": "Narayanghat",
+      "address": "Narayanghat",
       "phone": [
         "9801193648",
         "9801082777"
@@ -46,11 +110,27 @@
       "email": []
     },
     {
-      "name": "",
-      "address": "",
+      "name": "Nepalgunj",
+      "address": "Nepalgunj",
       "phone": [
         "9704587911",
         "9704587915"
+      ],
+      "email": []
+    },
+    {
+      "name": "Pokhara",
+      "address": "Pokhara",
+      "phone": [
+        "9802803653"
+      ],
+      "email": []
+    },
+    {
+      "name": "Surkhet",
+      "address": "Surkhet",
+      "phone": [
+        "9867787777"
       ],
       "email": []
     }

@@ -305,7 +305,7 @@ async def intercept_api_calls(url: str) -> list[dict]:
     api_responses = []
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
+        browser = await p.chromium.launch(headless=False)
         context = await browser.new_context(
             user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
         )
@@ -357,7 +357,7 @@ def _extract_dealers_from_json(data, depth=0) -> list[dict]:
         has_name = any(k in keys_lower for k in ['name', 'dealer', 'showroom', 'title'])
         has_address = any(k in keys_lower for k in ['address', 'location', 'city', 'district'])
 
-        if has_phone or (has_name and has_address):
+        if has_phone or (has_name and has_address): # use or instead of and
             dealer = {
                 'name': '',
                 'address': '',
