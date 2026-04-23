@@ -179,7 +179,7 @@ def _extract_name(block: Tag) -> str:
             continue
         if extract_phones(line) or EMAIL_RE.search(line):
             continue
-        if _has_address_signal(line):
+        if _has_address_signal(line) and len(line) > 10:
             continue
         if re.match(r'[A-Z]', line):
             return line
@@ -316,30 +316,30 @@ def _extract_dealers_from_json(data, depth=0) -> list[dict]:
 
 async def _load_page(url: str):
     api_dealers = []
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
-        context = await browser.new_context(
-            user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-        )
-        page = await context.new_page()
+    p = await async_playwright().start()
+    browser = await p.chromium.launch(headless=False, slow_mo=300)
+    context = await browser.new_context(
+        user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+    )
+    page = await context.new_page()
 
-        async def on_response(resp):
-            try:
-                ct = resp.headers.get('content-type', '')
-                if 'json' in ct:
-                    body = await resp.json()
-                    txt = json.dumps(body).lower()
-                    if any(k in txt for k in ['dealer','showroom','phone','address','location']):
-                        api_dealers.extend(_extract_dealers_from_json(body))
-            except Exception:
-                pass
+    async def on_response(resp):
+        try:
+            ct = resp.headers.get('content-type', '')
+            if 'json' in ct:
+                body = await resp.json()
+                txt = json.dumps(body).lower()
+                if any(k in txt for k in ['dealer','showroom','phone','address','location']):
+                    api_dealers.extend(_extract_dealers_from_json(body))
+        except Exception:
+            pass
 
-        page.on('response', on_response)
-        await page.goto(url, wait_until='networkidle', timeout=30000)
-        await page.wait_for_timeout(3000)
-        html = await page.content()
-        await browser.close()
-    return html, api_dealers
+    page.on('response', on_response)
+    await page.goto(url, wait_until='networkidle', timeout=30000)
+    await page.wait_for_timeout(3000)
+    # html = await page.content()
+    # await browser.close()
+    return page, browser, api_dealers, p
 
 
 async def _try_map_and_search(url: str, queries: list[str]) -> list[dict]:
@@ -389,40 +389,122 @@ async def _try_map_and_search(url: str, queries: list[str]) -> list[dict]:
         await browser.close()
     return dealers
 
+async def interact_with_ui(page):
+    collected = []
 
+    print("[UI] Targeting dealer search form...")
+
+    try:
+        select = await page.wait_for_selector("#selectDistrict", timeout=5000)
+        options = await select.query_selector_all("option")
+
+        for opt in options:
+            value = await opt.get_attribute("value")
+            text = (await opt.inner_text()).strip().lower()
+
+            if not value:
+                continue
+
+            print(f"[UI] Selecting: {text} ({value})")
+
+            await select.select_option(value=value)
+            await page.wait_for_timeout(500)
+
+            # click search
+            search_btn = await page.query_selector("#saveData")
+            if search_btn:
+                print("[UI] Clicking search button...")
+                await search_btn.click()
+
+            await page.wait_for_load_state("networkidle")
+            await page.wait_for_timeout(1500)
+
+            # ───────── IMPORTANT: CAPTURE UPDATED DATA ─────────
+            html = await page.content()
+            new_dealers = parse_dealers_from_html(html)
+
+            collected.extend(new_dealers)
+
+    except Exception as e:
+        print(f"[UI] Interaction failed: {e}")
+
+    return collected
 # ─────────────────────────────────────────────────────────────────────────────
 # ORCHESTRATOR
 # ─────────────────────────────────────────────────────────────────────────────
 
 async def scrape_dealers(url: str, search_queries: list[str] | None = None) -> list[dict]:
     print(f"\n{'='*60}\nScraping: {url}\n{'='*60}")
+
     queries = search_queries or [
         'Kathmandu','Pokhara','Lalitpur','Chitwan',
         'Biratnagar','Butwal','Dharan','Birgunj',
     ]
 
     print("→ Loading page & intercepting API calls...")
-    html, api_dealers = await _load_page(url)
+    page, browser, api_dealers, p = await _load_page(url)
 
-    if api_dealers:
-        print(f"  ✓ {len(api_dealers)} dealers via API interception")
-        dealers = api_dealers
-    else:
-        print("  No JSON API found — using phone-anchored HTML walker...")
-        dealers = parse_dealers_from_html(html)
-        print(f"  ✓ {len(dealers)} dealers from HTML")
+    # ─────────────────────────────────────────────
+    # STEP 1: UI INTERACTION (IMPORTANT FIX)
+    # ─────────────────────────────────────────────
+    print("→ Running UI interactions...")
+    ui_dealers = await interact_with_ui(page)
 
+    # wait for final JS updates
+    await page.wait_for_timeout(3000)
+
+    # ─────────────────────────────────────────────
+    # STEP 2: FINAL HTML SNAPSHOT
+    # ─────────────────────────────────────────────
+    html = await page.content()
+
+    # close browser safely
+    await browser.close()
+    await p.stop()
+
+    # ─────────────────────────────────────────────
+    # STEP 3: COLLECT DATA
+    # ─────────────────────────────────────────────
+
+    dealers = []
+
+    print(f"  ✓ API dealers: {len(api_dealers)}")
+    dealers.extend(api_dealers)
+
+    print(f"  ✓ UI dealers: {len(ui_dealers)}")
+    dealers.extend(ui_dealers)
+
+    html_dealers = parse_dealers_from_html(html)
+    print(f"  ✓ HTML dealers: {len(html_dealers)}")
+    dealers.extend(html_dealers)
+
+    # fallback only if NOTHING worked
     if not dealers:
-        print("→ Trying map markers / search bar interaction...")
+        print("→ Trying map/search fallback...")
         dealers = await _try_map_and_search(url, queries)
         print(f"  ✓ {len(dealers)} dealers from map/search")
 
-    seen, unique = set(), []
+    # ─────────────────────────────────────────────
+    # STEP 4: CLEAN DEDUPLICATION (VERY IMPORTANT FIX)
+    # ─────────────────────────────────────────────
+
+    seen = set()
+    unique = []
+
     for d in dealers:
-        key = frozenset(re.sub(r'\D', '', p) for p in d['phone']) or frozenset([d['name']])
-        if key and key not in seen:
-            seen.add(key)
-            unique.append(d)
+        phone_key = tuple(sorted(
+            re.sub(r'\D', '', p) for p in d.get('phone', [])
+        ))
+
+        name_key = d.get('name', '').strip().lower()
+
+        key = phone_key if phone_key else (name_key,)
+
+        if key in seen:
+            continue
+
+        seen.add(key)
+        unique.append(d)
 
     print(f"\n✅ Total unique dealers: {len(unique)}")
     return unique
