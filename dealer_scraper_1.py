@@ -389,44 +389,66 @@ async def _try_map_and_search(url: str, queries: list[str]) -> list[dict]:
         await browser.close()
     return dealers
 
-async def interact_with_ui(page):
+async def interact_and_collect(page, api_dealers):
+    print("→ Running generic UI exploration...")
+
     collected = []
+    seen_api_count = len(api_dealers)
 
-    print("[UI] Targeting dealer search form...")
+    selects = await page.query_selector_all("select")
 
-    try:
-        select = await page.wait_for_selector("#selectDistrict", timeout=5000)
+    for select in selects:
         options = await select.query_selector_all("option")
 
         for opt in options:
-            value = await opt.get_attribute("value")
-            text = (await opt.inner_text()).strip().lower()
+            try:
+                text = (await opt.inner_text()).strip().lower()
 
-            if not value:
+                # skip useless options
+                if not text or len(text) < 3:
+                    continue
+                if any(k in text for k in ["select", "sort", "filter", "date"]):
+                    continue
+
+                print(f"[UI] Trying option: {text}")
+
+                value = await opt.get_attribute("value")
+                await select.select_option(value=value)
+
+                # 🔥 CRITICAL: trigger possible UI updates
+                await page.wait_for_timeout(1000)
+
+                # Try clicking ALL visible buttons
+                buttons = await page.query_selector_all("button")
+
+                for btn in buttons:
+                    try:
+                        label = (await btn.inner_text()).lower()
+
+                        if any(k in label for k in ["search", "find", "go", "submit"]):
+                            print(f"[UI] Clicking button: {label}")
+                            await btn.click()
+                            await page.wait_for_load_state("networkidle")
+                            await page.wait_for_timeout(1500)
+                            break
+                    except:
+                        continue
+
+                # 🔥 Detect NEW API data
+                if len(api_dealers) > seen_api_count:
+                    new_items = api_dealers[seen_api_count:]
+                    print(f"[UI] +{len(new_items)} new dealers from API")
+                    collected.extend(new_items)
+                    seen_api_count = len(api_dealers)
+
+                # Also parse updated HTML
+                html = await page.content()
+                html_dealers = parse_dealers_from_html(html)
+                collected.extend(html_dealers)
+
+            except Exception as e:
+                print(f"[UI] skip error: {e}")
                 continue
-
-            print(f"[UI] Selecting: {text} ({value})")
-
-            await select.select_option(value=value)
-            await page.wait_for_timeout(500)
-
-            # click search
-            search_btn = await page.query_selector("#saveData")
-            if search_btn:
-                print("[UI] Clicking search button...")
-                await search_btn.click()
-
-            await page.wait_for_load_state("networkidle")
-            await page.wait_for_timeout(1500)
-
-            # ───────── IMPORTANT: CAPTURE UPDATED DATA ─────────
-            html = await page.content()
-            new_dealers = parse_dealers_from_html(html)
-
-            collected.extend(new_dealers)
-
-    except Exception as e:
-        print(f"[UI] Interaction failed: {e}")
 
     return collected
 # ─────────────────────────────────────────────────────────────────────────────
@@ -448,7 +470,7 @@ async def scrape_dealers(url: str, search_queries: list[str] | None = None) -> l
     # STEP 1: UI INTERACTION (IMPORTANT FIX)
     # ─────────────────────────────────────────────
     print("→ Running UI interactions...")
-    ui_dealers = await interact_with_ui(page)
+    ui_dealers = await interact_and_collect(page, api_dealers)
 
     # wait for final JS updates
     await page.wait_for_timeout(3000)
