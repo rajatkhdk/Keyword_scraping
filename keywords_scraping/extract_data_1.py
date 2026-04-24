@@ -1,7 +1,9 @@
 import re
 from urllib.parse import urljoin, urlparse
+import json
+import asyncio
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, NavigableString, Tag
 from playwright.sync_api import sync_playwright
 
 # use regex to extract phone no.
@@ -246,7 +248,7 @@ def extract_logo(soup, base_url):
 
     # pick best image
     if candidates:
-        print("Candidates : ", candidates)
+        # print("Candidates : ", candidates)
         best_img = max(candidates, key=lambda x: x[1])[0]
         return to_full_url(best_img["src"])
     

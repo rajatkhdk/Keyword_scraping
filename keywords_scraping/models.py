@@ -23,6 +23,8 @@ class CarBrand(models.Model):
     youtube = models.JSONField(null=True, default=list, blank=True)
     tiktok = models.JSONField(null=True, default=list, blank=True)
 
+    dealers = models.JSONField(default=list, blank=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

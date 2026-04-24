@@ -415,7 +415,7 @@ async def interact_and_collect(page, api_dealers):
                 value = await opt.get_attribute("value")
                 await select.select_option(value=value)
 
-                # 🔥 CRITICAL: trigger possible UI updates
+                # CRITICAL: trigger possible UI updates
                 await page.wait_for_timeout(1000)
 
                 # Try clicking ALL visible buttons
@@ -434,7 +434,7 @@ async def interact_and_collect(page, api_dealers):
                     except:
                         continue
 
-                # 🔥 Detect NEW API data
+                # Detect NEW API data
                 if len(api_dealers) > seen_api_count:
                     new_items = api_dealers[seen_api_count:]
                     print(f"[UI] +{len(new_items)} new dealers from API")
@@ -456,6 +456,7 @@ async def interact_and_collect(page, api_dealers):
 # ─────────────────────────────────────────────────────────────────────────────
 
 async def scrape_dealers(url: str, search_queries: list[str] | None = None) -> list[dict]:
+    print("URL : ", url)
     print(f"\n{'='*60}\nScraping: {url}\n{'='*60}")
 
     queries = search_queries or [
