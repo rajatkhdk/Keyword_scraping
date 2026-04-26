@@ -20,6 +20,7 @@ from playwright.async_api import async_playwright
 # PHONE REGEX  (covers all common Nepal formats)
 # ─────────────────────────────────────────────────────────────────────────────
 
+# Phone regex
 _PHONE_RE = re.compile(
     r'(?:'
     # +977 country code variants
@@ -37,6 +38,7 @@ _PHONE_RE = re.compile(
     re.VERBOSE,
 )
 
+# Email regex
 EMAIL_RE = re.compile(r'[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}')
 
 # Nepal cities / districts
@@ -51,7 +53,7 @@ NEPAL_PLACES = re.compile(
     re.IGNORECASE,
 )
 
-
+# Match phone regex to get phone no.
 def extract_phones(text: str) -> list[str]:
     raw = _PHONE_RE.findall(text)
     seen, result = set(), []
@@ -62,11 +64,11 @@ def extract_phones(text: str) -> list[str]:
             result.append(p.strip())
     return result
 
-
+# Match email regex to get email
 def extract_emails(text: str) -> list[str]:
     return list(set(EMAIL_RE.findall(text)))
 
-
+# Detects and remove white space using regex
 def clean(text: str) -> str:
     return re.sub(r'\s+', ' ', text).strip()
 
@@ -75,16 +77,15 @@ def clean(text: str) -> str:
 # CORE: Phone-anchored DOM walker
 # ─────────────────────────────────────────────────────────────────────────────
 
-BLOCK_TAGS = {'div', 'section', 'article', 'li', 'tr', 'td', 'aside',
-              'figure', 'main', 'p', 'address'}
+BLOCK_TAGS = {'div', 'section', 'article', 'li', 'tr', 'td', 'aside', 'figure', 'main', 'p', 'address'}
 
 STOP_TAGS = {'body', 'html', 'form'}
 
-
+#extracts all the text content inside the tag and its children
 def _text_of(tag: Tag) -> str:
     return clean(tag.get_text(separator=' '))
 
-
+# Check for address in given text
 def _has_address_signal(text: str) -> bool:
     if NEPAL_PLACES.search(text):
         return True
@@ -93,7 +94,7 @@ def _has_address_signal(text: str) -> bool:
         r'street|avenue|lane|chok|sadak|galli)\b', text, re.I
     ))
 
-
+# Checks if the line contains brand name
 def _has_name_signal(text: str) -> bool:
     lines = [l.strip() for l in text.splitlines() if l.strip()]
     for line in lines:
@@ -101,17 +102,19 @@ def _has_name_signal(text: str) -> bool:
             continue
         if extract_phones(line):
             continue
-        if re.match(r'[A-Z]', line):
+        if re.match(r'[a-zA-Z]', line):
             return True
     return False
 
-
+# Scores tags to obtain a smallest block with name + address + phone
 def _score_block(tag: Tag, anchor_phones: set) -> float:
     """
     Score a candidate ancestor block.
     We want the SMALLEST block that still has name + address + phone.
     """
     text = _text_of(tag)
+
+    print("Text : ", text)
 
     # Must still contain the phone(s) we anchored on
     if not any(p in text for p in anchor_phones):
