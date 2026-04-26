@@ -1,6 +1,34 @@
 from django.db import models
+from django.utils.text import slugify
 
 class CarBrand(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(unique=True)
+
+    logo = models.URLField(null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        self.name = self.name.strip()
+        if not self.slug:
+            base_slug = slugify(self.name)
+            slug = base_slug
+            counter = 1
+
+            # ensure uniqueness
+            while CarBrand.objects.filter(slug=slug).exclude(id=self.id).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+
+            self.slug = slug
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+class BrandDetails(models.Model):
 
     # slug = models.SlugField(unique=True)
 
@@ -8,7 +36,7 @@ class CarBrand(models.Model):
 
     # brand = models.CharField(max_length=50, unique=True)
 
-    keyword = models.CharField(max_length=500)
+    brand = models.ForeignKey(CarBrand, on_delete=models.CASCADE)
 
     website = models.URLField(null=True, blank=True)
     logo = models.URLField(null=True, blank=True)
@@ -28,4 +56,4 @@ class CarBrand(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.keyword
+        return self.brand.name

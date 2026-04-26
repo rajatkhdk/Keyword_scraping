@@ -47,7 +47,7 @@ NEPAL_PLACES = re.compile(
     r'ghorahi|bharatpur|siddharthanagar|lumbini|mahendranagar|'
     r'banepa|dhulikhel|panauti|kirtipur|madhyapur|thimi|'
     r'naxal|thamel|new road|putalisadak|koteshwor|kalanki|'
-    r'chabahil|balaju|baneshwor|lazimpat|bagbazar)\b',
+    r'chabahil|balaju|baneshwor|lazimpat|bagbazar|tinkune)\b',
     re.IGNORECASE,
 )
 

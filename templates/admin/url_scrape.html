@@ -19,6 +19,10 @@ URL Scraper
     <form method="POST">
         {% csrf_token %}
 
+        <label><strong>Select brand:</strong></label><br><br>
+            {{ form.brand }}
+            <br><br>
+
         <label><strong>Enter URL:</strong></label><br><br>
         {{ form.url }}
         <br><br>

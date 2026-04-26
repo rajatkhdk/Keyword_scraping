@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .forms import SearchForm, URLForm
-from .models import CarBrand
+from .models import CarBrand, BrandDetails
 from keywords_scraping.ddgs_search import get_urls
 from keywords_scraping.extract_data_1 import extract_basic_info, fetch_soup, get_pages_to_scrape
 from dealer_scraper_1 import scrape_dealers
@@ -177,16 +177,22 @@ def search_view(request):
         form = SearchForm(request.POST)
 
         if form.is_valid():
-            keyword = form.cleaned_data["keyword"]
+            brand_obj = form.cleaned_data["brand"]
+            brand_name = brand_obj.name
+            
 
-            results = get_urls(keyword) 
+            # -----------------------------
+            # STEP 2: SEARCH URLS USING NAME
+            # -----------------------------
+
+            results = get_urls(brand_name) 
             # print("Result: ", results)
 
             MAX_TRIES = 5
 
             final_data = None
 
-            for i, r in enumerate(results[:MAX_TRIES]):
+            for r in results[:MAX_TRIES]:
 
                 base_url = r[1]
 
@@ -197,7 +203,7 @@ def search_view(request):
 
                 #  STOP CONDITION
                 if candidate_data["logo"] and candidate_data["phones"]:
-                    print("Good result found, stopping early")
+                    # print("Good result found, stopping early")
                     final_data = candidate_data
                     break
                 # else:
@@ -212,9 +218,15 @@ def search_view(request):
                 if not final_data:
                     final_data = candidate_data
 
+            if not final_data:
+                return render(request, "admin/search.html", {
+                    "form": form,
+                    "data": None
+                })
+
             # Step 3: save to DB
-            obj = CarBrand.objects.create(
-                keyword=keyword,
+            obj = BrandDetails.objects.create(
+                brand=brand_obj,
                 website=final_data.get("website"),
                 phones=final_data.get("phones"),
                 emails=final_data.get("emails"),
@@ -248,6 +260,10 @@ def scrape_url_view(request):
         form = URLForm(request.POST)
 
         if form.is_valid():
+
+            brand_obj = form.cleaned_data["brand"]
+            brand_name = brand_obj.name
+            
             url = form.cleaned_data["url"]
             mode = form.cleaned_data["mode"]
 
@@ -264,8 +280,8 @@ def scrape_url_view(request):
                     "dealers": [],
                 }
 
-            obj = CarBrand.objects.create(
-                keyword="manual",
+            obj = BrandDetails.objects.create(
+                brand=brand_obj,
                 website=result.get("website"),
                 phones=result.get("phones"),
                 emails=result.get("emails"),
@@ -293,5 +309,5 @@ def data(request):
     return render(request, "admin/data.html")
 
 def table(request):
-    data = CarBrand.objects.all()
+    data = BrandDetails.objects.all()
     return render(request, "admin/table.html", {"data": data})
