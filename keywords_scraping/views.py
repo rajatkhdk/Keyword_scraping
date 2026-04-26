@@ -6,6 +6,16 @@ from keywords_scraping.extract_data_1 import extract_basic_info, fetch_soup, get
 from dealer_scraper_1 import scrape_dealers
 import asyncio
 import re
+from dal import autocomplete
+
+class BrandAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = CarBrand.objects.all().order_by("name")
+
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+
+        return qs
 
 def scrape_dealers_sync(url):
     try:
@@ -179,7 +189,16 @@ def search_view(request):
         if form.is_valid():
             brand_obj = form.cleaned_data["brand"]
             brand_name = brand_obj.name
-            
+
+            existing = BrandDetails.objects.filter(brand=brand_obj).first()
+
+            if existing and "scrape_new" not in request.POST:
+                return render(request, "admin/search.html", {
+                    "form": form,
+                    "data": existing,
+                    "show_scrape_button": True,
+                    "existing": True
+                })            
 
             # -----------------------------
             # STEP 2: SEARCH URLS USING NAME
@@ -244,7 +263,9 @@ def search_view(request):
 
     return render(request, "admin/search.html", {
         "form": form,
-        "data": data
+        "data": data,
+        "show_scrape_button": False,
+        "existing": False
     })
 # results = get_urls(keyword)
 
@@ -268,6 +289,17 @@ def scrape_url_view(request):
             mode = form.cleaned_data["mode"]
 
             deep = True if mode == "deep" else False
+
+            existing = BrandDetails.objects.filter(brand=brand_obj).first()
+
+            if existing and "scrape_new" not in request.POST:
+                print("inside existing")
+                return render(request, "admin/url_scrape.html", {
+                    "form": form,
+                    "data": existing,
+                    "show_scrape_button": True,
+                    "existing": True
+                })
 
             result = scrape_from_url(url, deep=deep)
 
@@ -299,7 +331,9 @@ def scrape_url_view(request):
 
     return render(request, "admin/url_scrape.html", {
         "form": form,
-        "data": data
+        "data": data,
+        "show_scrape_button": False,
+        "existing": False
     })
 
 def index(request):

@@ -30,13 +30,7 @@ class CarBrand(models.Model):
 
 class BrandDetails(models.Model):
 
-    # slug = models.SlugField(unique=True)
-
-    # keywords = models.JSONField(null=True, default=list, blank=True)
-
-    # brand = models.CharField(max_length=50, unique=True)
-
-    brand = models.ForeignKey(CarBrand, on_delete=models.CASCADE)
+    brand = models.OneToOneField(CarBrand, on_delete=models.CASCADE)
 
     website = models.URLField(null=True, blank=True)
     logo = models.URLField(null=True, blank=True)

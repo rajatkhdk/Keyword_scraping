@@ -5,6 +5,27 @@
 URL Scraper
 {% endblock %}
 
+{% block extrastyle %}
+   {{ form.media.css }}
+   <style>
+        /* Make it look like modern input */
+        .select2-container .select2-selection--single {
+            height: 38px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 28px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 36px;
+        }
+        </style>
+    {% endblock %}
+
 {% block content %}
 
 <div class="content-wrapper">
@@ -132,4 +153,8 @@ URL Scraper
 </div>
 
 </div>
+{% endblock %}
+
+{% block extrascript %}
+{{ form.media.js }}
 {% endblock %}
