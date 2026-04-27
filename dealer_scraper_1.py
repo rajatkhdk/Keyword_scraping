@@ -541,78 +541,275 @@ async def _try_map_and_search(url: str, queries: list[str]) -> list[dict]:
         await browser.close()
     return dealers
 
-async def get_select_context(select):
-    label = await select.evaluate("""
-        el => el.closest('lable')?.innerText || el.parentElement?.innerText || ''
+# async def get_select_context(select):
+#     label = await select.evaluate("""
+#         el => el.closest('lable')?.innerText || el.parentElement?.innerText || ''
+#     """)
+#     return label.lower()
+
+# def is_all_option(text):
+#     t = text.lower()
+#     return t in ["all", "all province", "all district", "all cities", "all city", "all dealers", "any"]
+
+# async def handle_select(page, select):
+#     options = await select.query_selector_all("option")
+
+#     all_option = None
+#     valid_options = []
+
+#     for opt in options:
+#         text = (await opt.inner_text()).strip().lower()
+#         value = await opt.get_attribute("value")
+
+#         if not text:
+#             continue
+
+#         if is_all_option(text):
+#             all_option = value
+#             break
+#         else:
+#             valid_options.append((text, value))
+
+#     # 1. Always try ALL first (baseline)
+#     if all_option:
+#         await select.select_option(value=all_option)
+#         await page.wait_for_timeout(1200)
+
+#         yield "baseline"
+
+#     # 2. Only test meaningful filters (not all combinations)
+#     for text, value in valid_options[:3]:  # limit explosion
+#         await select.select_option(value=value)
+#         await page.wait_for_timeout(1200)
+
+#         yield text
+
+def is_placeholder(text: str) -> bool:
+    t = text.strip().lower()
+    return t in [
+        "",
+        "select",
+        "select province",
+        "select district",
+        "select city",
+        "choose",
+        "all",
+        "all provinces",
+        "all districts",
+        "all cities"
+    ]
+
+async def get_selected_option(select):
+    return await select.evaluate("""
+        el => {
+            const opt = el.options[el.selectedIndex];
+            return opt ? opt.innerText.trim().toLowerCase() : "";
+        }
     """)
-    return label.lower()
 
-def is_all_option(text):
-    t = text.lower()
-    return t in ["all", "all province", "all district", "all cities", "all city", "all dealers", "any"]
+# async def is_full_dataset(page):
+#     selects = await page.query_selector_all("select")
 
-async def handle_select(page, select):
+#     for select in selects:
+#         selected = await get_selected_option(select)
+
+#         # if any select is actively filtering → NOT full dataset
+#         if not is_placeholder(selected):
+#             return False
+
+#     return True
+
+# def compare_sets(a, b):
+#     return len(set(a) - set(b)) > 0
+
+# async def is_filter_effective(page, select):
+#     base_html = await page.content()
+#     base = parse_dealers_from_html(base_html)
+
+#     options = await select.query_selector_all("option")
+
+#     for opt in options[:3]:
+#         value = await opt.get_attribute("value")
+
+#         await select.select_option(value=value)
+#         await page.wait_for_timeout(1200)
+
+#         html = await page.content()
+#         filtered = parse_dealers_from_html(html)
+
+#         if len(filtered) != len(base):
+#             return True  # filter affects data
+
+#     return False
+
+# async def interact_and_collect(page, api_dealers):
+#     print("→Smart UI exploration...")
+
+#     collected = []
+#     seen_api_count = len(api_dealers)
+
+#     # selects = await page.query_selector_all("select")
+
+#     # STEP 1: baseline scrape (VERY IMPORTANT)
+#     base_html = await page.content()
+#     collected.extend(parse_dealers_from_html(base_html))
+
+#     # STEP 2: check if already full dataset
+#     if await is_full_dataset(page):
+#         print("[STOP] Full dataset detected. No UI exploration needed.")
+#         return collected
+    
+#      # STEP 3: fallback UI exploration only if needed
+#     selects = await page.query_selector_all("select")
+
+#     for select in selects:
+#         async for state in handle_select(page, select):
+
+#             print(f"[UI] state: {state}")
+
+#             html = await page.content()
+#             collected.extend(parse_dealers_from_html(html))
+
+#             # API delta check
+#             if len(api_dealers) > seen_api_count:
+#                 collected.extend(api_dealers[seen_api_count:])
+#                 seen_api_count = len(api_dealers)
+
+#     return collected
+
+async def is_select_meaningful(page, select):
     options = await select.query_selector_all("option")
 
-    all_option = None
-    valid_options = []
+    texts = [
+        (await opt.inner_text()).strip().lower()
+        for opt in options
+    ]
 
-    for opt in options:
-        text = (await opt.inner_text()).strip().lower()
-        value = await opt.get_attribute("value")
+    # if only placeholders → useless
+    if all(is_placeholder(t) for t in texts):
+        return False
 
-        if not text:
+    # if only "all + same values" → useless
+    if any("all" in t for t in texts) and len(texts) <= 2:
+        return False
+
+    return True
+
+async def is_full_dataset(page):
+    selects = await page.query_selector_all("select")
+
+    for select in selects:
+        selected = await get_selected_option(select)
+
+        # if ANY select is actively filtering → dataset is NOT full
+        if not is_placeholder(selected):
+            return False
+
+    return True
+
+async def find_submit_button(page):
+    buttons = await page.query_selector_all("button, input[type='button'], input[type='submit']")
+
+    for btn in buttons:
+        try:
+            text = (await btn.inner_text()).strip().lower()
+
+            if any(k in text for k in [
+                "search", "submit", "apply", "filter", "go", "find"
+            ]):
+                return btn
+        except:
             continue
 
-        if is_all_option(text):
-            all_option = value
-            break
-        else:
-            valid_options.append((text, value))
-
-    # 1. Always try ALL first (baseline)
-    if all_option:
-        await select.select_option(value=all_option)
-        await page.wait_for_timeout(1200)
-
-        yield "baseline"
-
-    # 2. Only test meaningful filters (not all combinations)
-    for text, value in valid_options[:3]:  # limit explosion
-        await select.select_option(value=value)
-        await page.wait_for_timeout(1200)
-
-        yield text
+    return None
 
 async def interact_and_collect(page, api_dealers):
-    print("→Smart UI exploration...")
+    print("→ Smart adaptive scraping...")
 
     collected = []
-    seen_api_count = len(api_dealers)
+
+    # STEP 1: baseline
+    html = await page.content()
+    collected.extend(parse_dealers_from_html(html))
+
+    # STEP 2: if already full dataset → STOP
+    if await is_full_dataset(page):
+        print("[STOP] Full dataset detected.")
+        return collected
 
     selects = await page.query_selector_all("select")
 
-    # STEP 1: baseline scrape (VERY IMPORTANT)
-    base_html = await page.content()
-    collected.extend(parse_dealers_from_html(base_html))
-
+    # STEP 3: explore only meaningful selects
     for select in selects:
-        async for state in handle_select(page, select):
 
-            print(f"[UI] state: {state}")
+        if not await is_select_meaningful(page, select):
+            print("[SKIP] meaningless select")
+            continue
+
+        options = await select.query_selector_all("option")
+
+        for opt in options:
+            text = (await opt.inner_text()).strip().lower()
+
+            if is_placeholder(text):
+                continue
+
+            value = await opt.get_attribute("value")
+
+            # 1. apply filter
+            await select.select_option(value=value)
+
+            # 2. IMPORTANT: trigger UI update
+            btn = await find_submit_button(page)
+
+            if btn:
+                try:
+                    await btn.click()
+                    await page.wait_for_load_state("networkidle")
+                except:
+                    await page.wait_for_timeout(1500)
+            else:
+                # fallback for reactive UIs
+                await page.wait_for_timeout(1500)
 
             html = await page.content()
             collected.extend(parse_dealers_from_html(html))
-
-            # API delta check
-            if len(api_dealers) > seen_api_count:
-                collected.extend(api_dealers[seen_api_count:])
-                seen_api_count = len(api_dealers)
 
     return collected
 # ─────────────────────────────────────────────────────────────────────────────
 # ORCHESTRATOR
 # ─────────────────────────────────────────────────────────────────────────────
+
+def normalize_phones(phone_field):
+    if not phone_field:
+        return []
+
+    # STEP 1: unify input type
+    if isinstance(phone_field, list):
+        raw = phone_field
+    else:
+        raw = [phone_field]
+
+    numbers = []
+
+    for item in raw:
+        if not item:
+            continue
+
+        # STEP 2: split on ALL possible separators
+        parts = re.split(r"[,\|;/\n]", str(item))
+
+        for p in parts:
+            digits = re.sub(r"\D", "", p)
+
+            # ignore junk / invalid numbers
+            if len(digits) < 7:
+                continue
+
+            numbers.append(digits)
+
+    # STEP 3: deduplicate + stable ordering
+    return sorted(set(numbers))
 
 async def scrape_dealers(url: str, search_queries: list[str] | None = None) -> list[dict]:
     print("URL : ", url)
@@ -691,9 +888,13 @@ async def scrape_dealers(url: str, search_queries: list[str] | None = None) -> l
     # seen, unique = set(), []
     for d in dealers:
         # Create a unique key from normalized phone numbers
-        phone_key = frozenset(re.sub(r'\D', '', p) for p in d.get('phone', []))
-        if not phone_key:
-            continue
+        # phone_key = frozenset(re.sub(r'\D', '', p) for p in d.get('phone', []))
+
+        phone_list = normalize_phones(d.get('phone'))
+        if not phone_list:
+                    continue
+        phone_key = tuple(phone_list)  # stable + hashable
+        
 
         # Calculate a completeness score (count non-empty values)
         # Counts keys that have a truth value (not none, empty sting, or empty)
