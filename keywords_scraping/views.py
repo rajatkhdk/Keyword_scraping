@@ -187,9 +187,14 @@ def search_view(request):
             brand_obj = form.cleaned_data["brand"]
             brand_name = brand_obj.name
 
+            # =========================
+            # STEP 1: SHOW EXISTING DATA
+            # =========================
+            
             existing = BrandDetails.objects.filter(brand=brand_obj).first()
 
-            if existing and "scrape_new" not in request.POST:
+            if (existing and "scrape_new" not in request.POST and "confirm_save" not in request.POST):
+
                 return render(request, "admin/search.html", {
                     "form": form,
                     "data": existing,
@@ -197,72 +202,106 @@ def search_view(request):
                     "existing": True
                 })            
 
-            # -----------------------------
-            # STEP 2: SEARCH URLS USING NAME
-            # -----------------------------
+            # =========================
+            # STEP 2: CONFIRM SAVE
+            # =========================
+            if "confirm_save" in request.POST:
 
-            results = get_urls(brand_name) 
-            # print("Result: ", results)
+                result = request.session.get("scraped_data")
 
-            MAX_TRIES = 5
+                if not result:
+                    return render(request, "admin/search.html", {
+                        "form": form,
+                        "data": None,
+                        "error": "No scraped data found. Please scrape again."
+                    })
 
-            final_data = None
+                obj, created = BrandDetails.objects.update_or_create(
+                    brand=brand_obj,
+                    defaults={
+                        "website": result.get("website"),
+                        "phones": result.get("phones"),
+                        "emails": result.get("emails"),
+                        "facebook": result.get("facebook"),
+                        "instagram": result.get("instagram"),
+                        "twitter": result.get("twitter"),
+                        "linkedin": result.get("linkedin"),
+                        "tiktok": result.get("tiktok"),
+                        "youtube": result.get("youtube"),
+                        "dealers": result.get("dealers"),
+                    }
+                )
 
-            for r in results[:MAX_TRIES]:
+                # clear session after save
+                request.session.pop("scraped_data", None)
+                request.session.pop("brand_id", None)
 
-                base_url = r[1]
-
-                candidate_data = scrape_from_url(base_url, deep=True)
-
-                if not candidate_data:
-                    continue
-
-                #  STOP CONDITION
-                if candidate_data["phones"] or candidate_data["dealers"]:
-                    # print("Good result found, stopping early")
-                    final_data = candidate_data
-                    break
-                # else:
-                #     print("Retrying with dynamic:", page)
-    
-                #     html = fetch_dynamic_html(page)
-                #     if html:
-                #         soup = BeautifulSoup(html, "html.parser")
-                #         data = extract_basic_info_from_soup(soup)
-
-                # fallback: keep best partial result
-                if not final_data:
-                    final_data = candidate_data
-
-            if not final_data:
                 return render(request, "admin/search.html", {
                     "form": form,
-                    "data": None
+                    "data": obj,
+                    "existing": False,
+                    "pending_save": False,
+                    "show_scrape_button": False
                 })
+            
+            # -----------------------------
+            # STEP 3: Scrape Data
+            # -----------------------------
+            if "scrape_new" in request.POST or not existing:
 
-            # Step 3: save to DB
-            obj = BrandDetails.objects.create(
-                brand=brand_obj,
-                website=final_data.get("website"),
-                phones=final_data.get("phones"),
-                emails=final_data.get("emails"),
-                # logo=final_data.get("logo"),
-                facebook=final_data.get("facebook"),
-                instagram=final_data.get("instagram"),
-                twitter=final_data.get("twitter"),
-                linkedin=final_data.get("linkedin"),
-                tiktok=final_data.get("tiktok"),
-                youtube=final_data.get("youtube"),
-                dealers=final_data.get("dealers")
-            )
+                # -----------------------------
+                # SEARCH URLS USING BRAND NAME
+                # -----------------------------
+                results = get_urls(brand_name) 
+                # print("Result: ", results)
 
-            data = obj
+                MAX_TRIES = 5
+                final_data = None
 
+                for r in results[:MAX_TRIES]:
+
+                    base_url = r[1]
+
+                    candidate_data = scrape_from_url(base_url, deep=True)
+
+                    if not candidate_data:
+                        continue
+
+                    #  STOP CONDITION
+                    if candidate_data["phones"] or candidate_data["dealers"]:
+                        # print("Good result found, stopping early")
+                        final_data = candidate_data
+                        break
+
+                    # fallback: keep best partial result
+                    if not final_data:
+                        final_data = candidate_data
+
+                if not final_data:
+                    return render(request, "admin/search.html", {
+                        "form": form,
+                        "data": None,
+                        "error": "No data could be scraped."
+                    })
+
+                # store temporarily in session
+                request.session["scraped_data"] = final_data
+                request.session["brand_id"] = brand_obj.id
+
+                return render(request, "admin/search.html", {
+                    "form": form,
+                    "data": final_data,
+                    "existing": False,
+                    "pending_save": True,
+                    "show_scrape_button": False
+                })
+            
     return render(request, "admin/search.html", {
         "form": form,
         "data": data,
         "show_scrape_button": False,
-        "existing": False
+        "existing": False,
+        "pending_save": False
     })
 # results = get_urls(keyword)
 
