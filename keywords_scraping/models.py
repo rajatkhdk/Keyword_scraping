@@ -33,7 +33,7 @@ class BrandDetails(models.Model):
     brand = models.OneToOneField(CarBrand, on_delete=models.CASCADE)
 
     website = models.URLField(null=True, blank=True)
-    logo = models.URLField(null=True, blank=True)
+    # logo = models.URLField(null=True, blank=True)
 
     phones = models.JSONField(default=list, blank=True)
     emails = models.JSONField(default=list, blank=True)

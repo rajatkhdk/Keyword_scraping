@@ -43,9 +43,8 @@ Car Brand Scraper{% endblock %}
       <table id="example1" class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th>KeyWord</th>
+            <th>Brand</th>
             <th>Website</th>
-            <th>logo</th>
             <th>Instagram</th>
             <th>Youtube</th>
             <th>Dealers</th>
@@ -54,9 +53,8 @@ Car Brand Scraper{% endblock %}
         <tbody>
           {% for item in data %}
           <tr>
-            <td>{{item.keyword}}</td>
+            <td>{{item.brand.name}}</td>
             <td>{{item.website}}</td>
-            <td><img src="{{ item.logo }}" alt="logo" width="50" height="50"></td>
             <td>{{item.instagram}}</td>
             <td>{{item.youtube}}</td>
             <td>{{item.dealers}}</td>
@@ -469,9 +467,8 @@ Car Brand Scraper{% endblock %}
         {% endcomment %}
         <tfoot>
           <tr>
-            <th>KeyWord</th>
+            <th>Brand</th>
             <th>Website</th>
-            <th>Logo</th>
             <th>Instagram</th>
             <th>Youtube</th>
             <th>Dealers</th>

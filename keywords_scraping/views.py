@@ -27,7 +27,8 @@ def scrape_dealers_sync(url):
 def is_dealer_page(url, html):
     url = url.lower()
 
-    if any(k in url for k in ["dealer", "showroom", "location", "branch", "network"]):
+    if (any(k in url for k in ["dealer", "showroom", "location", "branch", "network"])
+    and "become" not in url):
         print("dealer")
         return True
 
@@ -70,7 +71,7 @@ def scrape_from_url(base_url, deep=True):
         # -----------------------------
         all_phones = []
         all_emails = []
-        logo = None
+        # logo = None
 
         all_facebook = set()
         all_instagram = set()
@@ -101,11 +102,6 @@ def scrape_from_url(base_url, deep=True):
                         if dealers:
                             all_dealers.extend(dealers)
 
-                            # # merge dealer phones/emails into main data
-                            # for dealer in dealers:
-                            #     all_phones.update(dealer.get("phone", []))
-                            #     all_emails.update(dealer.get("email", []))
-
                     except Exception as dealer_error:
                         print(f"Dealer scrape error: {dealer_error}")
 
@@ -125,8 +121,8 @@ def scrape_from_url(base_url, deep=True):
                     all_youtube.update(data.get("youtube", []))
                     all_tiktok.update(data.get("tiktok", []))
 
-                    if not logo and data.get("logo"):
-                        logo = data["logo"]
+                    # if not logo and data.get("logo"):
+                    #     logo = data["logo"]
 
                 
 
@@ -161,7 +157,7 @@ def scrape_from_url(base_url, deep=True):
             "website": base_url,
             "phones": list(set(all_phones)),
             "emails": list(set(all_emails)),
-            "logo": logo,
+            # "logo": logo,
             "facebook": list(all_facebook),
             "instagram": list(all_instagram),
             "twitter": list(all_twitter),
@@ -221,7 +217,7 @@ def search_view(request):
                     continue
 
                 #  STOP CONDITION
-                if candidate_data["logo"] and candidate_data["phones"]:
+                if candidate_data["phones"] or candidate_data["dealers"]:
                     # print("Good result found, stopping early")
                     final_data = candidate_data
                     break
@@ -249,7 +245,7 @@ def search_view(request):
                 website=final_data.get("website"),
                 phones=final_data.get("phones"),
                 emails=final_data.get("emails"),
-                logo=final_data.get("logo"),
+                # logo=final_data.get("logo"),
                 facebook=final_data.get("facebook"),
                 instagram=final_data.get("instagram"),
                 twitter=final_data.get("twitter"),
@@ -308,7 +304,7 @@ def scrape_url_view(request):
                     "website": url,
                     "phones": [],
                     "emails": [],
-                    "logo": None,
+                    # "logo": None,
                     "dealers": [],
                 }
 
@@ -317,7 +313,7 @@ def scrape_url_view(request):
                 website=result.get("website"),
                 phones=result.get("phones"),
                 emails=result.get("emails"),
-                logo=result.get("logo"),
+                # logo=result.get("logo"),
                 facebook=result.get("facebook"),
                 instagram=result.get("instagram"),
                 twitter=result.get("twitter"),
@@ -343,5 +339,6 @@ def data(request):
     return render(request, "admin/data.html")
 
 def table(request):
-    data = BrandDetails.objects.all()
+    data = BrandDetails.objects.select_related("brand").all()
+
     return render(request, "admin/table.html", {"data": data})
