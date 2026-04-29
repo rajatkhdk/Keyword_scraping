@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from keywords_scraping import views
+from keywords_scraping.views import BrandAutocomplete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +26,6 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('index/data', views.data, name='data'),
     path('table/', views.table, name='table'),
+
+    path('brand-autocomplete/', BrandAutocomplete.as_view(), name='brand-autocomplete')
 ]

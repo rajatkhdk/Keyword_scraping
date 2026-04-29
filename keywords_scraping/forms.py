@@ -1,16 +1,32 @@
 from django import forms
+from .models import CarBrand
+from dal import autocomplete
 
 class SearchForm(forms.Form):
-    keyword = forms.CharField(
-        label="Enter Keyword",
-        max_length=100,
-        widget=forms.TextInput(attrs={
-            "class": "form-control",
-            "placeholder": "e.g. BMW"
-        })
+    brand = forms.ModelChoiceField(
+        queryset=CarBrand.objects.all().order_by("name"),
+        widget=autocomplete.ModelSelect2(
+            url='brand-autocomplete',
+            attrs={
+                'data-placeholder': 'Search brand...',
+                # 'data-minimum-input-length': 1,
+                'style': 'width: 100%;'
+            }
+        )
     )
 
 class URLForm(forms.Form):
+    brand = forms.ModelChoiceField(
+        queryset=CarBrand.objects.all().order_by("name"),
+        widget=autocomplete.ModelSelect2(
+            url='brand-autocomplete',
+            attrs={
+                'data-placeholder': 'Search brand...',
+                # 'data-minimum-input-length': 1,
+                'style': 'width: 100%;'
+            }
+        )
+    )
     url = forms.URLField()
     mode = forms.ChoiceField(
         choices=[

@@ -4,6 +4,27 @@
 {% block title %}
     Car Brand Scraper{% endblock %}
 
+    {% block extrastyle %}
+   {{ form.media.css }}
+   <style>
+        /* Make it look like modern input */
+        .select2-container .select2-selection--single {
+            height: 38px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 28px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 36px;
+        }
+        </style>
+    {% endblock %}
+
     {% comment %} {% block extrastyle %}
     <style>
         body {
@@ -37,8 +58,8 @@
     <div class="box">
         <form method="POST">
             {% csrf_token %}
-            <label><strong>Enter Keyword:</strong></label><br><br>
-            {{ form.keyword }}
+            <label><strong>Select brand:</strong></label><br><br>
+            {{ form.brand }}
             <br><br>
             <button type="submit">Search</button>
         </form>
@@ -120,4 +141,7 @@
 </div>
 
 </div>
+{% endblock %}
+{% block extrascript %}
+{{ form.media.js }}
 {% endblock %}

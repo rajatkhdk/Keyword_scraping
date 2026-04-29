@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'keywords_scraping',
+    'dal',
+    'dal_select2',
 ]
 
 MIDDLEWARE = [

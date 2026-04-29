@@ -1,22 +1,73 @@
 from django.shortcuts import render
 from .forms import SearchForm, URLForm
-from .models import CarBrand
+from .models import CarBrand, BrandDetails
 from keywords_scraping.ddgs_search import get_urls
 from keywords_scraping.extract_data_1 import extract_basic_info, fetch_soup, get_pages_to_scrape
+from dealer_scraper_1 import scrape_dealers
+import asyncio
+import re
+from dal import autocomplete
+
+class BrandAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = CarBrand.objects.all().order_by("name")
+
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+
+        return qs
+
+def scrape_dealers_sync(url):
+    try:
+        return asyncio.run(scrape_dealers(url))
+    except RuntimeError:
+        loop = asyncio.get_event_loop()
+        return loop.run_until_complete(scrape_dealers(url))
+
+def is_dealer_page(url, html):
+    url = url.lower()
+
+    if any(k in url for k in ["dealer", "showroom", "location", "branch", "network"]):
+        print("dealer")
+        return True
+
+    if html:
+        text = html.lower()
+        if "dealer" in text or "showroom" in text:
+            return True
+
+    return False
 
 def scrape_from_url(base_url, deep=True):
+    """
+    Takes a url, crawl through different pages and extract info.
+    1. fetch soup
+    2. if deep -> get pages (multiple)
+        else single page (url)
+    3. Loop through pages
+        i. data -> extract_basic_info(page)
+    """
     try:
         homepage_soup = fetch_soup(base_url)
 
         if not homepage_soup:
             return None
 
+        # -----------------------------
+        # STEP 1: Decide pages to crawl
+        # -----------------------------
         if deep:
             pages = get_pages_to_scrape(homepage_soup, base_url)
             pages = [base_url] + pages
         else:
             pages = [base_url]
 
+        # remove duplicate pages
+        pages = list(dict.fromkeys(pages))
+
+        # -----------------------------
+        # STEP 2: Global accumulators
+        # -----------------------------
         all_phones = []
         all_emails = []
         logo = None
@@ -28,30 +79,83 @@ def scrape_from_url(base_url, deep=True):
         all_youtube = set()
         all_tiktok = set()
 
+        all_dealers = []
+
+        # -----------------------------
+        # STEP 3: Crawl normal pages
+        # -----------------------------
         for page in pages:
             print(f"Scraping: {page}")
 
             try:
-                data = extract_basic_info(page)
 
-                if not data:
-                    continue
+                # -----------------------------
+                # STEP 4: Dealer extraction
+                # -----------------------------
+                if is_dealer_page(page, None):
+                    print(f"Running dealer scraper on: {page}")
 
-                all_phones.extend(data.get("phones", []))
-                all_emails.extend(data.get("emails", []))
+                    try:
+                        dealers = scrape_dealers_sync(page)
 
-                all_facebook.update(data.get("facebook", []))
-                all_instagram.update(data.get("instagram", []))
-                all_twitter.update(data.get("twitter", []))
-                all_linkedin.update(data.get("linkedin", []))
-                all_youtube.update(data.get("youtube", []))
-                all_tiktok.update(data.get("tiktok", []))
+                        if dealers:
+                            all_dealers.extend(dealers)
 
-                if not logo and data.get("logo"):
-                    logo = data["logo"]
+                            # # merge dealer phones/emails into main data
+                            # for dealer in dealers:
+                            #     all_phones.update(dealer.get("phone", []))
+                            #     all_emails.update(dealer.get("email", []))
+
+                    except Exception as dealer_error:
+                        print(f"Dealer scrape error: {dealer_error}")
+
+                else:
+                    data = extract_basic_info(page)
+
+                    if not data:
+                        continue
+
+                    all_phones.extend(data.get("phones", []))
+                    all_emails.extend(data.get("emails", []))
+
+                    all_facebook.update(data.get("facebook", []))
+                    all_instagram.update(data.get("instagram", []))
+                    all_twitter.update(data.get("twitter", []))
+                    all_linkedin.update(data.get("linkedin", []))
+                    all_youtube.update(data.get("youtube", []))
+                    all_tiktok.update(data.get("tiktok", []))
+
+                    if not logo and data.get("logo"):
+                        logo = data["logo"]
+
+                
 
             except Exception as e:
                 print(f"Page error: {e}")
+
+        # -----------------------------
+        # STEP 5: Final dealer dedupe
+        # -----------------------------
+        unique_dealers = []
+        seen = set()
+
+        for dealer in all_dealers:
+            phone_key = tuple(sorted(
+                re.sub(r"\D", "", p)
+                for p in dealer.get("phone", [])
+            ))
+
+            name_key = dealer.get("name", "").strip().lower()
+
+            key = phone_key if phone_key else (name_key,)
+
+            if key in seen:
+                continue
+
+            seen.add(key)
+            unique_dealers.append(dealer)
+
+        print(f"All phones : {all_phones} \n Dealers : {unique_dealers}")
 
         return {
             "website": base_url,
@@ -64,6 +168,7 @@ def scrape_from_url(base_url, deep=True):
             "linkedin": list(all_linkedin),
             "youtube": list(all_youtube),
             "tiktok": list(all_tiktok),
+            "dealers": unique_dealers,
         }
 
     except Exception as e:
@@ -72,6 +177,9 @@ def scrape_from_url(base_url, deep=True):
 
 
 def search_view(request):
+    """
+    View for keyword search page
+    """
     form = SearchForm()
     data = None
 
@@ -79,16 +187,31 @@ def search_view(request):
         form = SearchForm(request.POST)
 
         if form.is_valid():
-            keyword = form.cleaned_data["keyword"]
+            brand_obj = form.cleaned_data["brand"]
+            brand_name = brand_obj.name
 
-            results = get_urls(keyword) 
-            print("Result: ", results)
+            existing = BrandDetails.objects.filter(brand=brand_obj).first()
+
+            if existing and "scrape_new" not in request.POST:
+                return render(request, "admin/search.html", {
+                    "form": form,
+                    "data": existing,
+                    "show_scrape_button": True,
+                    "existing": True
+                })            
+
+            # -----------------------------
+            # STEP 2: SEARCH URLS USING NAME
+            # -----------------------------
+
+            results = get_urls(brand_name) 
+            # print("Result: ", results)
 
             MAX_TRIES = 5
 
             final_data = None
 
-            for i, r in enumerate(results[:MAX_TRIES]):
+            for r in results[:MAX_TRIES]:
 
                 base_url = r[1]
 
@@ -99,11 +222,11 @@ def search_view(request):
 
                 #  STOP CONDITION
                 if candidate_data["logo"] and candidate_data["phones"]:
-                    print("Good result found, stopping early")
+                    # print("Good result found, stopping early")
                     final_data = candidate_data
                     break
                 # else:
-                #     print("⚡ Retrying with dynamic:", page)
+                #     print("Retrying with dynamic:", page)
     
                 #     html = fetch_dynamic_html(page)
                 #     if html:
@@ -114,9 +237,15 @@ def search_view(request):
                 if not final_data:
                     final_data = candidate_data
 
+            if not final_data:
+                return render(request, "admin/search.html", {
+                    "form": form,
+                    "data": None
+                })
+
             # Step 3: save to DB
-            obj = CarBrand.objects.create(
-                keyword=keyword,
+            obj = BrandDetails.objects.create(
+                brand=brand_obj,
                 website=final_data.get("website"),
                 phones=final_data.get("phones"),
                 emails=final_data.get("emails"),
@@ -127,18 +256,24 @@ def search_view(request):
                 linkedin=final_data.get("linkedin"),
                 tiktok=final_data.get("tiktok"),
                 youtube=final_data.get("youtube"),
+                dealers=final_data.get("dealers")
             )
 
             data = obj
 
     return render(request, "admin/search.html", {
         "form": form,
-        "data": data
+        "data": data,
+        "show_scrape_button": False,
+        "existing": False
     })
 # results = get_urls(keyword)
 
 
 def scrape_url_view(request):
+    """
+    View for url search page
+    """
     form = URLForm()
     data = None
 
@@ -146,10 +281,25 @@ def scrape_url_view(request):
         form = URLForm(request.POST)
 
         if form.is_valid():
+
+            brand_obj = form.cleaned_data["brand"]
+            brand_name = brand_obj.name
+            
             url = form.cleaned_data["url"]
             mode = form.cleaned_data["mode"]
 
             deep = True if mode == "deep" else False
+
+            existing = BrandDetails.objects.filter(brand=brand_obj).first()
+
+            if existing and "scrape_new" not in request.POST:
+                print("inside existing")
+                return render(request, "admin/url_scrape.html", {
+                    "form": form,
+                    "data": existing,
+                    "show_scrape_button": True,
+                    "existing": True
+                })
 
             result = scrape_from_url(url, deep=deep)
 
@@ -159,10 +309,11 @@ def scrape_url_view(request):
                     "phones": [],
                     "emails": [],
                     "logo": None,
+                    "dealers": [],
                 }
 
-            obj = CarBrand.objects.create(
-                keyword="manual",
+            obj = BrandDetails.objects.create(
+                brand=brand_obj,
                 website=result.get("website"),
                 phones=result.get("phones"),
                 emails=result.get("emails"),
@@ -173,13 +324,16 @@ def scrape_url_view(request):
                 linkedin=result.get("linkedin"),
                 tiktok=result.get("tiktok"),
                 youtube=result.get("youtube"),
+                dealers=result.get("dealers")
             )
 
             data = obj
 
     return render(request, "admin/url_scrape.html", {
         "form": form,
-        "data": data
+        "data": data,
+        "show_scrape_button": False,
+        "existing": False
     })
 
 def index(request):
@@ -189,5 +343,5 @@ def data(request):
     return render(request, "admin/data.html")
 
 def table(request):
-    data = CarBrand.objects.all()
+    data = BrandDetails.objects.all()
     return render(request, "admin/table.html", {"data": data})

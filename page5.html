@@ -1,0 +1,2300 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMW Nepal</title>
+            <link type="text/css" href="https://bmw-laxmi.com.np/assets/frontend/css/all.css" rel="stylesheet">
+        <link type="text/css" href="https://bmw-laxmi.com.np/assets/frontend/css/additional.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/iconify-icon@3.0.1/dist/iconify-icon.min.js"></script>
+        <link type="text/css" href="https://bmw-laxmi.com.np/assets/frontend/css/newpages.css" rel="stylesheet">
+        </head>
+<body class="font-bmwTypeWeb text-dark-1 font-light">
+<style>
+    @font-face {
+        font-family: "bmwTypeWeb";
+        src: url("https://bmw-laxmi.com.np/assets/frontend/fonts/BMWTypeNext-Bold.woff2") format("woff2");
+        font-weight: 700;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: "bmwTypeWeb";
+        src: url("https://bmw-laxmi.com.np/assets/frontend/fonts/BMWTypeNext-Regular.woff2") format("woff2");
+        font-weight: 500;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: "bmwTypeWeb-light";
+        src: url("https://bmw-laxmi.com.np/assets/frontend/fonts/BMWTypeNext-Light.woff2") format("woff2");
+        font-weight: 300;
+        font-style: normal;
+    }
+    section{
+        font-family: bmwTypeWeb-light !important;
+    }
+    a{
+        font-family: bmwTypeWeb-light !important;
+        margin-bottom: 0;
+    }
+    ul{
+        padding-left: 0;
+    }
+    h1,h2,h3,h4,h5,h6{
+        font-family: bmwTypeWeb-light !important;
+    }
+
+    header {
+        font-family: bmwTypeWeb-light !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        transition: all 0.5s;
+    }
+    .container {
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+    }
+
+    header.dropdown-active {
+        background: white !important;
+    }
+
+    header.dropdown-active #navbar {
+        border-bottom-color: #e5e5e5;
+    }
+
+    header.dropdown-active .nav-menu a,
+    header.dropdown-active .nav-menu button,
+    header.dropdown-active .nav-actions a {
+        color: black !important;
+    }
+
+    header.dropdown-active #logo-light {
+        display: none !important;
+    }
+
+    header.dropdown-active #logo-dark {
+        display: block !important;
+    }
+
+    header.dropdown-active #mobile-menu-btn iconify-icon {
+        color: black !important;
+    }
+    #mobile-menu-btn{
+        padding: 0;
+    }
+
+
+    #navbar {
+        display: grid;
+        grid-template-columns: 120px auto 200px;
+        align-items: center;
+        font-weight: 500;
+        border-bottom: 1px solid white;
+        transition: all 0.5s;
+    }
+
+    #logo-light,
+    #logo-dark {
+        transition: all 0.5s;
+        width: 60px;
+    }
+
+    #logo-dark {
+        display: none;
+    }
+
+    .nav-menu {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-menu ul {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        font-size: 18px;
+        color: white;
+        list-style: none;
+    }
+
+    .nav-menu a,
+    .nav-menu button {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        padding: 24px 0;
+        border-bottom: 4px solid transparent;
+        transition: all 0.3s;
+        color: white;
+        text-decoration: none;
+        background: none;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 500;
+        margin-top: 0;
+        line-height: 24px;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu button:hover {
+        border-bottom-color: #1e90ff;
+    }
+
+    .dropdown-icon {
+        transition: transform 0.3s;
+        display: inline-block !important;
+    }
+    .dropdown-btn{
+        margin-bottom: 0;
+        font-family: bmwTypeWeb-light !important;
+    }
+    .dropdown-btn.active .dropdown-icon {
+        transform: rotate(180deg);
+    }
+    #nav-links{
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+
+    .nav-actions {
+        display: flex;
+        gap: 16px;
+        justify-content: flex-end;
+        color: white;
+        list-style: none;
+    }
+
+    .nav-actions a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .nav-actions iconify-icon {
+        font-size: 30px;
+    }
+
+    #mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* Dropdown Menus */
+    .dropmenu {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        width: 100%;
+        background: white;
+        color: black;
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transition: all 0s ease-in-out;
+        padding: 80px 0;
+        /*z-index: 101!important;*/
+    }
+
+    .dropmenu.active {
+        max-height: 500px;
+        opacity: 1;
+    }
+
+    .dropdown-content {
+        padding: 80px 0;
+    }
+
+    .dropdown-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+    }
+
+    .dropdown-column h3 {
+        font-size: 24px;
+        margin-bottom: 32px;
+    }
+
+    .dropdown-column ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding-left: 0;
+    }
+    .dropdown-column ul li{
+        background: #fff;
+    }
+
+    .dropdown-column a {
+        color: black;
+        text-decoration: none;
+        transition: color 0.3s;
+
+        position: relative;
+        z-index: 102;
+        pointer-events: auto;
+        display: inline-block;
+        width: 100%;
+        cursor: pointer;
+
+    }
+
+    .dropdown-column a:hover {
+        color: #1e90ff;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 1600px){
+        .container{
+            max-width: 1366px;
+        }
+    }
+    @media (max-width: 1280px) {
+
+        #navbar {
+            grid-template-columns: 120px auto 40px;
+            gap: 20px;
+        }
+
+        .nav-actions iconify-icon {
+            font-size: 24px;
+        }
+
+        .dropdown-content {
+            padding: 48px 0;
+        }
+
+        .dropdown-column h3 {
+            font-size: 20px;
+            margin-bottom: 24px;
+        }
+
+        .dropdown-column a {
+            font-size: 14px;
+        }
+    }
+
+    /* Mobile Menu Styles */
+    #mobile-menu {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        max-width: 60%;
+        height: 100vh;
+        transform: translateX(100%);
+        transition: transform 0.5s;
+        z-index: 1001;
+    }
+
+    #mobile-menu.closing {
+        transform: translateX(100%);
+    }
+
+    #mobile-menu.open {
+        transform: translateX(0);
+    }
+
+    .mobile-menu-bg {
+        background: white;
+        height: 100%;
+        position: relative;
+        z-index: 11;
+        overflow: hidden;
+    }
+
+    .mobile-nav {
+        padding: 24px;
+        height: 100%;
+        position: relative;
+    }
+
+    .mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 16px;
+        margin-bottom: 16px;
+        position: relative;
+        z-index: 1002;
+
+    }
+
+    .mobile-header img {
+        width: 60px;
+        transition: all 0.5s;
+    }
+
+    #mobile-menu-close {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        transform: translateX(-16px);
+        color: #333;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0!important;
+    }
+
+    .mobile-main-menu {
+        margin-top: 40px;
+        max-width: 672px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .mobile-main-menu ul {
+        font-size: 18px;
+        color: #333;
+        list-style: none;
+    }
+
+    .mobile-main-menu li {
+        padding: 24px 0;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .mobile-main-menu a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .mobile-dropdown-btn {
+        width: 100%;
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-align: left;
+        font-size: 18px;
+        color: #333;
+        padding: 0;
+        font-weight: 300;
+        margin-bottom: 0;
+    }
+    .mobile-dropdown-btn:hover{
+        background: transparent;
+        color: #333;
+    }
+
+    .mobile-dropdown-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .mobile-dropdown-icon {
+        transition: transform 0.3s;
+    }
+
+    /* Submenu Panels */
+    .submenu-panel {
+        position: absolute;
+        top: 100px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: white;
+        transform: translateX(100%);
+        transition: transform 0.5s;
+    }
+
+    .submenu-panel.active {
+        transform: translateX(0);
+    }
+
+    .submenu-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 16px;
+    }
+
+    .mobile-submenu-back {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #333;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        padding: 0;
+        margin-bottom: 0;
+    }
+    .mobile-submenu-back:hover{
+        background: transparent;
+        color: #333;
+    }
+
+    .submenu-header h3 {
+        font-size: 20px;
+        margin: 0;
+    }
+
+    .submenu-panel ul {
+        font-size: 18px;
+        list-style: none;
+    }
+
+    .submenu-panel li {
+        padding: 24px 0;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .submenu-panel a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    @media (max-width: 1024px) {
+        #navbar {
+            border-bottom: none;
+            padding: 24px 0;
+        }
+
+        #logo-light,
+        #logo-dark {
+            width: 54px;
+        }
+
+        .nav-menu {
+            display: none;
+        }
+
+        #mobile-menu-btn {
+            display: block;
+        }
+
+    }
+
+    @media (max-width: 768px) {
+        #mobile-menu {
+            max-width: 100%;
+        }
+        .mobile-header img {
+            width: 54px;
+        }
+    }
+    @media (max-width: 639px){
+        .dropmenu{
+            display: none;
+        }
+    }
+</style>
+
+<header>
+    <div class="container">
+        <nav id="navbar">
+            <div>
+                <a href="https://bmw-laxmi.com.np">
+                    <img id="logo-light" src="https://bmw-laxmi.com.np/assets/images/logo.svg" alt="Logo" class="logo-light">
+                    <img id="logo-dark" src="https://bmw-laxmi.com.np/assets/images/logo-dark.svg" alt="Logo" class="logo-dark">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <ul id="nav-links">
+                    <li>
+                        <a href="https://bmw-laxmi.com.np/models" class="nav-links-item">Models</a>
+                    </li>
+                    <li>
+                        <button class="dropdown-btn nav-links-item" data-dropdown="service-dropdown">
+                            Services
+                            <iconify-icon icon="iconamoon:arrow-down-2-light" width="24" height="24" class="dropdown-icon"></iconify-icon>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="dropdown-btn nav-links-item" data-dropdown="discover-dropdown">
+                            Discover
+                            <iconify-icon icon="iconamoon:arrow-down-2-light" width="24" height="24" class="dropdown-icon"></iconify-icon>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <ul class="nav-actions">
+                    <li>
+                        <a href="https://bmw-laxmi.com.np/find-showroom" class="nav-links-item">
+                            <iconify-icon icon="iconoir:map-pin"></iconify-icon>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <button id="mobile-menu-btn" class="nav-links-item">
+                    <iconify-icon icon="gg:menu" style="color: white; font-size: 28px;"></iconify-icon>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Dropdown Menus -->
+    <div>
+        <div id="service-dropdown" class="dropmenu">
+            <div class="container dropdown-content">
+                <div class="dropdown-grid">
+                    <div class="dropdown-column">
+                        <h3>Service &amp; WorkShop</h3>
+                        <ul>
+                            <li><a href="https://bmw-laxmi.com.np/services/service-maintenance">Service &amp; Maintenance</a></li>
+                            <li><a href="https://bmw-laxmi.com.np/services/warranties">Warranties</a></li>
+                            <li><a href="https://bmw-laxmi.com.np/services/repair-care">Repair &amp; Care</a></li>
+                            <li><a href="https://bmw-laxmi.com.np/services/original-bmw-parts">Original BMW Parts</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-column">
+                        <h3>Original BMW Accessories</h3>
+                        <ul>
+                            <li><a href="https://bmw-laxmi.com.np/services/wheels-tyres">Wheels and Tires</a></li>
+                            <li><a href="https://bmw-laxmi.com.np/bmw-performance">M Performance Parts</a></li>
+                            <li><a href="https://bmw-laxmi.com.np/services/car-care">Car Care</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-column">
+                        <h3>BMW Lifestyle</h3>
+                        <ul>
+                            <li><a href="https://bmw-laxmi.com.np/services/bmw-lifestyle">BMW Lifestyle</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="discover-dropdown" class="dropmenu">
+            <div class="container dropdown-content">
+                <div class="dropdown-grid">
+                    <div class="dropdown-column">
+                        <h3>BMW Luxury Class</h3>
+                        <ul>
+                            <li><a href="https://bmw-laxmi.com.np/discover/bmw-luxury-class">BMW Luxury Class</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown-column">
+                        <h3>About Laxmi Premium Motors</h3>
+                        <ul>
+                            <li><a href="https://bmw-laxmi.com.np/discover/about-team">About the Team</a></li>
+                            <li><a href="https://bmw-laxmi.com.np/discover/about">About Laxmi Premium Motors PVT LTD</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu">
+    <div class="mobile-menu-bg">
+        <nav class="mobile-nav">
+            <div class="mobile-header">
+                <a href="index.html">
+                    <img src="https://bmw-laxmi.com.np/assets/images/logo-dark.svg" alt="Logo" class="">
+                </a>
+                <button id="mobile-menu-close">
+                    <div>
+                        <iconify-icon icon="material-symbols-light:close-rounded" width="32" height="32"></iconify-icon>
+                    </div>
+                </button>
+            </div>
+            <div class="mobile-main-menu">
+                <ul>
+                    <li>
+                        <a href="https://bmw-laxmi.com.np/models">Models</a>
+                    </li>
+                    <li>
+                        <button class="mobile-dropdown-btn" data-mobile-dropdown="mobile-service-level1">
+                            <div class="mobile-dropdown-content">
+                                <span>Services</span>
+                                <iconify-icon class="mobile-dropdown-icon" icon="line-md:chevron-right" width="20" height="20"></iconify-icon>
+                            </div>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="mobile-dropdown-btn" data-mobile-dropdown="mobile-discover-level1">
+                            <div class="mobile-dropdown-content">
+                                <span>Discover</span>
+                                <iconify-icon class="mobile-dropdown-icon" icon="line-md:chevron-right" width="20" height="20"></iconify-icon>
+                            </div>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Service Menus -->
+            <div>
+                <div id="mobile-service-level1" class="submenu-panel">
+                    <div style="padding: 24px;">
+                        <div class="submenu-header">
+                            <button class="mobile-submenu-back" data-back-to="main">
+                                <iconify-icon icon="line-md:chevron-left" width="24" height="24"></iconify-icon>
+                            </button>
+                            <h3>Services</h3>
+                        </div>
+                        <ul>
+                            <li>
+                                <button class="mobile-dropdown-btn" data-mobile-dropdown="mobile-service-level2a">
+                                    <div class="mobile-dropdown-content">
+                                        <span>Service &amp; Workshop</span>
+                                        <iconify-icon class="mobile-dropdown-icon" icon="line-md:chevron-right" width="20" height="20"></iconify-icon>
+                                    </div>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="mobile-dropdown-btn" data-mobile-dropdown="mobile-service-level2b">
+                                    <div class="mobile-dropdown-content">
+                                        <span>Original BMW Accessories</span>
+                                        <iconify-icon class="mobile-dropdown-icon" icon="line-md:chevron-right" width="20" height="20"></iconify-icon>
+                                    </div>
+                                </button>
+                            </li>
+                            <li>
+                                <a href="https://bmw-laxmi.com.np/services/bmw-lifestyle" class="mobile-dropdown-btn">
+                                    <div class="mobile-dropdown-content">
+                                        <span>BMW Lifestyle</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="mobile-service-level2a" class="submenu-panel">
+                    <div style="padding: 24px;">
+                        <div class="submenu-header">
+                            <button class="mobile-submenu-back" data-back-to="mobile-service-level1">
+                                <iconify-icon icon="line-md:chevron-left" width="24" height="24"></iconify-icon>
+                            </button>
+                            <h3>Service &amp; Workshop</h3>
+                        </div>
+                        <ul>
+                            <li><a href="https://bmw-laxmi.com.np/services/service-maintenance">Service &amp; Maintenance</a></li>
+                            <li><a href="https://bmw-laxmi.com.np/services/warranties">Warranties</a></li>
+                            <li><a href="https://bmw-laxmi.com.np/services/repair-care">Repair &amp; Care</a></li>
+                            <li><a href="https://bmw-laxmi.com.np/services/original-bmw-parts">Original BMW Parts</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="mobile-service-level2b" class="submenu-panel">
+                    <div style="padding: 24px;">
+                        <div class="submenu-header">
+                            <button class="mobile-submenu-back" data-back-to="mobile-service-level1">
+                                <iconify-icon icon="line-md:chevron-left" width="24" height="24"></iconify-icon>
+                            </button>
+                            <h3>Original BMW Accessories</h3>
+                        </div>
+                        <ul>
+                            <li><a href="https://bmw-laxmi.com.np/services/wheels-tyres">Wheels and Tires</a></li>
+                            <li><a href="https://bmw-laxmi.com.np/bmw-performance">M Performance Parts</a></li>
+                            <li><a href="https://bmw-laxmi.com.np/services/car-care">Car Care</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discover Menus -->
+            <div>
+                <div id="mobile-discover-level1" class="submenu-panel">
+                    <div style="padding: 24px;">
+                        <div class="submenu-header">
+                            <button class="mobile-submenu-back" data-back-to="main">
+                                <iconify-icon icon="line-md:chevron-left" width="24" height="24"></iconify-icon>
+                            </button>
+                            <h3>Discover</h3>
+                        </div>
+                        <ul>
+                            <li>
+                                <a href="https://bmw-laxmi.com.np/discover/bmw-luxury-class" class="mobile-dropdown-btn">
+                                    <div class="mobile-dropdown-content">
+                                        <span>BMW Luxury Class</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <button class="mobile-dropdown-btn" data-mobile-dropdown="mobile-discover-level2a">
+                                    <div class="mobile-dropdown-content">
+                                        <span>About Laxmi Premium Motors</span>
+                                        <iconify-icon class="mobile-dropdown-icon" icon="line-md:chevron-right" width="20" height="20"></iconify-icon>
+                                    </div>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="mobile-discover-level2a" class="submenu-panel">
+                    <div style="padding: 24px;">
+                        <div class="submenu-header">
+                            <button class="mobile-submenu-back" data-back-to="mobile-discover-level1">
+                                <iconify-icon icon="line-md:chevron-left" width="24" height="24"></iconify-icon>
+                            </button>
+                            <h3>About Laxmi Premium Motors</h3>
+                        </div>
+                        <ul>
+                            <li><a href="https://bmw-laxmi.com.np/discover/about-team">About the Team</a></li>
+                            <li><a href="https://bmw-laxmi.com.np/discover/about">About Laxmi Premium Motors PVT LTD</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+    </div>
+</div>
+
+<script>
+    // Main Navigation and Dropdown functionality
+    const dropdownBtns = document.querySelectorAll('.dropdown-btn');
+    const header = document.querySelector('header');
+    const dropmenus = document.querySelectorAll('.dropmenu');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileDropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
+    const mobileSubmenuBacks = document.querySelectorAll('.mobile-submenu-back');
+
+    // Utility Functions
+    function closeAllDropdowns() {
+        dropmenus.forEach(menu => {
+            menu.classList.remove('active');
+        });
+        dropdownBtns.forEach(btn => {
+            btn.classList.remove('active');
+        });
+        updateHeaderState();
+    }
+
+    function updateHeaderState() {
+        const hasActiveDropdown = document.querySelector('.dropmenu.active');
+        header.classList.toggle('dropdown-active', hasActiveDropdown);
+    }
+
+    // Desktop Dropdown Event Handlers
+    dropdownBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent event from bubbling up
+            const dropdownId = this.getAttribute('data-dropdown');
+            const dropdown = document.getElementById(dropdownId);
+            const isCurrentlyActive = dropdown.classList.contains('active');
+
+            // First close all dropdowns
+            closeAllDropdowns();
+
+            // If the clicked dropdown wasn't active, open it
+            if (!isCurrentlyActive) {
+                dropdown.classList.add('active');
+                this.classList.add('active');
+            }
+
+            updateHeaderState();
+        });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown-btn') && !e.target.closest('.dropmenu')) {
+            closeAllDropdowns();
+        }
+    });
+
+    // Close dropdowns when pressing Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeAllDropdowns();
+        }
+    });
+
+    // Mobile Menu Functionality
+    function openMobileMenu() {
+        mobileMenu.classList.add('open');
+        mobileMenu.classList.remove('closing');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+        mobileMenu.classList.add('closing');
+        mobileMenu.classList.remove('open');
+        setTimeout(() => {
+            resetMobileSubmenus();
+            document.body.style.overflow = '';
+        }, 500);
+    }
+
+    function resetMobileSubmenus() {
+        document.querySelectorAll('.submenu-panel').forEach(panel => {
+            panel.classList.remove('active');
+        });
+    }
+
+    // Mobile Menu Event Listeners
+    mobileMenuBtn.addEventListener('click', openMobileMenu);
+    mobileMenuClose.addEventListener('click', closeMobileMenu);
+
+    // Mobile Dropdown Navigation
+    mobileDropdownBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const dropdownId = this.getAttribute('data-mobile-dropdown');
+            if (dropdownId) {
+                const targetPanel = document.getElementById(dropdownId);
+                if (targetPanel) {
+                    targetPanel.classList.add('active');
+                }
+            }
+        });
+    });
+
+    // Mobile Submenu Back Navigation
+    mobileSubmenuBacks.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const backTo = this.getAttribute('data-back-to');
+            const currentPanel = this.closest('.submenu-panel');
+
+            currentPanel.classList.remove('active');
+
+            if (backTo !== 'main') {
+                const targetPanel = document.getElementById(backTo);
+                if (targetPanel) {
+                    setTimeout(() => {
+                        targetPanel.classList.add('active');
+                    }, 50);
+                }
+            }
+        });
+    });
+
+    // Handle window resize
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        // Debounce resize events
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            // Close mobile menu if window is resized to desktop breakpoint
+            if (window.innerWidth > 1024 && mobileMenu.classList.contains('open')) {
+                closeMobileMenu();
+            }
+            // Close any open dropdowns
+            closeAllDropdowns();
+        }, 250);
+    });
+
+    // Optional: Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (mobileMenu.classList.contains('open') &&
+            !e.target.closest('#mobile-menu') &&
+            !e.target.closest('#mobile-menu-btn')) {
+            closeMobileMenu();
+        }
+    });
+
+    // Handle touch events for better mobile experience
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    mobileMenu.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    mobileMenu.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+        const swipeThreshold = 100; // minimum distance for swipe
+        if (touchEndX + swipeThreshold < touchStartX) {
+            // Swiped left - close menu
+            closeMobileMenu();
+        }
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <main class="main " role="main">
+          <link rel="stylesheet" href="https://bmw-laxmi.com.np/assets/frontend/css/digitals2/teasers/components/stageteaser/clientlibs.min.20200320132628.min.css" type="text/css">
+        <div class="ds2-component ds2-tracking-aware ds2-stage-teaser " data-loader="amdLoader" data-component-path="ds2-stage-teaser" data-tracking-component="{&quot;attributes&quot;:{&quot;numberOfItems&quot;:&quot;0&quot;,&quot;variant&quot;:&quot;4 columns&quot;},&quot;category&quot;:{&quot;primaryCategory&quot;:&quot;Teaser&quot;,&quot;componentType&quot;:&quot;integrated&quot;},&quot;componentInfo&quot;:{&quot;componentID&quot;:&quot;/content/bmw/marketASIA/bmw_com_bd/en_BD/publicPools/teaser-pool/large-teasers/showroom/jcr:content/stage/stageteaser : 1561546650754&quot;,&quot;componentHeadline&quot;:&quot;    &quot;,&quot;componentName&quot;:&quot;stage_teaser&quot;,&quot;componentType&quot;:&quot;integrated&quot;}}" data-tracking-options="{&quot;name&quot;:&quot;stage_teaser&quot;,&quot;content&quot;:{&quot;active&quot;:true}}" data-tracking-index="2" data-component-initialized="true">
+            <div class="ds2-slider " data-loader="amdLoader" data-component-path="ds2-slider" data-tracking-component="{&quot;attributes&quot;:{&quot;variant&quot;:&quot;4 columns&quot;},&quot;category&quot;:{},&quot;componentInfo&quot;:{&quot;componentID&quot;:&quot;/content/bmw/marketASIA/bmw_com_bd/en_BD/publicPools/teaser-pool/large-teasers/showroom/jcr:content/stage/stageteaser/items&quot;,&quot;componentHeadline&quot;:&quot;Impression&quot;,&quot;componentName&quot;:&quot;impression&quot;}}" data-tracking-options="{&quot;name&quot;:&quot;impression&quot;,&quot;content&quot;:{&quot;active&quot;:true}}" data-component-initialized="true">
+                <div class="ds2-slider--main ds2-slider--stage ds2-img-min-sizing-xxl js_keep-height slick-initialized slick-slider">
+                    <div aria-live="polite" class="slick-list draggable" tabindex="0">
+                        <div class="slick-track slick-single slick-initialized slick-slider slick-dotted"><button type="button" data-role="none" class="slick-prev slick-arrow" style="">
+            </button>
+                            <div class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 8855px; transform: translate3d(-1265px, 0px, 0px);"><div class="ds2-slider--slide small-12 ds2-disclaimer--asterix-on slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" style="width: 1265px;" tabindex="-1">
+                     <span class="ds2-slider--img-outer">
+                        <picture>
+                            <img data-tracking-event="{&quot;eventInfo&quot;:{&quot;eventName&quot;:&quot;showroom-image-2-xxl.jpg&quot;}}" data-mobile-aspect-ratio="2.22" data-desktop-aspect-ratio="2.22" title="Showroom" class="ds2-slider--img loaded" alt="Showroom" src="https://bmw-laxmi.com.np/assets/frontend/images/extra/showroom/web-about-laxmi-group-2.jpg" data-was-processed="true">
+                        </picture>
+                     </span>
+                                <div class="ds2-stage-slider--keyvisual-cta-location show-for-large-up" style="width: 90%;
+                        left: 5%;
+                        top: 25%">
+                                    <h2 class="ds2-stage-slider--title ds2-color-alternative  ds2-font-xxl">
+                                    </h2>
+                                </div>
+                                <div style="visibility: hidden; height: 0px;">
+                                </div>
+                            </div><div class="ds2-slider--slide small-12 ds2-disclaimer--asterix-on slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" style="width: 1265px;" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00">
+                     <span class="ds2-slider--img-outer">
+                        <picture>
+                            <img data-tracking-event="{&quot;eventInfo&quot;:{&quot;eventName&quot;:&quot;showroom-image-3-xxl.jpg&quot;}}" data-mobile-aspect-ratio="2.22" data-desktop-aspect-ratio="2.22" title="Showroom" class="ds2-slider--img loading" alt="Showroom" src="https://bmw-laxmi.com.np/assets/frontend/images/extra/showroom/web-about-laxmi-group.jpg" data-was-processed="true">
+                        </picture>
+                     </span>
+                                <div class="ds2-stage-slider--keyvisual-cta-location show-for-large-up" style="width: 90%;
+                        left: 5%;
+                        top: 25%">
+                                    <h2 class="ds2-stage-slider--title ds2-color-alternative  ds2-font-xxl">
+                                    </h2>
+                                </div>
+                                <div style="visibility: hidden; height: 0px;">
+                                </div>
+                            </div><div class="ds2-slider--slide small-12 ds2-disclaimer--asterix-on slick-slide" data-slick-index="1" aria-hidden="true" style="width: 1265px;" tabindex="-1" role="tabpanel" id="slick-slide01" aria-describedby="slick-slide-control01">
+                     <span class="ds2-slider--img-outer">
+                        <picture>
+                            <img data-tracking-event="{&quot;eventInfo&quot;:{&quot;eventName&quot;:&quot;showroom-image-2-xxl.jpg&quot;}}" data-mobile-aspect-ratio="2.22" data-desktop-aspect-ratio="2.22" title="Showroom" class="ds2-slider--img loaded" alt="Showroom" src="https://bmw-laxmi.com.np/assets/frontend/images/extra/showroom/web-about-laxmi-group-1.jpg" data-was-processed="true">
+                        </picture>
+                     </span>
+                                <div class="ds2-stage-slider--keyvisual-cta-location show-for-large-up" style="width: 90%;
+                        left: 5%;
+                        top: 25%">
+                                    <h2 class="ds2-stage-slider--title ds2-color-alternative  ds2-font-xxl">
+                                    </h2>
+                                </div>
+                                <div style="visibility: hidden; height: 0px;">
+                                </div>
+                            </div><div class="ds2-slider--slide small-12 ds2-disclaimer--asterix-on slick-slide" data-slick-index="2" aria-hidden="true" style="width: 1265px;" tabindex="-1" role="tabpanel" id="slick-slide02" aria-describedby="slick-slide-control02">
+                     <span class="ds2-slider--img-outer">
+                        <picture>
+                            <img data-tracking-event="{&quot;eventInfo&quot;:{&quot;eventName&quot;:&quot;showroom-image-2-xxl.jpg&quot;}}" data-mobile-aspect-ratio="2.22" data-desktop-aspect-ratio="2.22" title="Showroom" class="ds2-slider--img loaded" alt="Showroom" src="https://bmw-laxmi.com.np/assets/frontend/images/extra/showroom/web-about-laxmi-group-2.jpg" data-was-processed="true">
+                        </picture>
+                     </span>
+                                <div class="ds2-stage-slider--keyvisual-cta-location show-for-large-up" style="width: 90%;
+                        left: 5%;
+                        top: 25%">
+                                    <h2 class="ds2-stage-slider--title ds2-color-alternative  ds2-font-xxl">
+                                    </h2>
+                                </div>
+                                <div style="visibility: hidden; height: 0px;">
+                                </div>
+                            </div><div class="ds2-slider--slide small-12 ds2-disclaimer--asterix-on slick-slide slick-cloned" data-slick-index="3" aria-hidden="true" style="width: 1265px;" tabindex="-1">
+                     <span class="ds2-slider--img-outer">
+                        <picture>
+                            <img data-tracking-event="{&quot;eventInfo&quot;:{&quot;eventName&quot;:&quot;showroom-image-3-xxl.jpg&quot;}}" data-mobile-aspect-ratio="2.22" data-desktop-aspect-ratio="2.22" title="Showroom" class="ds2-slider--img loading" alt="Showroom" src="https://bmw-laxmi.com.np/assets/frontend/images/extra/showroom/web-about-laxmi-group.jpg" data-was-processed="true">
+                        </picture>
+                     </span>
+                                <div class="ds2-stage-slider--keyvisual-cta-location show-for-large-up" style="width: 90%;
+                        left: 5%;
+                        top: 25%">
+                                    <h2 class="ds2-stage-slider--title ds2-color-alternative  ds2-font-xxl">
+                                    </h2>
+                                </div>
+                                <div style="visibility: hidden; height: 0px;">
+                                </div>
+                            </div><div class="ds2-slider--slide small-12 ds2-disclaimer--asterix-on slick-slide slick-cloned" data-slick-index="4" aria-hidden="true" style="width: 1265px;" tabindex="-1">
+                     <span class="ds2-slider--img-outer">
+                        <picture>
+                            <img data-tracking-event="{&quot;eventInfo&quot;:{&quot;eventName&quot;:&quot;showroom-image-2-xxl.jpg&quot;}}" data-mobile-aspect-ratio="2.22" data-desktop-aspect-ratio="2.22" title="Showroom" class="ds2-slider--img loaded" alt="Showroom" src="https://bmw-laxmi.com.np/assets/frontend/images/extra/showroom/web-about-laxmi-group-1.jpg" data-was-processed="true">
+                        </picture>
+                     </span>
+                                <div class="ds2-stage-slider--keyvisual-cta-location show-for-large-up" style="width: 90%;
+                        left: 5%;
+                        top: 25%">
+                                    <h2 class="ds2-stage-slider--title ds2-color-alternative  ds2-font-xxl">
+                                    </h2>
+                                </div>
+                                <div style="visibility: hidden; height: 0px;">
+                                </div>
+                            </div><div class="ds2-slider--slide small-12 ds2-disclaimer--asterix-on slick-slide slick-cloned" data-slick-index="5" aria-hidden="true" style="width: 1265px;" tabindex="-1">
+                     <span class="ds2-slider--img-outer">
+                        <picture>
+                            <img data-tracking-event="{&quot;eventInfo&quot;:{&quot;eventName&quot;:&quot;showroom-image-2-xxl.jpg&quot;}}" data-mobile-aspect-ratio="2.22" data-desktop-aspect-ratio="2.22" title="Showroom" class="ds2-slider--img loaded" alt="Showroom" src="https://bmw-laxmi.com.np/assets/frontend/images/extra/showroom/web-about-laxmi-group-2.jpg" data-was-processed="true">
+                        </picture>
+                     </span>
+                                <div class="ds2-stage-slider--keyvisual-cta-location show-for-large-up" style="width: 90%;
+                        left: 5%;
+                        top: 25%">
+                                    <h2 class="ds2-stage-slider--title ds2-color-alternative  ds2-font-xxl">
+                                    </h2>
+                                </div>
+                                <div style="visibility: hidden; height: 0px;">
+                                </div>
+                            </div></div></div>
+                            
+                            
+                        <button type="button" data-role="none" class="slick-next slick-arrow" style="">
+            </button><ul class="slick-dots" style="" role="tablist"><li class="slick-active" role="presentation"><button class="is-active" role="tab" id="slick-slide-control00" aria-controls="slick-slide00" aria-label="1 of 3" tabindex="0" aria-selected="true"></button></li><li role="presentation"><button class="is-active" role="tab" id="slick-slide-control01" aria-controls="slick-slide01" aria-label="2 of 3" tabindex="-1"></button></li><li role="presentation"><button class="is-active" role="tab" id="slick-slide-control02" aria-controls="slick-slide02" aria-label="3 of 3" tabindex="-1"></button></li></ul></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="row ds2-row-padding">
+    <div class="acs-commons-resp-colctrl-col gridComponent small-12 medium-12 large-12 columns ds2-component-bottom">
+
+
+
+
+
+    
+
+<div class="ds2-text-only ds2-component ds2-tracking-aware " data-tracking-component="{&quot;attributes&quot;:{&quot;variant&quot;:&quot;4 columns&quot;},&quot;category&quot;:{&quot;primaryCategory&quot;:&quot;Detail&quot;,&quot;componentType&quot;:&quot;integrated&quot;},&quot;componentInfo&quot;:{&quot;componentID&quot;:&quot;/content/bmw/marketASIA/bmw_com_bn/en_BN/topics/fascination-bmw/about-us/find-us/jcr:content/stage/columncontrol/par-4col/textonly : 1474378561854&quot;,&quot;componentHeadline&quot;:&quot; QAF Centre.&quot;,&quot;componentName&quot;:&quot;text_only&quot;,&quot;componentType&quot;:&quot;integrated&quot;}}" data-tracking-index="3">
+    
+
+    
+    
+    
+    
+    
+    <h1 class="ds2-text-only--headline ds2-font-xl">
+        
+        
+           BMW SHOWROOM
+        
+    </h1>
+
+
+    
+
+    
+
+    
+
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+        <div class="row ds2-row-padding">
+            
+    <div class="acs-commons-resp-colctrl-col gridComponent small-12 medium-12 large-6 columns ds2-component-bottom ">
+
+<div class="ds2-typo ds2-component ds2-tracking-aware ds2-accessibility" data-loader="amdLoader" data-component-path="ds2-typo" data-tracking-component="{&quot;attributes&quot;:{&quot;variant&quot;:&quot;2 columns&quot;},&quot;category&quot;:{&quot;primaryCategory&quot;:&quot;Presentation&quot;,&quot;componentType&quot;:&quot;integrated&quot;},&quot;componentInfo&quot;:{&quot;componentID&quot;:&quot;/content/bmw/marketASIA/bmw_com_bn/en_BN/topics/fascination-bmw/about-us/find-us/jcr:content/par/columncontrol/par-2col1/typo : 1474377697467&quot;,&quot;componentHeadline&quot;:&quot;        &quot;,&quot;componentName&quot;:&quot;typo&quot;,&quot;componentType&quot;:&quot;integrated&quot;}}" data-tracking-index="26" data-component-initialized="true">
+    
+    <div class="ds2-typo--container ds2-typo--component-link">
+        
+    
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7066.271604302502!2d85.34238479965519!3d27.68219731332114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x91b1ac34920733f7!2sBMW%20Showroom%20%7C%20Laxmi%20Premium%20Motors%20Pvt%20Ltd!5e0!3m2!1sne!2snp!4v1611827426563!5m2!1sne!2snp" width="100%" height="450" frameborder="0" style="border:0; " allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+
+    <div class="ds2-typo--title-container bigtext" id="bigtext-id0">
+        
+        
+        
+    
+    
+    
+
+    </div>
+    
+
+        
+    </div>
+</div>
+
+
+</div>
+
+<div class="acs-commons-resp-colctrl-col gridComponent small-12 medium-12 large-6 columns ds2-component-bottom ">
+    <div class="ds2-text-only ds2-component ds2-tracking-aware " data-tracking-component="{&quot;attributes&quot;:{&quot;variant&quot;:&quot;4 columns&quot;},&quot;category&quot;:{&quot;primaryCategory&quot;:&quot;Detail&quot;,&quot;componentType&quot;:&quot;integrated&quot;},&quot;componentInfo&quot;:{&quot;componentID&quot;:&quot;/content/bmw/marketASIA/bmw_com_bd/en_BD/topics/fascination-bmw/find-us/jcr:content/par/columncontrol/par-4col/textonly : 1462870114319&quot;,&quot;componentHeadline&quot;:&quot;Showroom&quot;,&quot;componentName&quot;:&quot;text_only&quot;,&quot;componentType&quot;:&quot;integrated&quot;}}" data-tracking-index="3">
+                    <h2 class="ds2-text-only--headline ds2-font-xl">
+                       FIND US.
+                    </h2>
+                    <div class="ds2-text-only--textbox">
+                        <div class="ds2-expand--body-copy-container" data-expanded="false" data-loader="amdLoader" data-component-path="ds2-expand-copy" data-component-initialized="true">
+                            <div class="ds2-expand--body-copy ds2-expand--body-copy-columns ds2-expand--reset">
+                                <div class="ds2-expand--copy-content">
+                                    <div class="ds2-cms-output">
+                                        <p><br>
+
+
+
+
+                                            Laxmi Premium Motors Pvt Ltd<br>
+                                            Tinkune-32<br>
+                                            Kathmandu<br>
+                                            Nepal<br>
+                                            &nbsp;
+                                        </p>
+                                         <p>Contact no: 
+                                            <a href="tel:01-4111776" style="color: #262626; font-weight: 300; font-family:bmwTypeWebLightAll, Arial, Helvetica, sans-serif;">01-4111776</a> , 
+                                            <a href="tel:01-4111628" style="color: #262626; font-weight: 300; font-family:bmwTypeWebLightAll, Arial, Helvetica, sans-serif;">01-4111628 </a><br>
+                                            Sales Hotline: 
+                                            <a href="tel:9802318401" style="color: #262626; font-weight: 300; font-family:bmwTypeWebLightAll, Arial, Helvetica, sans-serif;">9802318401</a>, 
+                                            <a href="tel:9802369350" style="color: #262626; font-weight: 300; font-family:bmwTypeWebLightAll, Arial, Helvetica, sans-serif;">9802369350</a><br>
+
+                                            &nbsp;
+                                            </p>
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="ds2-expand--body-expand-container hide-for-medium-up">
+                  <a class="ds2-expand--body-expand-button expand button" role="button">
+                  <span class="ds2-icon ds2-icon--arrow-big-d-grey-2  "></span>Read more
+                  </a>
+                  </span>
+                        </div>
+                    </div>
+                </div>
+</div>
+
+</div>
+        
+    </main>
+<style>
+    @font-face {
+        font-family: "bmwTypeWeb";
+        src: url("https://bmw-laxmi.com.np/assets/frontend/fonts/BMWTypeNext-Bold.woff2") format("woff2");
+        font-weight: 700;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: "bmwTypeWeb";
+        src: url("https://bmw-laxmi.com.np/assets/frontend/fonts/BMWTypeNext-Regular.woff2") format("woff2");
+        font-weight: 500;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: "bmwTypeWeb-light";
+        src: url("https://bmw-laxmi.com.np/assets/frontend/fonts/BMWTypeNext-Light.woff2") format("woff2");
+        font-weight: 300;
+        font-style: normal;
+    }
+
+    a{
+        font-family: bmwTypeWeb-light !important;
+        margin-bottom: 0;
+    }
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .footer {
+        background-color: #f5f5f5;
+        font-family: bmwTypeWeb-light !important;
+    }
+
+    .container {
+        /*max-width: 1600px;*/
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .footer-logo {
+        width: 144px;
+    }
+
+    .footer-logo img {
+        width: 100%;
+        height: auto;
+    }
+
+    .footer-main {
+        border-top: 1px solid #e5e5e5;
+        border-bottom: 1px solid #e5e5e5;
+        padding: 2rem 0;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+    }
+
+    .footer-column h5 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .footer-column-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+
+    .footer-column-header .dropdown-icon {
+        display: none !important;
+        transition: transform 0.3s ease;
+    }
+
+    .footer-column ul {
+        display: block;
+        padding-left: 0;
+    }
+
+    .footer-column ul li {
+        margin-bottom: 0.75rem;
+    }
+    .footer-column ul li a{
+        font-size: 1rem;
+    }
+
+
+
+    .footer-social {
+        grid-column: span 3;
+        padding-top: 1.5rem;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 2rem;
+        justify-content: flex-end;
+    }
+
+    .social-links a {
+        display: flex;
+        align-items: center;
+    }
+
+    .footer-bottom {
+        display: flex;
+        align-items: center;
+        padding: 2rem 0;
+        gap: 4rem;
+    }
+
+    .footer-links {
+        display: flex;
+        gap: 1.25rem;
+    }
+
+    /* Tablet styles */
+    @media (max-width: 1024px) {
+        .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem 1rem;
+        }
+
+        .footer-column h5 {
+            font-size: 1.25rem;
+        }
+
+        .footer-column ul {
+            font-size: 0.875rem;
+        }
+
+        .footer-social {
+            grid-column: span 2;
+        }
+
+        .footer-bottom {
+            font-size: 0.875rem;
+        }
+    }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+        .footer-column-header .dropdown-icon {
+            display: block !important;
+        }
+
+        .footer-grid {
+            grid-template-columns: 1fr;
+            row-gap: 8px;
+        }
+
+        .footer-column {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column h5 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-column ul {
+            display: none;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-column ul.active {
+            display: block;
+        }
+
+        .dropdown-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        .footer-social {
+            grid-column: span 1;
+        }
+
+        .social-links {
+            justify-content: center;
+        }
+
+        .footer-bottom {
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .footer-column ul li a{
+            font-size: 0.875rem;
+        }
+        .footer-logo{
+            width: 100px;
+        }
+    }
+
+    /* Small mobile styles */
+    @media (max-width: 640px) {
+        .footer-bottom {
+            font-size: 0.875rem;
+        }
+    }
+
+    #scrollToTop {
+        height: 3.25rem; /* h-13 */
+        width: 3.25rem;  /* w-13 */
+        position: fixed;
+        bottom: 17.5rem; /* bottom-70 */
+        right: 3.5rem;   /* right-14 */
+        z-index: 10;
+        border-radius: 50%; /* rounded-full */
+        background-color: white; /* bg-white */
+
+        display: flex; /* flex */
+        align-items: center; /* items-center */
+        justify-content: center; /* justify-center */
+
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* shadow-2xl */
+        cursor: pointer;
+        opacity: 0; /* opacity-0 */
+        transform: translateY(1rem); /* translate-y-4 */
+        transition: all 0.5s ease; /* transition-all duration-500 */
+        pointer-events: none; /* pointer-events-none */
+    }
+
+    /* Responsive: max-md:right-2 max-md:bottom-40 */
+    @media (max-width: 768px) {
+        #scrollToTop {
+            right: 0.5rem;
+            bottom: 10rem;
+        }
+    }
+
+</style>
+<footer class="footer">
+    <div class="footer-logo-section">
+        <div class="container">
+            <div class="footer-logo">
+                <a href="">
+                    <img src="https://bmw-laxmi.com.np/assets/images/footer-logo.webp" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-main">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="footer-column-header" onclick="toggleDropdown(this)">
+                        <h5>Services</h5>
+                        <iconify-icon icon="iconamoon:arrow-down-2-light" width="30" height="30" class="dropdown-icon"></iconify-icon>
+                    </div>
+                    <ul>
+                        <li><a href="https://bmw-laxmi.com.np/services/service-maintenance">Service &amp; Maintenance</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/services/warranties">Warranties</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/services/repair-care">Repair &amp; Care</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/services/wheels-tyres">Wheels and Tires</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/services/car-care">Car Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <div class="footer-column-header" onclick="toggleDropdown(this)">
+                        <h5>Contact &amp; Assistance</h5>
+                        <iconify-icon icon="iconamoon:arrow-down-2-light" width="30" height="30" class="dropdown-icon"></iconify-icon>
+                    </div>
+                    <ul>
+                        <li><a href="https://bmw-laxmi.com.np/find-service-center">Find a Service Centre</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/find-showroom">Find a Showroom</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/contact-us">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <div class="footer-column-header" onclick="toggleDropdown(this)">
+                        <h5>Discover</h5>
+                        <iconify-icon icon="iconamoon:arrow-down-2-light" width="30" height="30" class="dropdown-icon"></iconify-icon>
+                    </div>
+                    <ul>
+                        <li><a href="https://bmw-laxmi.com.np/discover/bmw-luxury-class">BMW Luxury Class</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/discover/about-team">About the Team</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/discover/about">About Laxmi Premium Motors PVT LTD</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/price-list">Price List</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <div class="footer-column-header" onclick="toggleDropdown(this)">
+                        <h5>Models</h5>
+                        <iconify-icon icon="iconamoon:arrow-down-2-light" width="30" height="30" class="dropdown-icon"></iconify-icon>
+                    </div>
+                    <ul>
+                        <li><a href="https://bmw-laxmi.com.np/bmw-ix1">BMW iX1</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/all-models/x-series/bmw-ix2">BMW iX2</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/all-models/x-series/ix3/bmw-ix3">BMW iX3</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/all-models/3-series/bmw-3-series">BMW 3 Series</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/all-models/5-series/bmw-5-series">BMW 5 Series</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/all-models/7-series/bmw-7-series">BMW 7 Series</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/all-models/x-series/x1/bmw-x1">BMW X1</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/all-models/x-series/x3/bmw-x3">BMW X3</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/all-models/x-series/x5/bmw-x5">BMW X5</a></li>
+                        <li><a href="https://bmw-laxmi.com.np/all-models/x-series/x7/bmw-x7">BMW X7</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <ul class="social-links">
+                        <li><a href=""><iconify-icon icon="logos:facebook" width="22" height="22"></iconify-icon></a></li>
+                        <li><a href=""><iconify-icon icon="skill-icons:instagram" width="22" height="22"></iconify-icon></a></li>
+                        <li><a href=""><iconify-icon icon="logos:youtube-icon" width="22" height="22"></iconify-icon></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="footer-bottom">
+            <div>Copyright © BMW Nepal 2025</div>
+            <div class="footer-links">
+                <a href="">Privacy Policy</a>
+                <a href="">Legal Notice</a>
+                <a href="">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div id="scrollToTop">
+    <iconify-icon icon="lets-icons:arrow-top-light" width="24" height="24"></iconify-icon>
+</div>
+
+<script>
+    function toggleDropdown(header) {
+        if (window.innerWidth <= 768) {
+            // First, reset all h5 colors to default
+            document.querySelectorAll('.footer-column-header h5').forEach(h5 => {
+                h5.style.color = '';
+            });
+
+            // Close any other open dropdowns
+            const allUls = document.querySelectorAll('.footer-column ul.active');
+            const allIcons = document.querySelectorAll('.dropdown-icon.rotated');
+
+            allUls.forEach(openUl => {
+                if (openUl !== header.nextElementSibling) {
+                    openUl.classList.remove('active');
+                }
+            });
+
+            allIcons.forEach(openIcon => {
+                if (openIcon !== header.querySelector('.dropdown-icon')) {
+                    openIcon.classList.remove('rotated');
+                }
+            });
+
+            // Then toggle the clicked dropdown
+            const ul = header.nextElementSibling;
+            const icon = header.querySelector('.dropdown-icon');
+            const h5 = header.querySelector('h5');
+
+            ul.classList.toggle('active');
+            icon.classList.toggle('rotated');
+
+            // Set h5 color based on active state
+            if (ul.classList.contains('active')) {
+                h5.style.color = '#1c69d4';
+            } else {
+                h5.style.color = '';
+            }
+        }
+    }
+
+    // Scroll to Top
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+
+    window.addEventListener('scroll', () => {
+        const scrollHeight = document.documentElement.scrollHeight;
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const clientHeight = document.documentElement.clientHeight;
+
+        // Show button when 300px left to reach bottom
+        if (scrollHeight - (scrollTop + clientHeight) <= 300) {
+            scrollToTopBtn.style.opacity = '1';
+            scrollToTopBtn.style.transform = 'translateY(0)';
+            scrollToTopBtn.style.pointerEvents = 'auto';
+        } else {
+            scrollToTopBtn.style.opacity = '0';
+            scrollToTopBtn.style.transform = 'translateY(1rem)';
+            scrollToTopBtn.style.pointerEvents = 'none';
+        }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+</script>
+<!--Scripts-->
+<script src="https://bmw-laxmi.com.np/assets/frontend/js/jquery-3.3.1.min.js"></script>
+<script src="https://bmw-laxmi.com.np/assets/frontend/js/slick/slick.min.js"></script>
+<script src="https://bmw-laxmi.com.np/assets/frontend/js/lightbox.min.js"></script>
+<script src="https://rawgit.com/intoro/Lazy_Load_JQuery/master/js/1_9_7_jquery.lazyload.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('img.lazy').lazyload({
+            effect: "fadeIn",
+            root: null,
+            rootMargin: "0px",
+            threshold: 0
+        });
+        $(".model-nav a").click(function () {
+            $("img.lazy").lazyload({
+                root: null,
+                rootMargin: "0px",
+                threshold: 0
+            });
+        });
+        $(".models-tab a").click(function () {
+            $("img.lazy").lazyload({
+                root: null,
+                rootMargin: "0px",
+                threshold: 0
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('.slick-banner').slick({
+            dots: true, customPaging: function (slider, i) {
+                return '<button  class="is-active"></button>';
+            },
+            prevArrow: "<button type=\"button\" data-role=\"none\" class=\"slick-prev\">\n" +
+                "                <span class=\"ds2-slider--prev-inline ds2-icon ds2-icon--arrow-big-l-white ds2-icon--l ds2-icon--bg\"></span>\n" +
+                "            </button>",
+            nextArrow: "<button type=\"button\" data-role=\"none\" class=\"slick-next\">\n" +
+                "                <span class=\"ds2-slider--next-inline ds2-icon ds2-icon--arrow-big-r-white ds2-icon--l ds2-icon--bg\"></span>\n" +
+                "            </button>"
+        });
+        $('.slick-banner-inner-full').slick({
+            dots: true, customPaging: function (slider, i) {
+                return '<button  class="is-active"></button>';
+            },
+            prevArrow: "<button type=\"button\" data-role=\"none\" class=\"slick-prev ds2-slider--clickable-half\" style=\"opacity: 1;\">\n" +
+                "    <div class=\"ds2-slider--clickable-half-icon-container\">\n" +
+                "        <span class=\"ds2-slider--prev-inline ds2-icon ds2-icon--arrow-big-l-white ds2-icon--l ds2-icon--bg\"></span>\n" +
+                "    </div>\n" +
+                "</button>",
+            nextArrow: "<button type=\"button\" data-role=\"none\" class=\"slick-next ds2-slider--clickable-half\" style=\"opacity: 1;\">\n" +
+                "    <div class=\"ds2-slider--clickable-half-icon-container\">\n" +
+                "        <span class=\"ds2-slider--next-inline ds2-icon ds2-icon--arrow-big-r-white ds2-icon--l ds2-icon--bg\"></span>\n" +
+                "    </div>\n" +
+                "</button>"
+        });
+        $('.slick-banner-inner-two').slick({
+            slidesToShow: 2,
+            dots: true, customPaging: function (slider, i) {
+                return '<button  class="is-active"></button>';
+            },
+            prevArrow: "<button type=\"button\" data-role=\"none\" class=\"slick-prev ds2-slider--clickable-half\" style=\"opacity: 1;\">\n" +
+                "    <div class=\"ds2-slider--clickable-half-icon-container\">\n" +
+                "        <span class=\"ds2-slider--prev-inline ds2-icon ds2-icon--arrow-big-l-white ds2-icon--l ds2-icon--bg\"></span>\n" +
+                "    </div>\n" +
+                "</button>",
+            nextArrow: "<button type=\"button\" data-role=\"none\" class=\"slick-next ds2-slider--clickable-half\" style=\"opacity: 1;\">\n" +
+                "    <div class=\"ds2-slider--clickable-half-icon-container\">\n" +
+                "        <span class=\"ds2-slider--next-inline ds2-icon ds2-icon--arrow-big-r-white ds2-icon--l ds2-icon--bg\"></span>\n" +
+                "    </div>\n" +
+                "</button>"
+        });
+        $('.slick-single').slick({
+            slidesToShow: 1,
+            dots: true, customPaging: function (slider, i) {
+                return '<button class="is-active"></button>';
+            },
+            prevArrow: "<button type=\"button\" data-role=\"none\" class=\"slick-prev\">\n" +
+                // "                <span class=\"ds2-slider--prev-inline ds2-icon ds2-icon--arrow-big-l-white ds2-icon--l ds2-icon--bg\"></span>\n" +
+                "            </button>",
+            nextArrow: "<button type=\"button\" data-role=\"none\" class=\"slick-next\">\n" +
+                // "                <span class=\"ds2-slider--next-inline ds2-icon ds2-icon--arrow-big-r-white ds2-icon--l ds2-icon--bg\"></span>\n" +
+                "            </button>"
+        });
+
+        $('.slick-overview').slick({
+            slidesToShow: 1,
+            centerPadding: '350px',
+            infinite: false,
+            focusOnSelect: true,
+            centerMode: true,
+            arrows: true,
+            responsive: [
+                {
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: 1,
+                        centerPadding: false,
+                        centerMode: false,
+
+                    }
+                },
+            ],
+            dots: false, customPaging: function (slider, i) {
+                return '<button class="is-active"></button>';
+            },
+            prevArrow: "<button type=\"button\" data-role=\"none\" class=\"slick-prev sk-btn-center\">\n" +
+                "                <span class=\"ds2-slider--prev-inline ds2-icon ds2-icon--arrow-big-l-white ds2-icon--l ds2-icon--bg\"></span>\n" +
+                "            </button>",
+            nextArrow: "<button type=\"button\" data-role=\"none\" class=\"slick-next sk-btn-center\">\n" +
+                "                <span class=\"ds2-slider--next-inline ds2-icon ds2-icon--arrow-big-r-white ds2-icon--l ds2-icon--bg\"></span>\n" +
+                "            </button>"
+        });
+
+        $('.slick-banner-dawn').slick({
+            dots: false,
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            infinite: false,
+            prevArrow: "<button type=\"button\" data-role=\"none\"\n" +
+                "                            class=\"slick-prev ds2-icon ds2-icon--arrow-big-l-white ds2-icon--bg\" style=\"\"\n" +
+                "                            tabindex=\"-1\"></button>",
+            nextArrow: "<button type=\"button\" data-role=\"none\"\n" +
+                "                            class=\"slick-next ds2-icon ds2-icon--arrow-big-r-white ds2-icon--bg\" style=\"\"\n" +
+                "                            tabindex=\"-1\"></button>",
+            responsive: [
+                {
+                    breakpoint: 1300,
+                    settings: {
+                        slidesToShow: 4
+                    }
+                },
+                {
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2
+                    }
+                },
+                {
+                    breakpoint: 460,
+                    settings: {
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        });
+        $('.slick-slide-inner').slick({
+            dots: false,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            infinite: true,
+            prevArrow: "<button type=\"button\" data-role=\"none\"\n" +
+                "                                        class=\"slick-prev ds2-icon ds2-icon--arrow-big-l-white ds2-icon--bg\"\n" +
+                "                                        style=\"\" tabindex=\"-1\"></button>",
+            nextArrow: "<button type=\"button\" data-role=\"none\"\n" +
+                "                                        class=\"slick-next ds2-icon ds2-icon--arrow-big-r-white ds2-icon--bg\" style=\"\"\n" +
+                "                                        tabindex=\"-1\"></button>",
+            responsive: [
+                {
+                    breakpoint: 1300,
+                    settings: {
+                        slidesToShow: 2
+                    }
+                },
+                {
+                    breakpoint: 992,
+                    settings: {
+                        slidesToShow: 2
+                    }
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 2
+                    }
+                },
+                {
+                    breakpoint: 460,
+                    settings: {
+                        slidesToShow: 1
+                    }
+                }
+            ]
+        });
+    });
+    //     Custom tab
+    $(document).ready(function () {
+        $('.first-nav a').click(function (e) {
+            e.preventDefault();
+            $(this).parent().parent().find(".active").removeClass('active');
+            $(this).parent().addClass('active');
+            var tagid = $(this).data('tag');
+            $('.model-nav-first').removeClass('active-tab').addClass('hide-tab');
+            $('#' + tagid).addClass('active-tab').removeClass('hide-tab');
+        });
+        $('.second-nav a').click(function (e) {
+            e.preventDefault();
+            $(this).parent().parent().find(".active").removeClass('active');
+            $(this).parent().addClass('active');
+            var tagid = $(this).data('tag');
+            $('.model-nav-second').removeClass('active-tab').addClass('hide-tab');
+            $('#' + tagid).addClass('active-tab').removeClass('hide-tab');
+        });
+        $('.third-nav a').click(function (e) {
+            e.preventDefault();
+            $(this).parent().parent().find(".active").removeClass('active');
+            $(this).parent().addClass('active');
+            var tagid = $(this).data('tag');
+            $('.model-nav-third').removeClass('active-tab').addClass('hide-tab');
+            $('#' + tagid).addClass('active-tab').removeClass('hide-tab');
+        });
+    });
+
+    $(".mobile-menu").click(function (e) {
+        $(".navigation-content").removeClass("nav-closed");
+        $(".navigation-content").addClass("nav-opened");
+        $("body").addClass("mobile-menu-active");
+        $(".top-navigation").addClass("top-navigation-open");
+        $("body").addClass("ds2-scrolllock--basic");
+
+        $('.main-navigation-tab').addClass('hide-tab');
+        $('#model-navigation').addClass('active-tab');
+        $('#model-navigation').removeClass('hide-tab');
+        $('.first-mobile').addClass('active');
+        $(".mobile-menu-active .close-icon").click(function (e) {
+            $("body").removeClass("mobile-menu-active");
+
+        });
+    });
+    $(".icon-close-x[data-v-180a954f]").click(function () {
+        $(".mobile-navigation.is-open").hide();
+        $("body").removeClass("ds2-scrolllock--basic");
+    });
+    $(".icon-close-x").click(function (e) {
+        $(".top-navigation").removeClass("top-navigation-open");
+    });
+    $(".main-nav-header a").click(function (e) {
+        e.preventDefault();
+        $(".navigation-content").removeClass("nav-closed");
+        $(".navigation-content").addClass("nav-opened");
+        $("body").addClass("ds2-scrolllock--basic");
+        $(".top-navigation").addClass("top-navigation-open");
+        //    =====================
+        var tagid = $(this).data('tag');
+        $('.main-navigation-tab').removeClass('active-tab').addClass('hide-tab');
+        $('#' + tagid).addClass('active-tab').removeClass('hide-tab');
+        $("#model-tab-1").removeClass("hide-tab");
+        $("#model-tab-1").addClass("active-tab");
+        $("#service-tab-1").removeClass("hide-tab");
+        $("#service-tab-1").addClass("active-tab");
+        $("#discover-tab-1").removeClass("hide-tab");
+        $("#discover-tab-1").addClass("active-tab");
+        $("img.lazy").lazyload({
+            root: null,
+            rootMargin: "0px",
+            threshold: 0
+        });
+    });
+    $(".close-icon").click(function (e) {
+        e.preventDefault();
+        $(".navigation-content").removeClass("nav-opened");
+        $(".navigation-content").addClass("nav-closed");
+        $("body").removeClass("ds2-scrolllock--basic");
+        $(".top-navigation").removeClass("top-navigation-open");
+        $(".main-nav-header a").removeClass('active');
+        if ($('.top-navigation').hasClass("top-stick") == true) {
+
+            $('body').addClass('ds2-scrolllock--basic ds2-stick');
+        }
+    });
+    $(".main-nav-header a").click(function () {
+        $(".main-nav-header a").removeClass('active');
+        $(this).addClass('active');
+    });
+    $('.models-tab a').click(function (e) {
+        e.preventDefault();
+        $(this).parent().parent().find(".active").removeClass('active');
+        $(this).parent().addClass('active');
+        var tagid = $(this).data('tag');
+        $('.models-tab-content').removeClass('active-tab').addClass('hide-tab');
+        $('#' + tagid).addClass('active-tab').removeClass('hide-tab');
+    });
+    $('.services-tab a').click(function (e) {
+        e.preventDefault();
+        $(this).parent().parent().find(".active").removeClass('active');
+        $(this).parent().addClass('active');
+        var tagid = $(this).data('tag');
+        $('.services-tab-content').removeClass('active-tab').addClass('hide-tab');
+        $('#' + tagid).addClass('active-tab').removeClass('hide-tab');
+    });
+    $('.discover-tab a').click(function (e) {
+        e.preventDefault();
+        $(this).parent().parent().find(".active").removeClass('active');
+        $(this).parent().addClass('active');
+        var tagid = $(this).data('tag');
+        $('.discover-tab-content').removeClass('active-tab').addClass('hide-tab');
+        $('#' + tagid).addClass('active-tab').removeClass('hide-tab');
+    });
+    //    Scroll
+    $(window).on('scroll', function (event) {
+        var scrollValue = $(window).scrollTop();
+        if (scrollValue > 0) {
+            $('body').addClass('ds2-scrolllock--basic ds2-stick');
+            $('.top-navigation').addClass('top-stick');
+        } else {
+            $('body').removeClass('ds2-scrolllock--basic ds2-stick');
+            $('.top-navigation').removeClass('top-stick');
+
+        }
+
+
+    });
+
+    //     Inner page tab
+    $('.custom-nav-link li').click(function (e) {
+        e.preventDefault();
+        $(".custom-nav-link li").removeClass('is-active');
+        $(this).addClass('is-active');
+        var tagid = $(this).data('tag');
+        $('.custom-tab-content').removeClass('active-tab').addClass('hide-tab');
+        $('#' + tagid).addClass('active-tab').removeClass('hide-tab');
+    });
+
+    $('.slider-for').slick({
+        slidesToShow: 1,
+        arrows: true,
+        slidesToScroll: 1,
+        asNavFor: '.slider-nav-lk',
+        prevArrow: "<button type=\"button\" data-role=\"none\"\n" +
+            "                                        class=\"slick-prev\"\n" +
+            "                                        style=\"\" tabindex=\"-1\">" +
+            "<span class='ds2-icon ds2-icon--arrow-big-l-white ds2-icon--l ds2-icon--bg'> </span></button>",
+        nextArrow: "<button type=\"button\" data-role=\"none\"\n" +
+            "                                        class=\"slick-next\" style=\"\"\n" +
+            "                                        tabindex=\"-1\">" +
+            "<span class=\"ds2-icon ds2-icon--arrow-big-r-white ds2-icon--l ds2-icon--bg\"></span></button>",
+    });
+    $('.slider-nav-lk').slick({
+        arrows: false,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        asNavFor: '.slider-for',
+        dots: false,
+        focusOnSelect: true,
+        responsive: [
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            }
+
+        ]
+    });
+    //discover all redirect
+    $('.ds2-model-car ').click(function () {
+        var clk = $(this).attr('data-redirect');
+
+        if (typeof value === "undefined") {
+
+        }else{
+            window.location = clk;
+        }
+
+    });
+
+    lightbox.option({
+        'disableScrolling': true,
+        'positionFromTop': 150,
+    });
+
+    $(".ds2-expand--body-expand-button.expand.button").click(function () {
+        $(this).parents(".ds2-expand--body-copy-container").css("max-height", 'none');
+        $(this).hide();
+    });
+    $(".ds2-dropdown-js-area").click(function (e) {
+        e.preventDefault();
+        $(this).parents(".ds2-dropdown ").addClass(" ds2-dropdown--filter-active ds2-dropdown--open")
+    });
+    $(".ds2-dropdown__link").click(function () {
+        var dataAttrDp = $(this).data("list-id");
+        var cc = $('body').find(".content").attr("data-panel-id");
+
+
+    });
+
+
+    $('.ds2-dropdown__link').on("click", function (event) {
+        event.preventDefault();
+        var dpId = $(this).attr('data-list-id');
+        $(".ds2-technical-data--content").each(function () {
+            $(this).removeClass("ds2-mvc-tabs-content__panel--active");
+            if ($(this).attr('id') === dpId) {
+                $(this).addClass("ds2-mvc-tabs-content__panel--active");
+            }
+        });
+        $(".ds2-dropdown").removeClass("ds2-dropdown--filter-active ds2-dropdown--open");
+    });
+    $(document).mouseup(function (e) {
+        var containerOut = $(".ds2-dropdown");
+        // if the target of the click isn't the container nor a descendant of the container
+        if (!containerOut.is(e.target) && containerOut.has(e.target).length === 0) {
+            containerOut.removeClass('ds2-dropdown--filter-active ds2-dropdown--open');
+        }
+    });
+    $(".ds2-accordion--content.ui-accordion-content").css("display", 'none');
+    $(".ds2-accordion--title.ds2-font-clickable.ui-accordion-header").click(function () {
+        $(this).parents(".ds2-accordion--list-item").find('.ds2-accordion--content').slideToggle("slow");
+        $(this).parents(".ds2-accordion--list-item").find('.ds2-accordion--title.ds2-font-clickable').toggleClass("ds2-icon--plus-active");
+
+
+    });
+
+    $(".ds2-tc-phone").click(function () {
+        $(this).parents(".ds2-accordion--list.ds2-accordion--head").find('.ds2-accordion--content').slideToggle("slow");
+    });
+
+    //    Multliple navigation stick
+    var stickyHeaders = (function () {
+        var $window = $(window),
+            $stickies;
+
+        var load = function (stickies) {
+            if (
+                typeof stickies === "object" &&
+                stickies instanceof jQuery &&
+                stickies.length > 0
+            ) {
+                $stickies = stickies.each(function () {
+                    var $thisSticky = $(this).wrap('<div class="followWrap" />');
+
+                    $thisSticky
+                        .data("originalPosition", $thisSticky.offset().top)
+                        .data("originalHeight", $thisSticky.outerHeight())
+                        .parent()
+                        .height($thisSticky.outerHeight());
+                });
+
+                $window.off("scroll.stickies").on("scroll.stickies", function () {
+                    _whenScrolling();
+                });
+            }
+        };
+
+        var _whenScrolling = function () {
+            $stickies.each(function (i) {
+                var $thisSticky = $(this),
+                    $stickyPosition = $thisSticky.data("originalPosition");
+
+                if ($stickyPosition <= $window.scrollTop()) {
+                    var $nextSticky = $stickies.eq(i + 1),
+                        $nextStickyPosition =
+                            $nextSticky.data("originalPosition") -
+                            $thisSticky.data("originalHeight");
+
+                    $thisSticky.addClass("fixed");
+
+                    if (
+                        $nextSticky.length > 0 &&
+                        $thisSticky.offset().top >= $nextStickyPosition
+                    ) {
+                        $thisSticky.addClass("absolute").css("top", $nextStickyPosition);
+                    }
+                } else {
+                    var $prevSticky = $stickies.eq(i - 1);
+
+                    $thisSticky.removeClass("fixed");
+
+                    if (
+                        $prevSticky.length > 0 &&
+                        $window.scrollTop() <=
+                        $thisSticky.data("originalPosition") -
+                        $thisSticky.data("originalHeight")
+                    ) {
+                        $prevSticky.removeClass("absolute").removeAttr("style");
+                    }
+                }
+            });
+        };
+
+        return {
+            load: load
+        };
+    })();
+
+    $(function () {
+        stickyHeaders.load($(".followMeBar"));
+    });
+    $(".ds2-hotspot-element--close a").click(function (e) {
+        e.preventDefault();
+        $(".ds2-hotspot--keyvisual-hotspot-dot--input").prop("checked", false);
+    });
+    //
+    $(".start-interaction").click(function (e) {
+        e.preventDefault();
+        $("#highlightLayer-content__bmw__marketGV9Jm2u7rmsCe65wKzPTw5jtS38n2tVEGi-pool__topics__heritage__jcr__content__highlight.ds2-lightbox").addClass("ds2-lightbox--fade-in ds2-lightbox--open");
+    });
+    $(".ds2-lightbox__close-button").click(function (e) {
+        e.preventDefault();
+        $("#highlightLayer-content__bmw__marketGV9Jm2u7rmsCe65wKzPTw5jtS38n2tVEGi-pool__topics__heritage__jcr__content__highlight.ds2-lightbox").removeClass("ds2-lightbox--fade-in ds2-lightbox--open");
+    });
+    //
+    $(".start-interaction1").click(function (e) {
+        e.preventDefault();
+        $("#highlightLayer-content__bmw__marketGV9Jm2u7rmsCe65wKzPTw5jtS38n2tVEGi-pool__topics__heritage__jcr__content__highlight1").addClass("ds2-lightbox--fade-in ds2-lightbox--open");
+    });
+    $(".ds2-lightbox__close-button1").click(function (e) {
+        e.preventDefault();
+        $("#highlightLayer-content__bmw__marketGV9Jm2u7rmsCe65wKzPTw5jtS38n2tVEGi-pool__topics__heritage__jcr__content__highlight1").removeClass("ds2-lightbox--fade-in ds2-lightbox--open");
+    });
+    //
+    $(".start-interaction2").click(function (e) {
+        e.preventDefault();
+        $("#highlightLayer-content__bmw__marketGV9Jm2u7rmsCe65wKzPTw5jtS38n2tVEGi-pool__topics__heritage__jcr__content__highlight2").addClass("ds2-lightbox--fade-in ds2-lightbox--open");
+    });
+    $(".ds2-lightbox__close-button2").click(function (e) {
+        e.preventDefault();
+        $("#highlightLayer-content__bmw__marketGV9Jm2u7rmsCe65wKzPTw5jtS38n2tVEGi-pool__topics__heritage__jcr__content__highlight2").removeClass("ds2-lightbox--fade-in ds2-lightbox--open");
+    });
+    //additonal script changes
+    $(".icon-close-x.close-icon").click(function () {
+        $(".tab-bar-animation").removeClass("active");
+    });
+    $('.all-redirect ').click(function () {
+        var clk1 = $(this).attr('data-redirectall');
+        window.location = clk1;
+    });
+    if ($(window).width() < 768) {
+        $('.header-scap ').click(function () {
+            $(this).parents('.article-scap').find(".list-scap").toggle("slide");
+            $(this).parents('.article-scap').toggleClass("scap-active");
+        })
+    }
+</script>
+<script>
+    $(".ds2-drop-custom .ds2-dropdown-list__item").click(function () {
+        var textToClone = $(this).text();
+        var textCloned = $(".ds2-drop-custom .ds2-dropdown__js-title");
+        $(textCloned).text(textToClone);
+        $(".ds2-drop-custom .ds2-dropdown-list__item").removeClass("ds2-dropdown-list__item--active");
+
+        $(this).addClass("ds2-dropdown-list__item--active");
+
+    });
+</script>
+
+<script>
+    $(".ds2-first-level-item").hover(
+        function () {
+            var dataShow = $(this).attr("data-localid");
+            $(".ds2-first-level-item").removeClass("ds2-first-level-item_active");
+            $(this).addClass("ds2-first-level-item_active");
+            $('.ds2-second-level-container').removeClass("ds2-second-level-container_active");
+            $('.ds2-flyout-multilevel-right').find("[data-localid='" + dataShow + "']").addClass("ds2-second-level-container_active");
+
+        },
+    );
+    $(document).on("click", ".md-tgsc", function () {
+        $(".models-tab-content").addClass("hide-tab");
+        $("#model-tab-1").removeClass("hide-tab")
+    });
+    $(document).on("click", ".navMnu", function () {
+        var navDTag = $(this).attr("data-tag");
+        var navTgDiv = "#" + navDTag;
+        $(".ds2-first-level-item").removeClass("ds2-first-level-item_active");
+        $(".ds2-second-level-container").removeClass("ds2-second-level-container_active");
+        $(navTgDiv).find(".ds2-first-level-item:first").addClass("ds2-first-level-item_active");
+        $(navTgDiv).find(".ds2-second-level-container:first").addClass("ds2-second-level-container_active");
+
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        $(".btn-confirm-cookie--js").on("click", function (event) {
+            event.preventDefault();
+            localStorage.setItem('cookieAcceptedBMW', 'accepted');
+            $('.cookie-accept-box--js').hide();
+        })
+
+        if (localStorage.getItem('cookieAcceptedBMW') == "accepted") {
+            $('.cookie-accept-box--js').hide();
+
+        } else {
+            $('.cookie-accept-box--js').show();
+        }
+    });
+
+</script>
+
+
+
+
+
+<div id="lightboxOverlay" tabindex="-1" class="lightboxOverlay" style="display: none;"></div><div id="lightbox" tabindex="-1" class="lightbox" style="display: none;"><div class="lb-outerContainer"><div class="lb-container"><img class="lb-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt=""><div class="lb-nav"><a class="lb-prev" aria-label="Previous image" href=""></a><a class="lb-next" aria-label="Next image" href=""></a></div><div class="lb-loader"><a class="lb-cancel"></a></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div><div class="lb-closeContainer"><a class="lb-close"></a></div></div></div></div></body></html>
