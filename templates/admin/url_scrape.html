@@ -29,10 +29,8 @@ URL Scraper
 {% block content %}
 
 <div class="content-wrapper">
-
 <div class="container">
 
-```
 <h2>🌐 Scrape Website by URL</h2>
 
 <!-- INPUT BOX -->
@@ -41,8 +39,8 @@ URL Scraper
         {% csrf_token %}
 
         <label><strong>Select brand:</strong></label><br><br>
-            {{ form.brand }}
-            <br><br>
+        {{ form.brand }}
+        <br><br>
 
         <label><strong>Enter URL:</strong></label><br><br>
         {{ form.url }}
@@ -56,10 +54,45 @@ URL Scraper
     </form>
 </div>
 
-<!-- OUTPUT BOX -->
-{% if data %}
+
+<!-- ================= EXISTING DB DATA ================= -->
+{% if existing and data %}
 <div class="box">
-    <h3>📊 Extracted Data</h3>
+    <h3>Existing Database Data</h3>
+
+    <p><strong>Website:</strong>
+        <a href="{{ data.website }}" target="_blank">{{ data.website }}</a>
+    </p>
+
+    <p><strong>Phones:</strong> {{ data.phones }}</p>
+    <p><strong>Emails:</strong> {{ data.emails }}</p>
+
+    <p><strong>Facebook:</strong> {{ data.facebook }}</p>
+    <p><strong>Instagram:</strong> {{ data.instagram }}</p>
+    <p><strong>Twitter:</strong> {{ data.twitter }}</p>
+    <p><strong>LinkedIn:</strong> {{ data.linkedin }}</p>
+    <p><strong>YouTube:</strong> {{ data.youtube }}</p>
+    <p><strong>TikTok:</strong> {{ data.tiktok }}</p>
+
+    <!-- 🔥 SCRAPE NEW BUTTON -->
+    <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="brand" value="{{ form.brand.value }}">
+        <input type="hidden" name="url" value="{{ form.url.value }}">
+        <input type="hidden" name="mode" value="{{ form.mode.value }}">
+
+        <button type="submit" name="scrape_new" value="1">
+            🔄 Scrape New Data
+        </button>
+    </form>
+</div>
+{% endif %}
+
+
+<!-- ================= SCRAPED / NEW DATA ================= -->
+{% if data and not existing %}
+<div class="box">
+    <h3>📊 Scraped Data Preview</h3>
 
     <p><strong>Website:</strong>
         <a href="{{ data.website }}" target="_blank">
@@ -84,13 +117,6 @@ URL Scraper
             <li>No emails found</li>
         {% endfor %}
     </ul>
-
-    <p><strong>Logo:</strong></p>
-    {% if data.logo %}
-        <img src="{{ data.logo }}" alt="Logo">
-    {% else %}
-        <p>No logo found</p>
-    {% endif %}
 
     <p><strong>Facebook:</strong></p>
     <ul>
@@ -138,7 +164,7 @@ URL Scraper
     </ul>
 
     <p><strong>TikTok:</strong></p>
-    <ul>
+     <ul>
         {% for link in data.tiktok %}
             <li>{{ link }}</li>
         {% empty %}
@@ -146,13 +172,28 @@ URL Scraper
         {% endfor %}
     </ul>
 
+    <!-- 🔥 CONFIRM SAVE BUTTON -->
+    {% if pending_save %}
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="hidden" name="brand" value="{{ form.brand.value }}">
+        <input type="hidden" name="url" value="{{ form.url.value }}">
+        <input type="hidden" name="mode" value="{{ form.mode.value }}">
+
+        <input type="hidden" name="confirm_save" value="1">
+
+        <button type="submit">
+            💾 Save to Database
+        </button>
+    </form>
+    {% endif %}
 </div>
 {% endif %}
-```
 
 </div>
-
 </div>
+
 {% endblock %}
 
 {% block extrascript %}

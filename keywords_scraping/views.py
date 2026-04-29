@@ -178,6 +178,7 @@ def search_view(request):
     """
     form = SearchForm()
     data = None
+    result = None
 
     if request.method == "POST":
         form = SearchForm(request.POST)
@@ -272,6 +273,7 @@ def scrape_url_view(request):
     """
     form = URLForm()
     data = None
+    result = None
 
     if request.method == "POST":
         form = URLForm(request.POST)
@@ -279,57 +281,138 @@ def scrape_url_view(request):
         if form.is_valid():
 
             brand_obj = form.cleaned_data["brand"]
-            brand_name = brand_obj.name
+            # brand_name = brand_obj.name
             
             url = form.cleaned_data["url"]
             mode = form.cleaned_data["mode"]
 
-            deep = True if mode == "deep" else False
+            deep = (mode == "deep")
+
+            # =========================
+            # STEP 1: SHOW EXISTING DATA
+            # =========================
 
             existing = BrandDetails.objects.filter(brand=brand_obj).first()
 
-            if existing and "scrape_new" not in request.POST:
+            if existing and "scrape_new" not in request.POST and "confirm_save" not in request.POST:
                 print("inside existing")
                 return render(request, "admin/url_scrape.html", {
                     "form": form,
                     "data": existing,
-                    "show_scrape_button": True,
-                    "existing": True
+                    "existing": True,
+                    "show_scrape_button": True
+                    
                 })
+            
+            # =========================
+            # STEP 2: CONFIRM SAVE
+            # =========================
+            if "confirm_save" in request.POST:
 
-            result = scrape_from_url(url, deep=deep)
+                result = request.session.get("scraped_data")
 
-            if not result:
-                result = {
-                    "website": url,
-                    "phones": [],
-                    "emails": [],
-                    # "logo": None,
-                    "dealers": [],
-                }
+                if not result:
+                    return render(request, "admin/url_scrape.html", {
+                        "form": form,
+                        "data": None,
+                        "error": "No scraped data found. Please scrape again."
+                    })
 
-            obj = BrandDetails.objects.create(
-                brand=brand_obj,
-                website=result.get("website"),
-                phones=result.get("phones"),
-                emails=result.get("emails"),
-                # logo=result.get("logo"),
-                facebook=result.get("facebook"),
-                instagram=result.get("instagram"),
-                twitter=result.get("twitter"),
-                linkedin=result.get("linkedin"),
-                tiktok=result.get("tiktok"),
-                youtube=result.get("youtube"),
-                dealers=result.get("dealers")
-            )
+                obj, created = BrandDetails.objects.update_or_create(
+                    brand=brand_obj,
+                    defaults={
+                        "website": result.get("website"),
+                        "phones": result.get("phones"),
+                        "emails": result.get("emails"),
+                        "facebook": result.get("facebook"),
+                        "instagram": result.get("instagram"),
+                        "twitter": result.get("twitter"),
+                        "linkedin": result.get("linkedin"),
+                        "tiktok": result.get("tiktok"),
+                        "youtube": result.get("youtube"),
+                        "dealers": result.get("dealers"),
+                    }
+                )
 
-            data = obj
+                # clear session after save
+                request.session.pop("scraped_data", None)
+                request.session.pop("brand_id", None)
+                request.session.pop("url", None)
+
+                return render(request, "admin/url_scrape.html", {
+                    "form": form,
+                    "data": obj,
+                    "existing": False,
+                    "show_scrape_button": False
+                })
+            
+            # =========================
+            # STEP 3: SCRAPE NEW DATA (ONLY ONCE)
+            # =========================
+            if "scrape_new" in request.POST or not existing:
+
+                result = scrape_from_url(url, deep=deep)
+
+                if not result:
+                    result = {
+                        "website": url,
+                        "phones": [],
+                        "emails": [],
+                        "dealers": [],
+                    }
+
+                 # store in session (temporary state)
+                request.session["scraped_data"] = result
+                request.session["brand_id"] = brand_obj.id
+                request.session["url"] = url
+
+                return render(request, "admin/url_scrape.html", {
+                    "form": form,
+                    "data": result,
+                    "existing": False,
+                    "pending_save": True,"show_scrape_button": False
+                })
+           
+
+            # result = scrape_from_url(url, deep=deep)
+
+            # if not result:
+            #     result = {
+            #         "website": url,
+            #         "phones": [],
+            #         "emails": [],
+            #         # "logo": None,
+            #         "dealers": [],
+            #     }
+
+            # # IMPORTANT: DO NOT SAVE
+            # request.session["scraped_data"] = result
+            # request.session["brand_id"] = brand_obj.id
+            # request.session["url"] = url
+            
+            # obj = BrandDetails.objects.create(
+            #     brand=brand_obj,
+            #     website=result.get("website"),
+            #     phones=result.get("phones"),
+            #     emails=result.get("emails"),
+            #     # logo=result.get("logo"),
+            #     facebook=result.get("facebook"),
+            #     instagram=result.get("instagram"),
+            #     twitter=result.get("twitter"),
+            #     linkedin=result.get("linkedin"),
+            #     tiktok=result.get("tiktok"),
+            #     youtube=result.get("youtube"),
+            #     dealers=result.get("dealers")
+            # )
+
+            # data = obj
 
     return render(request, "admin/url_scrape.html", {
         "form": form,
         "data": data,
-        "show_scrape_button": False,
-        "existing": False
+        "existing": False,
+        "pending_save": False,
+        "show_save_button": False
     })
 
 def index(request):
