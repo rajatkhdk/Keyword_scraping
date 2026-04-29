@@ -1,3 +1,148 @@
 {
-  "honda.com.np": []
+  "kia.com.np": [
+    {
+      "name": "",
+      "address": "",
+      "phone": [
+        "01-452645",
+        "01-4526475"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "",
+      "phone": [
+        "9801013900",
+        "9801166932"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "",
+      "phone": [
+        "9802304084",
+        "9802304082"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "",
+      "phone": [
+        "9802378578"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "Bhaktapur",
+      "phone": [
+        "9802343421",
+        "9801061305"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "",
+      "phone": [
+        "9705427582"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "Itahari",
+      "phone": [
+        "025-589377",
+        "9852085085"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "Biratnagar",
+      "phone": [
+        "9709151939"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "Pokhara",
+      "phone": [
+        "061-435501",
+        "9856022609"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "Bharatpur, Chitwan",
+      "phone": [
+        "056-590671",
+        "9855061046"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "Butwal",
+      "phone": [
+        "9857042499"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "Dang",
+      "phone": [
+        "9857834284"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "",
+      "phone": [
+        "091-410292",
+        "9801720721"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "",
+      "phone": [
+        "9801960473"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "Bhairahawa",
+      "phone": [
+        "9801023291"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "",
+      "phone": [
+        "500 0123"
+      ],
+      "email": []
+    },
+    {
+      "name": "",
+      "address": "",
+      "phone": [
+        "980 1571"
+      ],
+      "email": []
+    }
+  ]
 }
