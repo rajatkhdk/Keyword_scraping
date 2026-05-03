@@ -2,80 +2,75 @@
 {% load static %}
 
 {% block title %}
-    Car Brand Scraper{% endblock %}
+Car Brand Scraper
+{% endblock %}
 
-    {% block extrastyle %}
-   {{ form.media.css }}
-   <style>
-        /* Make it look like modern input */
-        .select2-container .select2-selection--single {
-            height: 38px;
-            padding: 5px 10px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
+{% block extrastyle %}
+{{ form.media.css }}
 
-        .select2-container--default .select2-selection--single .select2-selection__rendered {
-            line-height: 28px;
-        }
+<style>
+    .select2-container .select2-selection--single {
+        height: 38px;
+        padding: 5px 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
 
-        .select2-container--default .select2-selection--single .select2-selection__arrow {
-            height: 36px;
-        }
-        </style>
-    {% endblock %}
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 28px;
+    }
 
-    {% comment %} {% block extrastyle %}
-    <style>
-        body {
-            font-family: Arial;
-            margin: 40px;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-        }
-        .box {
-            border: 1px solid #ddd;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 8px;
-        }
-        img {
-            max-height: 80px;
-        }
-    </style>
-    {% endblock %} {% endcomment %}
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 36px;
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="content-wrapper">
 
+<div class="content-wrapper">
 <div class="container">
 
     <h2>🔍 Car Brand Search</h2>
 
-    <!-- INPUT BOX -->
+    <!-- ================= SEARCH FORM ================= -->
     <div class="box">
         <form method="POST">
             {% csrf_token %}
+
             <label><strong>Select brand:</strong></label><br><br>
+
             {{ form.brand }}
+
             <br><br>
-            <button type="submit">Search</button>
+
+            <button type="submit">
+                Search
+            </button>
         </form>
     </div>
 
-    <!-- OUTPUT BOX -->
-    {% if data %}
-    <div class="box">
-        <h3>📊 Extracted Data</h3>
 
-        <p><strong>Website:</strong><a href={{ data.website }}> {{ data.website }}</a></p>
+    <!-- ================= EXISTING DATABASE DATA ================= -->
+    {% if existing and data %}
+    <div class="box">
+
+        <h3>📂 Existing Database Data</h3>
+
+        <p>
+            <strong>Website:</strong>
+
+            <a href="{{ data.website }}" target="_blank">
+                {{ data.website }}
+            </a>
+        </p>
 
         <p><strong>Phones:</strong></p>
         <ul>
             {% for phone in data.phones %}
                 <li>{{ phone }}</li>
+            {% empty %}
+                <li>No phones found</li>
             {% endfor %}
         </ul>
 
@@ -83,20 +78,24 @@
         <ul>
             {% for email in data.emails %}
                 <li>{{ email }}</li>
+            {% empty %}
+                <li>No emails found</li>
             {% endfor %}
         </ul>
 
-        <p><strong>Logo:</strong></p>
+        {% comment %} <p><strong>Logo:</strong></p>
         {% if data.logo %}
             <img src="{{ data.logo }}" alt="Logo">
         {% else %}
             <p>No logo found</p>
-        {% endif %}
+        {% endif %} {% endcomment %}
 
         <p><strong>Facebook:</strong></p>
         <ul>
             {% for link in data.facebook %}
                 <li>{{ link }}</li>
+            {% empty %}
+                <li>No links found</li>
             {% endfor %}
         </ul>
 
@@ -104,6 +103,8 @@
         <ul>
             {% for link in data.instagram %}
                 <li>{{ link }}</li>
+            {% empty %}
+                <li>No links found</li>
             {% endfor %}
         </ul>
 
@@ -111,37 +112,308 @@
         <ul>
             {% for link in data.twitter %}
                 <li>{{ link }}</li>
+            {% empty %}
+                <li>No links found</li>
             {% endfor %}
         </ul>
 
-        <p><strong>Linkedin:</strong></p>
+        <p><strong>LinkedIn:</strong></p>
         <ul>
             {% for link in data.linkedin %}
                 <li>{{ link }}</li>
+            {% empty %}
+                <li>No links found</li>
             {% endfor %}
         </ul>
 
-        <p><strong>Youtube:</strong></p>
+        <p><strong>YouTube:</strong></p>
         <ul>
             {% for link in data.youtube %}
                 <li>{{ link }}</li>
+            {% empty %}
+                <li>No links found</li>
             {% endfor %}
         </ul>
 
-        <p><strong>Tiktok:</strong></p>
+        <p><strong>TikTok:</strong></p>
         <ul>
             {% for link in data.tiktok %}
                 <li>{{ link }}</li>
+            {% empty %}
+                <li>No links found</li>
             {% endfor %}
         </ul>
+
+        <p><strong>Dealers:</strong></p>
+
+        {% if data.dealers %}
+        <div style="overflow-x:auto;">
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Dealer Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    {% comment %} <th>City</th>
+                    <th>Source</th> {% endcomment %}
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for dealer in data.dealers %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+
+                    <td>
+                        {{ dealer.name|default:"-" }}
+                    </td>
+
+                    <td>
+                        {% if dealer.phone %}
+                            {{ dealer.phone }}
+                        {% elif dealer.phones %}
+                            {{ dealer.phones|join:", " }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if dealer.email %}
+                            {{ dealer.email }}
+                        {% elif dealer.emails %}
+                            {{ dealer.emails|join:", " }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {{ dealer.address|default:"-" }}
+                    </td>
+
+                    {% comment %} <td>
+                        {{ dealer.city|default:"-" }}
+                    </td>
+
+                    <td>
+                        {{ dealer.source|default:"-" }}
+                    </td> {% endcomment %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        </div>
+
+        {% else %}
+        <p>No dealers found</p>
+        {% endif %}
+
+        <!-- 🔥 SCRAPE NEW BUTTON -->
+        <form method="POST">
+            {% csrf_token %}
+
+            <input type="hidden" name="brand" value="{{ form.brand.value }}">
+
+            <button type="submit" name="scrape_new" value="1">
+                🔄 Scrape New Data
+            </button>
+        </form>
+
+    </div>
+    {% endif %}
+
+
+    <!-- ================= SCRAPED DATA PREVIEW ================= -->
+    {% if data and not existing %}
+    <div class="box">
+
+        <h3>📊 Scraped Data Preview</h3>
+
+        <p>
+            <strong>Website:</strong>
+
+            <a href="{{ data.website }}" target="_blank">
+                {{ data.website }}
+            </a>
+        </p>
+
+        <p><strong>Phones:</strong></p>
+        <ul>
+            {% for phone in data.phones %}
+                <li>{{ phone }}</li>
+            {% empty %}
+                <li>No phones found</li>
+            {% endfor %}
+        </ul>
+
+        <p><strong>Emails:</strong></p>
+        <ul>
+            {% for email in data.emails %}
+                <li>{{ email }}</li>
+            {% empty %}
+                <li>No emails found</li>
+            {% endfor %}
+        </ul>
+
+        {% comment %} <p><strong>Logo:</strong></p>
+        {% if data.logo %}
+            <img src="{{ data.logo }}" alt="Logo">
+        {% else %}
+            <p>No logo found</p>
+        {% endif %} {% endcomment %}
+
+        <p><strong>Facebook:</strong></p>
+        <ul>
+            {% for link in data.facebook %}
+                <li>{{ link }}</li>
+            {% empty %}
+                <li>No links found</li>
+            {% endfor %}
+        </ul>
+
+        <p><strong>Instagram:</strong></p>
+        <ul>
+            {% for link in data.instagram %}
+                <li>{{ link }}</li>
+            {% empty %}
+                <li>No links found</li>
+            {% endfor %}
+        </ul>
+
+        <p><strong>Twitter:</strong></p>
+        <ul>
+            {% for link in data.twitter %}
+                <li>{{ link }}</li>
+            {% empty %}
+                <li>No links found</li>
+            {% endfor %}
+        </ul>
+
+        <p><strong>LinkedIn:</strong></p>
+        <ul>
+            {% for link in data.linkedin %}
+                <li>{{ link }}</li>
+            {% empty %}
+                <li>No links found</li>
+            {% endfor %}
+        </ul>
+
+        <p><strong>YouTube:</strong></p>
+        <ul>
+            {% for link in data.youtube %}
+                <li>{{ link }}</li>
+            {% empty %}
+                <li>No links found</li>
+            {% endfor %}
+        </ul>
+
+        <p><strong>TikTok:</strong></p>
+        <ul>
+            {% for link in data.tiktok %}
+                <li>{{ link }}</li>
+            {% empty %}
+                <li>No links found</li>
+            {% endfor %}
+        </ul>
+
+        <p><strong>Dealers:</strong></p>
+
+        {% if data.dealers %}
+        <div style="overflow-x:auto;">
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Dealer Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    {% comment %} <th>City</th>
+                    <th>Source</th> {% endcomment %}
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for dealer in data.dealers %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+
+                    <td>
+                        {{ dealer.name|default:"-" }}
+                    </td>
+
+                    <td>
+                        {% if dealer.phone %}
+                            {{ dealer.phone }}
+                        {% elif dealer.phones %}
+                            {{ dealer.phones|join:", " }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if dealer.email %}
+                            {{ dealer.email }}
+                        {% elif dealer.emails %}
+                            {{ dealer.emails|join:", " }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {{ dealer.address|default:"-" }}
+                    </td>
+
+                    {% comment %} <td>
+                        {{ dealer.city|default:"-" }}
+                    </td>
+
+                    <td>
+                        {{ dealer.source|default:"-" }}
+                    </td> {% endcomment %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        </div>
+
+        {% else %}
+        <p>No dealers found</p>
+        {% endif %}
+
+        <!-- 💾 SAVE BUTTON -->
+        {% if pending_save %}
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <input type="hidden" name="brand" value="{{ form.brand.value }}">
+            <input type="hidden" name="confirm_save" value="1">
+
+            <button type="submit">
+                💾 Save to Database
+            </button>
+
+        </form>
+        {% endif %}
 
     </div>
     {% endif %}
 
 </div>
-
 </div>
+
 {% endblock %}
+
 {% block extrascript %}
 {{ form.media.js }}
 {% endblock %}
