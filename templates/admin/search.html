@@ -83,12 +83,12 @@ Car Brand Scraper
             {% endfor %}
         </ul>
 
-        <p><strong>Logo:</strong></p>
+        {% comment %} <p><strong>Logo:</strong></p>
         {% if data.logo %}
             <img src="{{ data.logo }}" alt="Logo">
         {% else %}
             <p>No logo found</p>
-        {% endif %}
+        {% endif %} {% endcomment %}
 
         <p><strong>Facebook:</strong></p>
         <ul>
@@ -143,6 +143,75 @@ Car Brand Scraper
                 <li>No links found</li>
             {% endfor %}
         </ul>
+
+        <p><strong>Dealers:</strong></p>
+
+        {% if data.dealers %}
+        <div style="overflow-x:auto;">
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Dealer Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    {% comment %} <th>City</th>
+                    <th>Source</th> {% endcomment %}
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for dealer in data.dealers %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+
+                    <td>
+                        {{ dealer.name|default:"-" }}
+                    </td>
+
+                    <td>
+                        {% if dealer.phone %}
+                            {{ dealer.phone }}
+                        {% elif dealer.phones %}
+                            {{ dealer.phones|join:", " }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if dealer.email %}
+                            {{ dealer.email }}
+                        {% elif dealer.emails %}
+                            {{ dealer.emails|join:", " }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {{ dealer.address|default:"-" }}
+                    </td>
+
+                    {% comment %} <td>
+                        {{ dealer.city|default:"-" }}
+                    </td>
+
+                    <td>
+                        {{ dealer.source|default:"-" }}
+                    </td> {% endcomment %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        </div>
+
+        {% else %}
+        <p>No dealers found</p>
+        {% endif %}
 
         <!-- 🔥 SCRAPE NEW BUTTON -->
         <form method="POST">
@@ -191,12 +260,12 @@ Car Brand Scraper
             {% endfor %}
         </ul>
 
-        <p><strong>Logo:</strong></p>
+        {% comment %} <p><strong>Logo:</strong></p>
         {% if data.logo %}
             <img src="{{ data.logo }}" alt="Logo">
         {% else %}
             <p>No logo found</p>
-        {% endif %}
+        {% endif %} {% endcomment %}
 
         <p><strong>Facebook:</strong></p>
         <ul>
@@ -251,6 +320,75 @@ Car Brand Scraper
                 <li>No links found</li>
             {% endfor %}
         </ul>
+
+        <p><strong>Dealers:</strong></p>
+
+        {% if data.dealers %}
+        <div style="overflow-x:auto;">
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Dealer Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    {% comment %} <th>City</th>
+                    <th>Source</th> {% endcomment %}
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for dealer in data.dealers %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+
+                    <td>
+                        {{ dealer.name|default:"-" }}
+                    </td>
+
+                    <td>
+                        {% if dealer.phone %}
+                            {{ dealer.phone }}
+                        {% elif dealer.phones %}
+                            {{ dealer.phones|join:", " }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if dealer.email %}
+                            {{ dealer.email }}
+                        {% elif dealer.emails %}
+                            {{ dealer.emails|join:", " }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {{ dealer.address|default:"-" }}
+                    </td>
+
+                    {% comment %} <td>
+                        {{ dealer.city|default:"-" }}
+                    </td>
+
+                    <td>
+                        {{ dealer.source|default:"-" }}
+                    </td> {% endcomment %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        </div>
+
+        {% else %}
+        <p>No dealers found</p>
+        {% endif %}
 
         <!-- 💾 SAVE BUTTON -->
         {% if pending_save %}

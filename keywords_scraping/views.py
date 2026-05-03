@@ -7,6 +7,7 @@ from dealer_scraper_1 import scrape_dealers
 import asyncio
 import re
 from dal import autocomplete
+from keywords_scraping.utility import deduplicate_contacts, standardize_dealers, normalize_phone, normalize_email
 
 class BrandAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -111,8 +112,17 @@ def scrape_from_url(base_url, deep=True):
                     if not data:
                         continue
 
-                    all_phones.extend(data.get("phones", []))
-                    all_emails.extend(data.get("emails", []))
+                    all_phones.extend([
+                        normalize_phone(p)
+                        for p in data.get("phones", [])
+                        if normalize_phone(p)
+                    ])
+
+                    all_emails.extend([
+                        normalize_email(e)
+                        for e in data.get("emails", [])
+                        if normalize_email(e)
+                    ])
 
                     all_facebook.update(data.get("facebook", []))
                     all_instagram.update(data.get("instagram", []))
@@ -151,7 +161,7 @@ def scrape_from_url(base_url, deep=True):
             seen.add(key)
             unique_dealers.append(dealer)
 
-        print(f"All phones : {all_phones} \n Dealers : {unique_dealers}")
+        print(f"Inside scrape all urls : \n All phones : {all_phones} \n Dealers : {unique_dealers}")
 
         return {
             "website": base_url,
@@ -263,12 +273,24 @@ def search_view(request):
                     base_url = r[1]
 
                     candidate_data = scrape_from_url(base_url, deep=True)
+                    if not isinstance(candidate_data, dict):
+                        continue
+
+                    candidate_data["dealers"] = standardize_dealers(
+                        candidate_data.get("dealers", [])
+                    )
+
+                    candidate_data = deduplicate_contacts(candidate_data)
+
+                    print(
+                        f"Inside the search view: \n" f"Phones : {candidate_data.get("phones")} \n" 
+                        f"Dealers : {candidate_data.get("dealers")}")
 
                     if not candidate_data:
                         continue
 
                     #  STOP CONDITION
-                    if candidate_data["phones"] or candidate_data["dealers"]:
+                    if isinstance(candidate_data, dict) and (candidate_data.get("phones") or candidate_data.get("dealers")):
                         # print("Good result found, stopping early")
                         final_data = candidate_data
                         break
@@ -392,6 +414,8 @@ def scrape_url_view(request):
 
                 result = scrape_from_url(url, deep=deep)
 
+                result = deduplicate_contacts(result)
+
                 if not result:
                     result = {
                         "website": url,
@@ -411,40 +435,6 @@ def scrape_url_view(request):
                     "existing": False,
                     "pending_save": True,"show_scrape_button": False
                 })
-           
-
-            # result = scrape_from_url(url, deep=deep)
-
-            # if not result:
-            #     result = {
-            #         "website": url,
-            #         "phones": [],
-            #         "emails": [],
-            #         # "logo": None,
-            #         "dealers": [],
-            #     }
-
-            # # IMPORTANT: DO NOT SAVE
-            # request.session["scraped_data"] = result
-            # request.session["brand_id"] = brand_obj.id
-            # request.session["url"] = url
-            
-            # obj = BrandDetails.objects.create(
-            #     brand=brand_obj,
-            #     website=result.get("website"),
-            #     phones=result.get("phones"),
-            #     emails=result.get("emails"),
-            #     # logo=result.get("logo"),
-            #     facebook=result.get("facebook"),
-            #     instagram=result.get("instagram"),
-            #     twitter=result.get("twitter"),
-            #     linkedin=result.get("linkedin"),
-            #     tiktok=result.get("tiktok"),
-            #     youtube=result.get("youtube"),
-            #     dealers=result.get("dealers")
-            # )
-
-            # data = obj
 
     return render(request, "admin/url_scrape.html", {
         "form": form,
