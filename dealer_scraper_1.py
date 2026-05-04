@@ -1,13 +1,3 @@
-"""
-Nepal Car Dealer Scraper — v2
-Strategy: Find phone numbers first, then walk UP the DOM to find the
-          smallest enclosing block that also contains name + address.
-
-Requirements:
-    pip install playwright beautifulsoup4 lxml
-    playwright install chromium
-"""
-
 import re
 import json
 import asyncio
@@ -38,7 +28,7 @@ if logger.hasHandlers():
 try:
     file_handler = logging.FileHandler(log_path, mode='w', encoding='utf-8')
 except Exception as e:
-    print("❌ FileHandler failed:", e)
+    print("FileHandler failed:", e)
 file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
 
 # 4. Create Stream Handler (the terminal output)
@@ -50,11 +40,11 @@ logger.setLevel(logging.DEBUG)
 # 5. Add both to the logger
 logger.addHandler(file_handler)
 logger.addHandler(stream_handler)
-print("✅ FileHandler created at:", log_path)
+print("FileHandler created at:", log_path)
 
 print(f"DEBUG: Log file should be created at: {log_path}")
 
-logger.info("🔥 Logger initialized successfully")
+logger.info("Logger initialized successfully")
 
 file_handler.flush()
 print("LOG FILE EXISTS:", os.path.exists(log_path))
