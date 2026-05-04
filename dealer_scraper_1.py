@@ -106,18 +106,6 @@ _PHONE_RE = re.compile(
 # Email regex
 EMAIL_RE = re.compile(r'[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}')
 
-# # Nepal cities / districts
-# NEPAL_PLACES = re.compile(
-#     r'\b(kathmandu|pokhara|lalitpur|bhaktapur|chitwan|biratnagar|butwal|'
-#     r'narayanghat|hetauda|dharan|birgunj|janakpur|dhangadhi|nepalgunj|'
-#     r'itahari|birtamod|damak|tansen|baglung|palpa|surkhet|tulsipur|'
-#     r'ghorahi|bharatpur|siddharthanagar|lumbini|mahendranagar|'
-#     r'banepa|dhulikhel|panauti|kirtipur|madhyapur|thimi|'
-#     r'naxal|thamel|new road|putalisadak|koteshwor|kalanki|'
-#     r'chabahil|balaju|baneshwor|lazimpat|bagbazar|tinkune)\b',
-#     re.IGNORECASE,
-# )
-
 def build_location_regex(location_list):
     # sort by length (longest first → avoids partial matches like "lalit" vs "lalitpur")
     sorted_locations = sorted(location_list, key=len, reverse=True)
@@ -295,15 +283,6 @@ def _extract_address(block: Tag) -> str:
     addr_tag = block.find('address')
     if addr_tag:
         return clean(addr_tag.get_text())
-
-    # # 2. Element with address-hint class or microdata
-    # for el in block.find_all(True):
-    #     cls = ' '.join(el.get('class', []))
-    #     attr = el.get('itemprop', '') or el.get('data-type', '')
-    #     if re.search(r'address|location|addr', cls + attr, re.I):
-    #         t = clean(el.get_text())
-    #         if t and len(t) < 300:
-    #             return t
 
     # 3. Line containing a Nepal place name
     for line in _text_line(block):
@@ -499,240 +478,9 @@ async def _load_page(url: str):
     # await browser.close()
     return page, browser, api_dealers, p
 
-# async def _try_map_and_search(url: str, queries: list[str]) -> list[dict]:
-#     dealers = []
-#     intercepted_data = []
-
-#     async with async_playwright() as p:
-#         browser = await p.chromium.launch(headless=False)
-#         context = await browser.new_context()
-#         page = await context.new_page()
-
-#         # ─────────────────────────────────────────────
-#         # STRATEGY 1: Intercept network requests FIRST
-#         # Often the map fires an XHR/fetch with all dealer
-#         # data before any marker is rendered — this is the
-#         # most reliable method and should always be tried.
-#         # ─────────────────────────────────────────────
-#         async def handle_response(response):
-#             url_lower = response.url.lower()
-#             if any(kw in url_lower for kw in [
-#                 'dealer', 'location', 'store', 'branch',
-#                 'marker', 'pin', 'map', 'poi'
-#             ]):
-#                 try:
-#                     ct = response.headers.get('content-type', '')
-#                     if 'json' in ct:
-#                         body = await response.json()
-#                         intercepted_data.append({
-#                             'url': response.url,
-#                             'data': body
-#                         })
-#                 except:
-#                     pass
-
-#         page.on('response', handle_response)
-
-#         await page.goto(url, wait_until='networkidle', timeout=30000)
-#         await page.wait_for_timeout(3000)  # let map tiles + markers load
-
-#         # Check if network gave us everything we need
-#         if intercepted_data:
-#             for item in intercepted_data:
-#                 parsed = _extract_dealers_from_json(item['data'])
-#                 if parsed:
-#                     dealers.extend(parsed)
-#             if dealers:
-#                 print(f"[NETWORK] Got {len(dealers)} dealers from XHR intercept")
-#                 await browser.close()
-#                 return dealers
-
-#         # ─────────────────────────────────────────────
-#         # STRATEGY 2: JavaScript injection
-#         # Hook into google.maps.Marker before the page script
-#         # runs, or read the global marker registry afterward.
-#         # ─────────────────────────────────────────────
-#         js_markers = await page.evaluate("""() => {
-#             const results = [];
-            
-#             // Try reading google maps marker instances
-#             try {
-#                 if (window.google && window.google.maps) {
-#                     // Some sites store markers on window
-#                     const candidates = Object.values(window).filter(v =>
-#                         v && typeof v === 'object' && v.constructor &&
-#                         (v.constructor.name === 'Marker' || v.constructor.name === 'AdvancedMarkerElement')
-#                     );
-#                     candidates.forEach(m => {
-#                         const pos = m.getPosition ? m.getPosition() : null;
-#                         const title = m.getTitle ? m.getTitle() : null;
-#                         if (pos) results.push({
-#                             lat: pos.lat(), lng: pos.lng(), title
-#                         });
-#                     });
-#                 }
-#             } catch(e) {}
-
-#             // Try Leaflet
-#             try {
-#                 if (window._leaflet_id !== undefined) {
-#                     document.querySelectorAll('.leaflet-marker-icon').forEach(el => {
-#                         const style = el.style;
-#                         results.push({ domEl: true, title: el.alt || el.title || '' });
-#                     });
-#                 }
-#             } catch(e) {}
-
-#             return results;
-#         }""")
-
-#         if js_markers:
-#             print(f"[JS] Found {len(js_markers)} markers via JS hook")
-
-#         # ─────────────────────────────────────────────
-#         # STRATEGY 3: Selector cascade — ordered from
-#         # most specific to least specific
-#         # ─────────────────────────────────────────────
-#         MARKER_SELECTORS = [
-#             # Google Maps standard markers (img-based)
-#             'img[src*="maps.gstatic.com/mapfiles"]',
-#             'img[src*="marker"]',
-#             'img[src*="pin"]',
-#             'area[title]',                              # image maps
-#             # Google Maps Advanced Markers (custom elements)
-#             'gmp-advanced-marker',
-#             '.gm-style [role="button"]:not([aria-label*="zoom"]):not([aria-label*="Street"]):not([aria-label*="Map"]):not([aria-label*="Satellite"])',
-#             # Leaflet
-#             '.leaflet-marker-icon',
-#             '.leaflet-div-icon',
-#             # Mapbox / MapLibre
-#             '.mapboxgl-marker',
-#             '.maplibregl-marker',
-#             # HERE Maps
-#             '.H_ib_body',
-#             # Generic custom-rendered markers
-#             '[class*="marker"]:not([class*="markercluster-"])',
-#             '[class*="Marker"]:not([class*="MarkerCluster"])',
-#             '[data-marker]',
-#             '[data-type="marker"]',
-#             # Cluster children (click to expand first)
-#             '.marker-cluster',
-#             '[class*="cluster"]',
-#         ]
-
-#         # Also check inside iframes (Google Maps embed)
-#         frames = [page] + list(page.frames)
-
-#         for frame in frames:
-#             for selector in MARKER_SELECTORS:
-#                 try:
-#                     markers = await frame.query_selector_all(selector)
-#                     if markers:
-#                         print(f"[DOM] Selector '{selector}' → {len(markers)} elements (frame: {frame.url[:60]})")
-#                         dealers.extend(
-#                             await _click_markers_and_extract(frame, markers, page)
-#                         )
-#                         if dealers:
-#                             break  # found something, no need to keep trying
-#                 except Exception as e:
-#                     continue
-
-#         # ─────────────────────────────────────────────
-#         # STRATEGY 4: If still nothing, try clicking on
-#         # map canvas coordinates (works for canvas-rendered
-#         # maps like some Mapbox/WebGL implementations)
-#         # ─────────────────────────────────────────────
-#         if not dealers:
-#             dealers.extend(await _canvas_click_scan(page))
-
-#         await browser.close()
-
-#     return dealers
-
-
-# async def _click_markers_and_extract(frame, markers, page) -> list[dict]:
-#     """Click each marker and scrape the resulting popup or sidebar."""
-#     results = []
-#     original_url = page.url
-
-#     # Deduplicate by approximate position to avoid clicking the same marker twice
-#     seen_positions = set()
-
-#     for marker in markers[:100]:
-#         try:
-#             box = await marker.bounding_box()
-#             if not box:
-#                 continue
-
-#             # Deduplicate by grid cell (markers within 5px of each other = same)
-#             cell = (round(box['x'] / 5), round(box['y'] / 5))
-#             if cell in seen_positions:
-#                 continue
-#             seen_positions.add(cell)
-
-#             # Skip tiny elements (1px tracking pixels etc.)
-#             if box['width'] < 4 or box['height'] < 4:
-#                 continue
-
-#             # Scroll into view then click
-#             await marker.scroll_into_view_if_needed()
-#             await marker.click(timeout=3000, force=True)
-#             await page.wait_for_timeout(1500)
-
-#             # ── Try multiple popup selectors ──
-#             popup_selectors = [
-#                 '.gm-style-iw',            # Google Maps info window
-#                 '.gm-style-iw-c',
-#                 '.gm-style-iw-d',
-#                 '[class*="InfoWindow"]',
-#                 '[class*="infowindow"]',
-#                 '[class*="popup"]',
-#                 '[class*="Popup"]',
-#                 '.leaflet-popup-content',
-#                 '.mapboxgl-popup-content',
-#                 '[class*="sidebar"]',
-#                 '[class*="Sidebar"]',
-#                 '[class*="panel"]',
-#                 '[class*="detail"]',
-#                 '[role="dialog"]',
-#                 '[role="tooltip"]',
-#             ]
-
-#             popup = None
-#             for sel in popup_selectors:
-#                 try:
-#                     popup = await page.wait_for_selector(sel, timeout=1500, state='visible')
-#                     if popup:
-#                         break
-#                 except:
-#                     continue
-
-#             if popup:
-#                 html = await popup.inner_html()
-#                 text = await popup.inner_text()
-#                 parsed = parse_dealers_from_html(html)
-#                 if parsed:
-#                     results.extend(parsed)
-#                 else:
-#                     # fallback: store raw text for later parsing
-#                     results.append({'raw_text': text, 'source': 'popup'})
-
-#             # If page navigated, scrape the new page and go back
-#             if page.url != original_url:
-#                 html = await page.content()
-#                 results.extend(parse_dealers_from_html(html))
-#                 await page.go_back()
-#                 await page.wait_for_load_state('networkidle')
-#                 await page.wait_for_timeout(1000)
-
-#         except Exception as e:
-#             print(f"[CLICK] Error: {e}")
-#             continue
-
-#     return results
-
-
-
+# ─────────────────────────────────────────────────────────────────────────────
+# MAP INTERACTION
+# ─────────────────────────────────────────────────────────────────────────────
 
 async def _try_map_and_search(url: str, queries: list[str]) -> list[dict]:
     dealers = []
@@ -1194,74 +942,6 @@ async def _click_markers_and_extract(marker_frame, page, markers) -> list[dict]:
 
     return results
 
-
-# def _extract_dealers_from_json(data, depth=0) -> list[dict]:
-#     """Recursively extract dealer-like objects from intercepted JSON."""
-#     results = []
-#     if depth > 5:
-#         return results
-
-#     if isinstance(data, list):
-#         for item in data:
-#             results.extend(_extract_dealers_from_json(item, depth + 1))
-#     elif isinstance(data, dict):
-#         # Heuristic: looks like a dealer/location record
-#         has_name = any(k in data for k in ['name', 'title', 'dealerName', 'storeName'])
-#         has_location = any(k in data for k in [
-#             'address', 'lat', 'latitude', 'lng', 'longitude',
-#             'phone', 'city', 'postcode', 'zip'
-#         ])
-#         if has_name or has_location:
-#             results.append(data)
-#         else:
-#             for v in data.values():
-#                 results.extend(_extract_dealers_from_json(v, depth + 1))
-
-#     return results
-
-# async def get_select_context(select):
-#     label = await select.evaluate("""
-#         el => el.closest('lable')?.innerText || el.parentElement?.innerText || ''
-#     """)
-#     return label.lower()
-
-# def is_all_option(text):
-#     t = text.lower()
-#     return t in ["all", "all province", "all district", "all cities", "all city", "all dealers", "any"]
-
-# async def handle_select(page, select):
-#     options = await select.query_selector_all("option")
-
-#     all_option = None
-#     valid_options = []
-
-#     for opt in options:
-#         text = (await opt.inner_text()).strip().lower()
-#         value = await opt.get_attribute("value")
-
-#         if not text:
-#             continue
-
-#         if is_all_option(text):
-#             all_option = value
-#             break
-#         else:
-#             valid_options.append((text, value))
-
-#     # 1. Always try ALL first (baseline)
-#     if all_option:
-#         await select.select_option(value=all_option)
-#         await page.wait_for_timeout(1200)
-
-#         yield "baseline"
-
-#     # 2. Only test meaningful filters (not all combinations)
-#     for text, value in valid_options[:3]:  # limit explosion
-#         await select.select_option(value=value)
-#         await page.wait_for_timeout(1200)
-
-#         yield text
-
 def is_placeholder(text: str) -> bool:
     t = text.strip().lower()
     return t in [
@@ -1284,76 +964,6 @@ async def get_selected_option(select):
             return opt ? opt.innerText.trim().toLowerCase() : "";
         }
     """)
-
-# async def is_full_dataset(page):
-#     selects = await page.query_selector_all("select")
-
-#     for select in selects:
-#         selected = await get_selected_option(select)
-
-#         # if any select is actively filtering → NOT full dataset
-#         if not is_placeholder(selected):
-#             return False
-
-#     return True
-
-# def compare_sets(a, b):
-#     return len(set(a) - set(b)) > 0
-
-# async def is_filter_effective(page, select):
-#     base_html = await page.content()
-#     base = parse_dealers_from_html(base_html)
-
-#     options = await select.query_selector_all("option")
-
-#     for opt in options[:3]:
-#         value = await opt.get_attribute("value")
-
-#         await select.select_option(value=value)
-#         await page.wait_for_timeout(1200)
-
-#         html = await page.content()
-#         filtered = parse_dealers_from_html(html)
-
-#         if len(filtered) != len(base):
-#             return True  # filter affects data
-
-#     return False
-
-# async def interact_and_collect(page, api_dealers):
-#     print("→Smart UI exploration...")
-
-#     collected = []
-#     seen_api_count = len(api_dealers)
-
-#     # selects = await page.query_selector_all("select")
-
-#     # STEP 1: baseline scrape (VERY IMPORTANT)
-#     base_html = await page.content()
-#     collected.extend(parse_dealers_from_html(base_html))
-
-#     # STEP 2: check if already full dataset
-#     if await is_full_dataset(page):
-#         print("[STOP] Full dataset detected. No UI exploration needed.")
-#         return collected
-    
-#      # STEP 3: fallback UI exploration only if needed
-#     selects = await page.query_selector_all("select")
-
-#     for select in selects:
-#         async for state in handle_select(page, select):
-
-#             print(f"[UI] state: {state}")
-
-#             html = await page.content()
-#             collected.extend(parse_dealers_from_html(html))
-
-#             # API delta check
-#             if len(api_dealers) > seen_api_count:
-#                 collected.extend(api_dealers[seen_api_count:])
-#                 seen_api_count = len(api_dealers)
-
-#     return collected
 
 async def is_select_meaningful(page, select):
     options = await select.query_selector_all("option")
@@ -1384,6 +994,10 @@ async def is_full_dataset(page):
             return False
 
     return True
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SEARCH AND SELECT 
+# ─────────────────────────────────────────────────────────────────────────────
 
 async def find_submit_button(page):
     buttons = await page.query_selector_all("button, input[type='button'], input[type='submit']")
@@ -1454,6 +1068,7 @@ async def interact_and_collect(page, api_dealers):
             collected.extend(parse_dealers_from_html(html))
 
     return collected
+
 # ─────────────────────────────────────────────────────────────────────────────
 # ORCHESTRATOR
 # ─────────────────────────────────────────────────────────────────────────────
