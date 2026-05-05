@@ -1,13 +1,3 @@
-"""
-Nepal Car Dealer Scraper — v2
-Strategy: Find phone numbers first, then walk UP the DOM to find the
-          smallest enclosing block that also contains name + address.
-
-Requirements:
-    pip install playwright beautifulsoup4 lxml
-    playwright install chromium
-"""
-
 import re
 import json
 import asyncio
@@ -40,7 +30,7 @@ if logger.hasHandlers():
 try:
     file_handler = logging.FileHandler(log_path, mode='w', encoding='utf-8')
 except Exception as e:
-    print("❌ FileHandler failed:", e)
+    print("FileHandler failed:", e)
 file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
 
 # 4. Create Stream Handler (the terminal output)
@@ -52,11 +42,11 @@ logger.setLevel(logging.DEBUG)
 # 5. Add both to the logger
 logger.addHandler(file_handler)
 logger.addHandler(stream_handler)
-print("✅ FileHandler created at:", log_path)
+print("FileHandler created at:", log_path)
 
 print(f"DEBUG: Log file should be created at: {log_path}")
 
-logger.info("🔥 Logger initialized successfully")
+logger.info("Logger initialized successfully")
 
 file_handler.flush()
 print("LOG FILE EXISTS:", os.path.exists(log_path))
@@ -84,15 +74,15 @@ with open("address_json/location_list.json", "r", encoding="utf-8") as f:
 # ─────────────────────────────────────────────────────────────────────────────
 # Save and load html
 # ─────────────────────────────────────────────────────────────────────────────
-def save_html(path: str, html: str):
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(html)
+# def save_html(path: str, html: str):
+#     with open(path, "w", encoding="utf-8") as f:
+#         f.write(html)
 
-def load_html(path: str) -> str | None:
-    if os.path.exists(path):
-        with open(path, "r", encoding="utf-8") as f:
-            return f.read()
-    return None
+# def load_html(path: str) -> str | None:
+#     if os.path.exists(path):
+#         with open(path, "r", encoding="utf-8") as f:
+#             return f.read()
+#     return None
 
 # ─────────────────────────────────────────────────────────────────────────────
 # PHONE REGEX  (covers all common Nepal formats)
@@ -693,10 +683,34 @@ async def _try_map_and_search(url: str, queries: list[str]) -> list[dict]:
             for selector in MARKER_SELECTORS:
                 try:
                     markers = await frame.query_selector_all(selector)
+
                     if not markers:
                         continue
 
-                    print(f"[DOM] Selector '{selector}' → {len(markers)} elements (frame: {frame.url[:80]})")
+                    print(f"[DOM] Selector '{selector}' -> {len(markers)} elements (frame: {frame.url[:80]})")
+
+                    # # ─────────────────────────────
+                    # # Zoom BEFORE extraction
+                    # # ─────────────────────────────
+                    # await _zoom_map_in(
+                    #     marker_frame=frame ,
+                    #     page=page ,
+                    #     steps=10
+                    #     )
+                    
+                    # # allow map rerender
+                    # await page.wait_for_timeout(3000)
+
+                    # # ─────────────────────────────
+                    # # REDISCOVER markers AFTER zoom
+                    # # ─────────────────────────────
+
+                    # markers = await frame.query_selector_all(selector)
+
+                    # print(
+                    #     f"[DOM] After zoom -> "
+                    #     f"{len(markers)} markers"
+                    # )
 
                     # ── KEY FIX: pass the frame itself so clicks happen inside it ──
                     frame_dealers = await _click_markers_and_extract(
@@ -722,6 +736,93 @@ async def _try_map_and_search(url: str, queries: list[str]) -> list[dict]:
 
     return dealers
 
+# async def _zoom_map_in(marker_frame, page, steps=3):
+
+#     """
+#     Zooms into interactive map before marker extraction.
+
+#     Uses:
+#     1. zoom-in buttons
+#     2. mouse wheel fallback
+#     """
+
+#     ZOOM_SELECTORS = [
+
+#         # Google Maps
+#         '[aria-label*="Zoom in"]',
+#         'button[aria-label*="Zoom in"]',
+
+#         # Leaflet
+#         '.leaflet-control-zoom-in',
+
+#         # Mapbox
+#         '.mapboxgl-ctrl-zoom-in',
+
+#         # Generic
+#         '[title*="Zoom in"]',
+#         '[aria-label*="+"]',
+#     ]
+
+#     zoomed = False
+
+#     # ─────────────────────────────
+#     # Strategy 1 → click zoom button
+#     # ─────────────────────────────
+
+#     print("[ZOOM] Starting map zoom...")
+
+#     for step in range(steps):
+
+#         print(f"[ZOOM] Step {step+1}")
+
+#         clicked = False
+
+#         for sel in ZOOM_SELECTORS:
+
+#             for context in [marker_frame, page]:
+
+#                 try:
+#                     btn = await context.query_selector(sel)
+
+#                     if btn and await btn.is_visible():
+
+#                         print(f"  → Zooming via '{sel}'")
+
+#                         await btn.evaluate(
+#                             "el => el.click()"
+#                         )
+
+#                         await page.wait_for_timeout(1200)
+
+#                         clicked = True
+#                         zoomed = True
+
+#                         break
+
+#                 except Exception:
+#                     continue
+
+#             if clicked:
+#                 break
+
+#     # ─────────────────────────────
+#     # Strategy 2 → wheel fallback
+#     # ─────────────────────────────
+
+#     if not zoomed:
+
+#         try:
+#             print("  → Wheel zoom fallback")
+
+#             for _ in range(steps):
+
+#                 await page.mouse.wheel(0, -1500)
+
+#                 await page.wait_for_timeout(1200)
+
+#         except Exception:
+#             pass
+ 
 async def _canvas_click_scan(page) -> list[dict]:
     """Last resort for canvas/WebGL maps — grid click scan."""
     results = []
@@ -866,232 +967,754 @@ async def _debug_dump_frame_elements(frame, page):
     for el in elements:
         print(f"  <{el['tag']}> id='{el['id']}' class='{el['classes'][:50]}' jsname='{el['jsname']}' → {el['text'][:60]}")
 
-async def _click_markers_and_extract(marker_frame, page, markers) -> list[dict]:
+
+async def _find_best_popup_candidate(
+    marker_frame,
+    page,
+    popup_selectors,
+):
+
+    """
+    Finds the BEST popup/sidebar container after marker click.
+
+    Strategy:
+    - search ALL selectors
+    - search BOTH frame and page
+    - collect ALL visible candidates
+    - score semantically
+    - prefer smallest meaningful container
+
+    Returns:
+        (best_element, best_context, debug_info)
+    """
+
+    SEMANTIC_LABELS = [
+        'dealer',
+        'dealer name',
+        'showroom',
+        'address',
+        'phone',
+        'mobile',
+        'contact',
+        'email',
+        'branch',
+        'location',
+    ]
+
+    best_el = None
+    best_context = None
+    best_score = -1
+    best_area = float('inf')
+
+    seen_texts = set()
+
+    for sel in popup_selectors:
+
+        for context, label in [
+            (marker_frame, 'frame'),
+            (page, 'page'),
+        ]:
+
+            try:
+                elements = await context.query_selector_all(sel)
+
+            except Exception:
+                continue
+
+            for el in elements:
+
+                try:
+                    if not await el.is_visible():
+                        continue
+
+                    text = (await el.inner_text()).strip()
+
+                    if len(text) < 10:
+                        continue
+
+                    normalized = re.sub(r'\s+', ' ', text.lower())
+
+                    # deduplicate repeated containers
+                    if normalized in seen_texts:
+                        continue
+
+                    seen_texts.add(normalized)
+
+                    phones = extract_phones(text)
+                    emails = extract_emails(text)
+
+                    semantic_hits = sum(
+                        1
+                        for word in SEMANTIC_LABELS
+                        if word.lower() in normalized
+                    )
+
+                    box = await el.bounding_box()
+
+                    if not box:
+                        continue
+
+                    area = box['width'] * box['height']
+
+                    # ignore microscopic elements
+                    if area < 100:
+                        continue
+
+                    score = 0
+
+                    # semantic signals
+                    score += len(phones) * 30
+                    score += len(emails) * 30
+                    score += semantic_hits * 10
+
+                    # richer content
+                    if len(text) > 100:
+                        score += 10
+
+                    if len(text) > 300:
+                        score += 10
+
+                    # structured sidebar hints
+                    if 'dealer name' in normalized:
+                        score += 20
+
+                    if 'phone' in normalized:
+                        score += 20
+
+                    if 'address' in normalized:
+                        score += 20
+
+                    # penalize giant wrappers
+                    if area > 700000:
+                        score -= 40
+
+                    # penalize tiny field rows
+                    if area < 3000:
+                        score -= 20
+
+                    better = False
+
+                    # primary: higher score
+                    if score > best_score:
+                        better = True
+
+                    # tie-breaker:
+                    # prefer smaller meaningful container
+                    elif score == best_score and area < best_area:
+                        better = True
+
+                    if better:
+
+                        best_el = el
+                        best_context = context
+                        best_score = score
+                        best_area = area
+
+                        print(
+                            f"  → Candidate "
+                            f"selector='{sel}' "
+                            f"context={label} "
+                            f"score={score} "
+                            f"area={area:.0f}"
+                        )
+
+                except Exception:
+                    continue
+
+    return best_el, best_context, {
+        'score': best_score,
+        'area': best_area,
+    }
+
+
+def _parse_google_sidebar_structured(html: str) -> dict | None:
+
+    """
+    Parses Google My Maps sidebar style key-value panels.
+
+    Example structure:
+
+        Dealer Name -> Syakar Trading
+        Address -> Kathmandu
+        Phone No. -> 01-xxxxxxx
+
+    Returns:
+        structured dealer dict
+    """
+
+    soup = BeautifulSoup(html, 'lxml')
+
+    rows = soup.select('[class*="qqvbed-p83tee"]')
+
+    if not rows:
+        return None
+
+    data = {}
+
+    for row in rows:
+
+        try:
+            children = row.find_all(recursive=False)
+
+            if len(children) < 2:
+                continue
+
+            label = children[0].get_text(" ", strip=True).lower()
+            value = children[1].get_text(" ", strip=True)
+
+            if not label or not value:
+                continue
+
+            data[label] = value
+
+        except Exception:
+            continue
+
+    if not data:
+        return None
+
+    dealer = {
+        'name': '',
+        'address': '',
+        'phone': [],
+        'email': [],
+        'source': 'google_sidebar_structured',
+    }
+
+    for key, value in data.items():
+
+        k = key.lower()
+
+        if 'dealer' in k or 'showroom' in k or 'branch' in k:
+            dealer['name'] = value
+
+        elif 'address' in k or 'location' in k:
+            dealer['address'] = value
+
+        elif 'phone' in k or 'mobile' in k or 'contact' in k:
+            dealer['phone'] = extract_phones(value)
+
+        elif 'email' in k:
+            dealer['email'] = extract_emails(value)
+
+    # fallback extraction
+    if not dealer['phone']:
+        dealer['phone'] = extract_phones(str(data))
+
+    if not dealer['email']:
+        dealer['email'] = extract_emails(str(data))
+
+    if not any([
+        dealer['name'],
+        dealer['phone'],
+        dealer['email'],
+        dealer['address'],
+    ]):
+        return None
+
+    return dealer
+
+
+async def _click_markers_and_extract(
+    marker_frame,
+    page,
+    markers,
+) -> list[dict]:
+
     results = []
     seen_positions = set()
 
     POPUP_SELECTORS = [
-        '.qqvbed-p83tee',
-        '[jsname="WOdXFb"]',
-        '[class*="goog-container"]',
-        '.qqvbed-nUpftc',
+
+        # Google Maps
         '.gm-style-iw',
         '.gm-style-iw-c',
         '.gm-style-iw-d',
+
+        # Google My Maps / sidebars
+        '[class*="qqvbed"]',
+        '[jsname="WOdXFb"]',
+
+        # Generic map wrappers
+        '[class*="goog-container"]',
+
+        # Generic popup systems
         '[class*="InfoWindow"]',
         '[class*="infowindow"]',
         '[class*="popup"]',
         '[class*="Popup"]',
+
+        # Leaflet / Mapbox
         '.leaflet-popup-content',
         '.mapboxgl-popup-content',
+
+        # Sidebar / panels
         '[class*="sidebar"]',
         '[class*="Sidebar"]',
         '[class*="panel"]',
         '[class*="detail"]',
+
+        # ARIA
         '[role="dialog"]',
         '[role="tooltip"]',
     ]
 
     async def close_popup():
+
         for close_sel in [
             '[aria-label="Close"]',
             '.gm-ui-hover-effect',
             'button[jsaction*="close"]',
             '[data-dismiss]',
         ]:
+
             try:
                 btn = await marker_frame.query_selector(close_sel)
+
                 if btn:
                     await btn.evaluate("el => el.click()")
                     await page.wait_for_timeout(500)
                     return
-            except:
+
+            except Exception:
                 continue
 
     original_url = page.url
 
-    # ── Snapshot BOTH the handle AND its bounding box ──
-    # Handle = use for direct JS click (most reliable)
-    # Box    = fallback if handle becomes stale after navigation
-    marker_snapshots = []  # list of (handle, box)
+    # snapshot markers
+    marker_snapshots = []
+
     for marker in markers[:100]:
+
         try:
             box = await marker.bounding_box()
-            if not box or box['width'] < 4 or box['height'] < 4:
+
+            if not box:
                 continue
-            cell = (round(box['x'] / 5), round(box['y'] / 5))
+
+            if box['width'] < 4 or box['height'] < 4:
+                continue
+
+            cell = (
+                round(box['x'] / 5),
+                round(box['y'] / 5),
+            )
+
             if cell in seen_positions:
                 continue
+
             seen_positions.add(cell)
+
             marker_snapshots.append((marker, box))
-        except:
+
+        except Exception:
             continue
 
-    print(f"[CLICK] {len(marker_snapshots)} unique markers to process")
+    print(f"[CLICK] {len(marker_snapshots)} unique markers")
 
     for i, (handle, box) in enumerate(marker_snapshots):
-        try:
-            print(f"[CLICK] Marker {i+1}/{len(marker_snapshots)} at ({box['x']:.0f}, {box['y']:.0f})")
 
-            # ── Click strategy: handle first, elementFromPoint as fallback ──
+        try:
+            print(
+                f"[CLICK] Marker {i+1}/"
+                f"{len(marker_snapshots)}"
+            )
+
             clicked = False
 
-            # Strategy 1: direct JS click on the stored handle (works even off-screen)
+            # strategy 1
             try:
                 await handle.evaluate("el => el.click()")
                 clicked = True
-            except Exception:
-                pass  # handle is stale (post-navigation) — fall through
 
-            # Strategy 2: re-find the element by its stored coordinates
-            # NOTE: elementFromPoint in a frame uses the frame's OWN coordinate space,
-            # NOT the page viewport. The bounding_box() from a frame element IS already
-            # in the frame's coordinate space, so this is correct.
+            except Exception:
+                pass
+
+            # strategy 2
             if not clicked:
+
                 try:
                     await marker_frame.evaluate(
-                        """([x, y]) => {
-                            const el = document.elementFromPoint(x, y);
-                            if (el) el.click();
-                        }""",
+                        """
+                        ([x, y]) => {
+
+                            const el =
+                                document.elementFromPoint(x, y);
+
+                            if (el)
+                                el.click();
+                        }
+                        """,
                         [box['x'], box['y']]
                     )
+
                     clicked = True
+
                 except Exception as e:
-                    print(f"  → Both click strategies failed: {e}")
+                    print(f"  → Click failed: {e}")
                     continue
 
             await page.wait_for_timeout(2000)
 
-            # ── Find popup ──
-            popup = None
-            popup_source = None
+            # ─────────────────────────────
+            # Find BEST popup/sidebar
+            # ─────────────────────────────
 
-            for sel in POPUP_SELECTORS:
-                for context, label in [(marker_frame, 'frame'), (page, 'page')]:
-                    try:
-                        el = await context.query_selector(sel)
-                        if el and await el.is_visible():
-                            txt = (await el.inner_text()).strip()
-                            if len(txt) > 3:
-                                popup = el
-                                popup_source = context
-                                print(f"  → Popup via '{sel}' in {label}")
-                                break
-                    except:
-                        continue
-                if popup:
-                    break
+            popup, popup_source, debug = (
+                await _find_best_popup_candidate(
+                    marker_frame,
+                    page,
+                    POPUP_SELECTORS,
+                )
+            )
 
             if not popup:
-                print(f"  → No popup — scanning full frame HTML")
-                try:
-                    frame_html = await marker_frame.content()
-                    parsed = parse_dealers_from_html(frame_html)
-                    if parsed:
-                        print(f"  → Extracted {len(parsed)} from full frame")
-                        results.extend(parsed)
-                except:
-                    pass
+                print("  → No popup found")
                 continue
+
+            print(
+                f"  → Best popup "
+                f"(score={debug['score']}, "
+                f"area={debug['area']:.0f})"
+            )
 
             html = await popup.inner_html()
             text = await popup.inner_text()
-            print(f"  → Text preview: {text[:120].strip()}")
 
-            # ── Strategy A: Google My Maps structured panel ──
-            mymaps_result = _parse_google_mymaps_panel(html)
+            print(f"  → Preview:\n{text[:800]}")
+
+            # ─────────────────────────────
+            # Strategy A
+            # Google structured sidebar
+            # ─────────────────────────────
+
+            structured = (
+                _parse_google_sidebar_structured(html)
+            )
+
+            if structured:
+
+                print(
+                    f"  → Structured sidebar: "
+                    f"{structured.get('name')} | "
+                    f"{structured.get('phone')}"
+                )
+
+                results.append(structured)
+
+                await close_popup()
+
+                continue
+
+            # ─────────────────────────────
+            # Strategy B
+            # MyMaps parser
+            # ─────────────────────────────
+
+            mymaps_result = (
+                _parse_google_mymaps_panel(html)
+            )
+
             if mymaps_result:
-                print(f"  → MyMaps: {mymaps_result['name']} | {mymaps_result['phone']}")
+
+                print(
+                    f"  → MyMaps: "
+                    f"{mymaps_result.get('name')}"
+                )
+
                 results.append(mymaps_result)
+
                 await close_popup()
+
                 continue
 
-            # ── Strategy B: standard HTML parser ──
+            # ─────────────────────────────
+            # Strategy C
+            # Generic HTML parser
+            # ─────────────────────────────
+
             parsed = parse_dealers_from_html(html)
+
             if parsed:
-                print(f"  → HTML parser: {len(parsed)} dealer(s)")
+
+                print(
+                    f"  → HTML parser: "
+                    f"{len(parsed)} dealers"
+                )
+
                 results.extend(parsed)
+
                 await close_popup()
+
                 continue
 
-            # ── Strategy C: follow detail link ──
-            links = await popup.query_selector_all('a[href]')
-            detail_found = False
+            # ─────────────────────────────
+            # Strategy D
+            # Raw fallback
+            # ─────────────────────────────
 
-            for link in links:
-                href = await link.get_attribute('href')
-                if not href:
-                    continue
+            raw = {
+                'name': text.split('\n')[0].strip(),
+                'address': '\n'.join(
+                    text.split('\n')[1:]
+                ).strip(),
+                'phone': extract_phones(text),
+                'email': extract_emails(text),
+                'source': 'map_popup_raw',
+            }
 
-                if href.startswith('tel:'):
-                    phone = re.sub(r'\D', '', href.replace('tel:', ''))
-                    if phone:
-                        results.append({
-                            'name':    text.split('\n')[0].strip(),
-                            'address': '\n'.join(text.split('\n')[1:]).strip(),
-                            'phone':   [phone],
-                            'email':   [],
-                            'source':  'tel_link',
-                        })
-                    detail_found = True
-                    continue
+            print(
+                f"  → Raw fallback: "
+                f"{raw['name']} | "
+                f"{raw['phone']}"
+            )
 
-                if href.startswith('mailto:'):
-                    continue
-
-                try:
-                    print(f"  → Following detail link: {href[:60]}")
-                    await link.evaluate("el => el.click()")
-                    await page.wait_for_timeout(2500)
-
-                    if page.url != original_url:
-                        # Full navigation
-                        detail_html = await page.content()
-                        detail_parsed = parse_dealers_from_html(detail_html)
-                        if detail_parsed:
-                            print(f"  → Got {len(detail_parsed)} from detail page")
-                            results.extend(detail_parsed)
-                            detail_found = True
-                        await page.go_back()
-                        await page.wait_for_load_state('networkidle')
-                        await page.wait_for_timeout(1500)
-                        break
-                    else:
-                        # Hash routing (Subaru #/dealer/125)
-                        new_html = await page.content()
-                        new_parsed = parse_dealers_from_html(new_html)
-                        if new_parsed:
-                            results.extend(new_parsed)
-                            detail_found = True
-                        await page.evaluate(f"window.location.href = '{original_url}'")
-                        await page.wait_for_timeout(1500)
-                        break
-
-                except Exception as e:
-                    print(f"  → Link error: {e}")
-                    continue
-
-            # ── Strategy D: raw fallback ──
-            if not detail_found:
-                raw = {
-                    'name':    text.split('\n')[0].strip(),
-                    'address': '\n'.join(text.split('\n')[1:]).strip(),
-                    'phone':   extract_phones(text),
-                    'email':   extract_emails(text),
-                    'source':  'map_popup_raw',
-                }
-                print(f"  → Raw: {raw['name']} | phones: {raw['phone']}")
-                results.append(raw)
+            results.append(raw)
 
             await close_popup()
 
         except Exception as e:
-            print(f"[CLICK] Error on marker {i+1}: {e}")
+
+            print(
+                f"[CLICK] Error on marker "
+                f"{i+1}: {e}"
+            )
+
             continue
 
-    return results
+    return deduplicate_dealers(results)
 
+
+# async def _click_markers_and_extract(marker_frame, page, markers) -> list[dict]:
+#     results = []
+#     seen_positions = set()
+
+#     POPUP_SELECTORS = [
+#         '.gm-style-iw',
+#         '.gm-style-iw-c',
+#         '.gm-style-iw-d',
+
+#         '.qqvbed-p83tee',
+#         '[class*="qqvbed-p83tee"]',
+#         '[class*="qqvbed"]',
+#         '[jsname="WOdXFb"]',
+#         '[class*="goog-container"]',
+#         '.qqvbed-nUpftc',
+        
+#         '[class*="InfoWindow"]',
+#         '[class*="infowindow"]',
+#         '[class*="popup"]',
+#         '[class*="Popup"]',
+#         '.leaflet-popup-content',
+#         '.mapboxgl-popup-content',
+#         '[class*="sidebar"]',
+#         '[class*="Sidebar"]',
+#         '[class*="panel"]',
+#         '[class*="detail"]',
+#         '[role="dialog"]',
+#         '[role="tooltip"]',
+#     ]
+
+#     async def close_popup():
+#         for close_sel in [
+#             '[aria-label="Close"]',
+#             '.gm-ui-hover-effect',
+#             'button[jsaction*="close"]',
+#             '[data-dismiss]',
+#         ]:
+#             try:
+#                 btn = await marker_frame.query_selector(close_sel)
+#                 if btn:
+#                     await btn.evaluate("el => el.click()")
+#                     await page.wait_for_timeout(500)
+#                     return
+#             except:
+#                 continue
+
+#     original_url = page.url
+
+#     # ── Snapshot BOTH the handle AND its bounding box ──
+#     # Handle = use for direct JS click (most reliable)
+#     # Box    = fallback if handle becomes stale after navigation
+#     marker_snapshots = []  # list of (handle, box)
+#     for marker in markers[:100]:
+#         try:
+#             box = await marker.bounding_box()
+#             if not box or box['width'] < 4 or box['height'] < 4:
+#                 continue
+#             cell = (round(box['x'] / 5), round(box['y'] / 5))
+#             if cell in seen_positions:
+#                 continue
+#             seen_positions.add(cell)
+#             marker_snapshots.append((marker, box))
+#         except:
+#             continue
+
+#     print(f"[CLICK] {len(marker_snapshots)} unique markers to process")
+
+#     for i, (handle, box) in enumerate(marker_snapshots):
+#         try:
+#             print(f"[CLICK] Marker {i+1}/{len(marker_snapshots)} at ({box['x']:.0f}, {box['y']:.0f})")
+
+#             # ── Click strategy: handle first, elementFromPoint as fallback ──
+#             clicked = False
+
+#             # Strategy 1: direct JS click on the stored handle (works even off-screen)
+#             try:
+#                 await handle.evaluate("el => el.click()")
+#                 clicked = True
+#             except Exception:
+#                 pass  # handle is stale (post-navigation) — fall through
+
+#             # Strategy 2: re-find the element by its stored coordinates
+#             # NOTE: elementFromPoint in a frame uses the frame's OWN coordinate space,
+#             # NOT the page viewport. The bounding_box() from a frame element IS already
+#             # in the frame's coordinate space, so this is correct.
+#             if not clicked:
+#                 try:
+#                     await marker_frame.evaluate(
+#                         """([x, y]) => {
+#                             const el = document.elementFromPoint(x, y);
+#                             if (el) el.click();
+#                         }""",
+#                         [box['x'], box['y']]
+#                     )
+#                     clicked = True
+#                 except Exception as e:
+#                     print(f"  → Both click strategies failed: {e}")
+#                     continue
+
+#             await page.wait_for_timeout(2000)
+
+#             # ── Find popup ──
+#             popup = None
+#             popup_source = None
+
+#             for sel in POPUP_SELECTORS:
+#                 for context, label in [(marker_frame, 'frame'), (page, 'page')]:
+#                     try:
+#                         elements = await context.query_selector_all(sel)
+#                         if el and await el.is_visible():
+#                             txt = (await el.inner_text()).strip()
+#                             if len(txt) > 3:
+#                                 popup = el
+#                                 popup_source = context
+#                                 print(f"  → Popup via '{sel}' in {label}")
+#                                 break
+#                     except:
+#                         continue
+#                 if popup:
+#                     break
+
+#             if not popup:
+#                 print(f"  → No popup — scanning full frame HTML")
+#                 try:
+#                     frame_html = await marker_frame.content()
+#                     parsed = parse_dealers_from_html(frame_html)
+#                     if parsed:
+#                         print(f"  → Extracted {len(parsed)} from full frame")
+#                         results.extend(parsed)
+#                 except:
+#                     pass
+#                 continue
+
+#             html = await popup.inner_html()
+#             text = await popup.inner_text()
+#             print(f"  → Text preview: {text[:800].strip()}")
+
+#             # ── Strategy A: Google My Maps structured panel ──
+#             mymaps_result = _parse_google_mymaps_panel(html)
+#             if mymaps_result:
+#                 print(f"  → MyMaps: {mymaps_result['name']} | {mymaps_result['phone']}")
+#                 results.append(mymaps_result)
+#                 await close_popup()
+#                 continue
+
+#             # ── Strategy B: standard HTML parser ──
+#             parsed = parse_dealers_from_html(html)
+#             if parsed:
+#                 print(f"  → HTML parser: {len(parsed)} dealer(s)")
+#                 results.extend(parsed)
+#                 await close_popup()
+#                 continue
+
+#             # ── Strategy C: follow detail link ──
+#             links = await popup.query_selector_all('a[href]')
+#             detail_found = False
+
+#             for link in links:
+#                 href = await link.get_attribute('href')
+#                 if not href:
+#                     continue
+
+#                 if href.startswith('tel:'):
+#                     phone = re.sub(r'\D', '', href.replace('tel:', ''))
+#                     if phone:
+#                         results.append({
+#                             'name':    text.split('\n')[0].strip(),
+#                             'address': '\n'.join(text.split('\n')[1:]).strip(),
+#                             'phone':   [phone],
+#                             'email':   [],
+#                             'source':  'tel_link',
+#                         })
+#                     detail_found = True
+#                     continue
+
+#                 if href.startswith('mailto:'):
+#                     continue
+
+#                 try:
+#                     print(f"  → Following detail link: {href[:60]}")
+#                     await link.evaluate("el => el.click()")
+#                     await page.wait_for_timeout(2500)
+
+#                     if page.url != original_url:
+#                         # Full navigation
+#                         detail_html = await page.content()
+#                         detail_parsed = parse_dealers_from_html(detail_html)
+#                         if detail_parsed:
+#                             print(f"  → Got {len(detail_parsed)} from detail page")
+#                             results.extend(detail_parsed)
+#                             detail_found = True
+#                         await page.go_back()
+#                         await page.wait_for_load_state('networkidle')
+#                         await page.wait_for_timeout(1500)
+#                         break
+#                     else:
+#                         # Hash routing (Subaru #/dealer/125)
+#                         new_html = await page.content()
+#                         new_parsed = parse_dealers_from_html(new_html)
+#                         if new_parsed:
+#                             results.extend(new_parsed)
+#                             detail_found = True
+#                         await page.evaluate(f"window.location.href = '{original_url}'")
+#                         await page.wait_for_timeout(1500)
+#                         break
+
+#                 except Exception as e:
+#                     print(f"  → Link error: {e}")
+#                     continue
+
+#             # ── Strategy D: raw fallback ──
+#             if not detail_found:
+#                 raw = {
+#                     'name':    text.split('\n')[0].strip(),
+#                     'address': '\n'.join(text.split('\n')[1:]).strip(),
+#                     'phone':   extract_phones(text),
+#                     'email':   extract_emails(text),
+#                     'source':  'map_popup_raw',
+#                 }
+#                 print(f"  → Raw: {raw['name']} | phones: {raw['phone']}")
+#                 results.append(raw)
+
+#             await close_popup()
+
+#         except Exception as e:
+#             print(f"[CLICK] Error on marker {i+1}: {e}")
+#             continue
+
+#     return results
+ 
 def is_placeholder(text: str) -> bool:
     t = text.strip().lower()
     return t in [

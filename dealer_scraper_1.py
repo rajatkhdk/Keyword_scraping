@@ -8,6 +8,10 @@ from playwright.async_api import async_playwright
 import os
 import logging
 
+# ─────────────────────────────────────────────────────────────────────────────
+# log function
+# ─────────────────────────────────────────────────────────────────────────────
+
 print("RUNNING FILE:", __file__)
 print("CWD:", os.getcwd())
 
@@ -61,15 +65,15 @@ with open("address_json/location_list.json", "r", encoding="utf-8") as f:
 # ─────────────────────────────────────────────────────────────────────────────
 # Save and load html
 # ─────────────────────────────────────────────────────────────────────────────
-def save_html(path: str, html: str):
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(html)
+# def save_html(path: str, html: str):
+#     with open(path, "w", encoding="utf-8") as f:
+#         f.write(html)
 
-def load_html(path: str) -> str | None:
-    if os.path.exists(path):
-        with open(path, "r", encoding="utf-8") as f:
-            return f.read()
-    return None
+# def load_html(path: str) -> str | None:
+#     if os.path.exists(path):
+#         with open(path, "r", encoding="utf-8") as f:
+#             return f.read()
+#     return None
 
 # ─────────────────────────────────────────────────────────────────────────────
 # PHONE REGEX  (covers all common Nepal formats)
