@@ -12,10 +12,30 @@
       "source": "google_sidebar_structured"
     },
     {
+      "name": "Syakar Trading Company Pvt.Ltd",
+      "address": "sales.car@syakarhonda.com",
+      "phone": [
+        "014432686"
+      ],
+      "email": [
+        "sales.car@syakarhonda.com"
+      ],
+      "source": "google_sidebar_structured"
+    },
+    {
       "name": "Buddha Enterprises",
       "address": "N/A",
       "phone": [
         "9802600501"
+      ],
+      "email": [],
+      "source": "google_sidebar_structured"
+    },
+    {
+      "name": "Eastern Five Pvt Ltd",
+      "address": "N/A",
+      "phone": [
+        "9808050422"
       ],
       "email": [],
       "source": "google_sidebar_structured"
@@ -36,6 +56,17 @@
         "9857025676"
       ],
       "email": [],
+      "source": "google_sidebar_structured"
+    },
+    {
+      "name": "Joshi Automobiles Pvt. Ltd.",
+      "address": "joshiautomobiles@email.com",
+      "phone": [
+        "014354021"
+      ],
+      "email": [
+        "joshiautomobiles@email.com"
+      ],
       "source": "google_sidebar_structured"
     }
   ]
