@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 from playwright.async_api import async_playwright
 from keywords_scraping.contact_regex import _block_to_dealer, extract_phones, extract_emails, _walk_up_to_card, BLOCK_TAGS, clean
 from keywords_scraping.html_parser import parse_dealers_from_html, extract_from_initial_html, extract_popup_data, _parse_google_mymaps_panel
+from keywords_scraping.contact_regex import _block_to_dealer
 
 
 
@@ -1999,16 +2000,18 @@ async def _find_best_popup_candidate(
 def _parse_google_sidebar_structured(html: str) -> dict | None:
 
     """
-    Parses Google My Maps sidebar style key-value panels.
+    Parse structured Google My Maps sidebar panels.
 
-    Example structure:
+    Example:
 
         Dealer Name -> Syakar Trading
-        Address -> Kathmandu
-        Phone No. -> 01-xxxxxxx
+        Address     -> Kathmandu
+        Phone No.   -> 01-xxxxxxx
 
-    Returns:
-        structured dealer dict
+    Strategy:
+    1. Extract label/value pairs
+    2. Build a temporary semantic HTML block
+    3. Reuse _block_to_dealer() for consistency
     """
 
     soup = BeautifulSoup(html, 'lxml')
@@ -2020,16 +2023,26 @@ def _parse_google_sidebar_structured(html: str) -> dict | None:
 
     data = {}
 
+    # =========================================================
+    # Extract label/value pairs
+    # =========================================================
+
     for row in rows:
 
         try:
+
             children = row.find_all(recursive=False)
 
             if len(children) < 2:
                 continue
 
-            label = children[0].get_text(" ", strip=True).lower()
-            value = children[1].get_text(" ", strip=True)
+            label = clean(
+                children[0].get_text(" ", strip=True)
+            ).lower()
+
+            value = clean(
+                children[1].get_text(" ", strip=True)
+            )
 
             if not label or not value:
                 continue
@@ -2042,48 +2055,145 @@ def _parse_google_sidebar_structured(html: str) -> dict | None:
     if not data:
         return None
 
-    dealer = {
-        'name': '',
-        'address': '',
-        'phone': [],
-        'email': [],
-        'source': 'google_sidebar_structured',
-    }
+    # =========================================================
+    # Convert structured rows into semantic HTML
+    # so _block_to_dealer() can parse it naturally
+    # =========================================================
+
+    semantic_html = '<div class="dealer-card">'
+
+    for label, value in data.items():
+
+        semantic_html += f"""
+            <div class="dealer-field">
+                <span class="label">{label}</span>
+                <span class="value">{value}</span>
+            </div>
+        """
+
+    semantic_html += '</div>'
+
+    semantic_soup = BeautifulSoup(
+        semantic_html,
+        'lxml'
+    )
+
+    card = semantic_soup.select_one('.dealer-card')
+
+    if not card:
+        return None
+
+    dealer = _block_to_dealer(card)
+
+    # =========================================================
+    # Extra semantic enrichment
+    # because Google labels are predictable
+    # =========================================================
 
     for key, value in data.items():
 
         k = key.lower()
 
-        if 'dealer' in k or 'showroom' in k or 'branch' in k:
+        # ─────────────────────────────
+        # Name
+        # ─────────────────────────────
+
+        if (
+            not dealer.get('name')
+            and any(x in k for x in [
+                'dealer',
+                'showroom',
+                'branch',
+                'name',
+            ])
+        ):
             dealer['name'] = value
 
-        elif 'address' in k or 'location' in k:
+        # ─────────────────────────────
+        # Address
+        # ─────────────────────────────
+
+        elif (
+            not dealer.get('address')
+            and any(x in k for x in [
+                'address',
+                'location',
+                'city',
+            ])
+        ):
             dealer['address'] = value
 
-        elif 'phone' in k or 'mobile' in k or 'contact' in k:
-            dealer['phone'] = extract_phones(value)
+        # ─────────────────────────────
+        # Phone
+        # ─────────────────────────────
+
+        elif any(x in k for x in [
+            'phone',
+            'mobile',
+            'contact',
+            'tel',
+        ]):
+
+            phones = extract_phones(value)
+
+            if phones:
+                dealer.setdefault('phone', [])
+
+                for p in phones:
+                    if p not in dealer['phone']:
+                        dealer['phone'].append(p)
+
+        # ─────────────────────────────
+        # Email
+        # ─────────────────────────────
 
         elif 'email' in k:
-            dealer['email'] = extract_emails(value)
 
-    # fallback extraction
-    if not dealer['phone']:
-        dealer['phone'] = extract_phones(str(data))
+            emails = extract_emails(value)
 
-    if not dealer['email']:
-        dealer['email'] = extract_emails(str(data))
+            if emails:
+                dealer.setdefault('email', [])
+
+                for e in emails:
+                    if e not in dealer['email']:
+                        dealer['email'].append(e)
+
+    # =========================================================
+    # Global fallback scan
+    # =========================================================
+
+    joined = ' '.join(data.values())
+
+    if not dealer.get('phone'):
+        dealer['phone'] = extract_phones(joined)
+
+    if not dealer.get('email'):
+        dealer['email'] = extract_emails(joined)
+
+    # =========================================================
+    # Normalize
+    # =========================================================
+
+    dealer['source'] = 'google_sidebar_structured'
+
+    dealer.setdefault('name', '')
+    dealer.setdefault('address', '')
+    dealer.setdefault('phone', [])
+    dealer.setdefault('email', [])
+
+    # =========================================================
+    # Validation
+    # =========================================================
 
     if not any([
         dealer['name'],
+        dealer['address'],
         dealer['phone'],
         dealer['email'],
-        dealer['address'],
     ]):
         return None
 
     return dealer
-
-
 
 
 # async def _click_markers_and_extract(marker_frame, page, markers) -> list[dict]:

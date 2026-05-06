@@ -9,6 +9,8 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 
 async def extract_from_initial_html(page, state):
 
+    print("inside initial html parser")
+
     scopes = [
         'main',
         '#dealer-locator',
@@ -39,6 +41,8 @@ async def extract_from_initial_html(page, state):
 
 async def extract_popup_data(popup, state):
 
+    print("inside popup parser")
+
     html = await popup.inner_html()
     text = await popup.inner_text()
 
@@ -49,33 +53,81 @@ async def extract_popup_data(popup, state):
         state.popup_dealers.append(mymaps)
 
     # strategy 2
-    popup_entity = {
-        'name': text.split('\n')[0].strip(),
-        'address': '\n'.join(text.split('\n')[1:]).strip(),
-        'phone': extract_phones(text),
-        'email': extract_emails(text),
-    }
+    soup = BeautifulSoup(html, 'lxml')
 
-    if popup_entity['phone']:
-        state.popup_dealers.append(popup_entity)
+    dealer_blocks = []
 
-    # strategy 3
-    links = await popup.query_selector_all('a[href]')
+    # Try explicit block tags first
+    for tag in soup.find_all(BLOCK_TAGS):
+
+        text = tag.get_text(" ", strip=True)
+
+        if extract_phones(text):
+            dealer_blocks.append(tag)
+
+    # Fallback: entire popup
+    if not dealer_blocks:
+        dealer_blocks = [soup]
+
+    seen_phones = set()
+
+    for block in dealer_blocks:
+
+        try:
+
+            dealer = _block_to_dealer(block)
+
+            phones = tuple(sorted(
+                re.sub(r'\D', '', p)
+                for p in dealer.get('phone', [])
+            ))
+
+            if not phones:
+                continue
+
+            if phones in seen_phones:
+                continue
+
+            seen_phones.add(phones)
+
+            state.popup_dealers.append(dealer)
+
+        except Exception:
+            continue
+
+    # ---------------------------------------------------------
+    # Strategy 3
+    # Discover detail links
+    # ---------------------------------------------------------
+
+    try:
+        links = await popup.query_selector_all('a[href]')
+    except Exception:
+        links = []
 
     for link in links:
 
-        href = await link.get_attribute('href')
+        try:
+            href = await link.get_attribute('href')
 
-        if not href:
+            if not href:
+                continue
+
+            href = href.strip()
+
+            if href.startswith('mailto:'):
+                continue
+
+            if href.startswith('tel:'):
+                continue
+
+            if href == '#':
+                continue
+
+            state.discovered_urls.add(href)
+
+        except Exception:
             continue
-
-        if href.startswith('mailto:'):
-            continue
-
-        if href.startswith('tel:'):
-            continue
-
-        state.discovered_urls.add(href)
 
 def parse_dealers_from_html(html: str) -> list[dict]:
 
@@ -93,6 +145,8 @@ def parse_dealers_from_html(html: str) -> list[dict]:
         A list of dictionaries, where each dictionary represents a unique 
         dealer. Typical keys include 'phone', 'name', 'address', 'email', depending on the output of `_block_to_dealer`.
     """
+
+    print("inside html parser")
 
     soup = BeautifulSoup(html, 'lxml')
 
@@ -158,43 +212,133 @@ def parse_dealers_from_html(html: str) -> list[dict]:
     return list(phone_to_best_dealer.values())
 
 def _parse_google_mymaps_panel(html: str) -> dict | None:
+
     """
-    Parses Google My Maps feature card HTML.
-    Structure: div.qqvbed-p83tee contains
-      div.qqvbed-p83tee-V1ur5d (label) + div.qqvbed-p83tee-lTBxed (value)
+    Parses Google My Maps sidebar/card panels and converts them
+    into a normalized dealer block using `_block_to_dealer()`.
+
+    Goal:
+        Avoid custom field extraction logic and centralize all
+        dealer parsing inside `_block_to_dealer()`.
     """
+
+    print("Inside parse google mymaps panel")
+
     soup = BeautifulSoup(html, 'lxml')
 
-    # Find all label/value pairs
-    panels = soup.find_all(class_=lambda c: c and 'qqvbed-p83tee' in c)
-    
-    data = {}
-    for panel in panels:
-        label_el = panel.find(class_=lambda c: c and 'V1ur5d' in c)
-        value_el = panel.find(class_=lambda c: c and 'lTBxed' in c)
-        
-        if label_el and value_el:
-            label = clean(label_el.get_text()).lower()
-            value = clean(value_el.get_text())
-            data[label] = value
+    # ---------------------------------------------------------
+    # Locate MyMaps panels
+    # ---------------------------------------------------------
 
-    if not data:
+    panels = soup.find_all(
+        class_=lambda c:
+            c and 'qqvbed-p83tee' in c
+    )
+
+    if not panels:
         return None
 
-    # Map known Honda My Maps labels → our schema
-    result = {
-        'name':    data.get('dealer name', data.get('name', '')),
-        'address': data.get('address', data.get('location', '')),
-        'phone':   extract_phones(data.get('phone no.', data.get('phone', data.get('contact', '')))),
-        'email':   extract_emails(data.get('email address', data.get('email', ''))),
-        'source':  'google_mymaps_panel',
-    }
+    # ---------------------------------------------------------
+    # Build normalized pseudo-card HTML
+    # ---------------------------------------------------------
 
-    # Fallback: scan ALL values for phones/emails in case label names differ
-    all_values = ' '.join(data.values())
-    if not result['phone']:
-        result['phone'] = extract_phones(all_values)
-    if not result['email']:
-        result['email'] = extract_emails(all_values)
+    card = BeautifulSoup('<div class="dealer-card"></div>', 'lxml')
 
-    return result if (result['name'] or result['phone']) else None
+    card_root = card.div
+
+    for panel in panels:
+
+        try:
+
+            label_el = panel.find(
+                class_=lambda c:
+                    c and 'V1ur5d' in c
+            )
+
+            value_el = panel.find(
+                class_=lambda c:
+                    c and 'lTBxed' in c
+            )
+
+            if not label_el or not value_el:
+                continue
+
+            label = clean(
+                label_el.get_text(" ", strip=True)
+            )
+
+            value = clean(
+                value_el.get_text(" ", strip=True)
+            )
+
+            if not value:
+                continue
+
+            # ---------------------------------------------
+            # Convert label/value pair into generic HTML
+            # ---------------------------------------------
+
+            row = card.new_tag("div")
+
+            strong = card.new_tag("strong")
+            strong.string = f"{label}: "
+
+            span = card.new_tag("span")
+            span.string = value
+
+            row.append(strong)
+            row.append(span)
+
+            card_root.append(row)
+
+        except Exception:
+            continue
+
+    # ---------------------------------------------------------
+    # Fallback: raw text dump
+    # ---------------------------------------------------------
+
+    if not card_root.get_text(strip=True):
+
+        raw_div = card.new_tag("div")
+        raw_div.string = soup.get_text("\n", strip=True)
+
+        card_root.append(raw_div)
+
+    # ---------------------------------------------------------
+    # Unified extraction
+    # ---------------------------------------------------------
+
+    dealer = _block_to_dealer(card_root)
+
+    # ---------------------------------------------------------
+    # Additional fallbacks
+    # ---------------------------------------------------------
+
+    all_text = card_root.get_text(" ", strip=True)
+
+    if not dealer.get('phone'):
+        dealer['phone'] = extract_phones(all_text)
+
+    if not dealer.get('email'):
+        dealer['email'] = extract_emails(all_text)
+
+    # ---------------------------------------------------------
+    # Metadata
+    # ---------------------------------------------------------
+
+    dealer['source'] = 'google_mymaps_panel'
+
+    # ---------------------------------------------------------
+    # Validation
+    # ---------------------------------------------------------
+
+    if any([
+        dealer.get('name'),
+        dealer.get('phone'),
+        dealer.get('email'),
+        dealer.get('address'),
+    ]):
+        return dealer
+
+    return None
