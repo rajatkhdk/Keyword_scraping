@@ -256,7 +256,34 @@ async def interact_and_collect(page, api_dealers):
             value = await opt.get_attribute("value")
 
             # 1. apply filter
-            await select.select_option(value=value)
+            # await select.select_option(value=value)
+            await select.evaluate(
+                """
+                (el, value) => {
+
+                    const nativeSetter =
+                        Object.getOwnPropertyDescriptor(
+                            window.HTMLSelectElement.prototype,
+                            'value'
+                        ).set;
+
+                    nativeSetter.call(el, value);
+
+                    el.dispatchEvent(
+                        new Event('change', {
+                            bubbles: true
+                        })
+                    );
+
+                    el.dispatchEvent(
+                        new Event('input', {
+                            bubbles: true
+                        })
+                    );
+                }
+                """,
+                value
+            )
 
             # 2. IMPORTANT: trigger UI update
             btn = await find_submit_button(page)
@@ -343,38 +370,38 @@ async def scrape_discovered_urls(page, state):
 
 
 
-async def scrape_dealers(url: str):
+# async def scrape_dealers(url: str):
 
-    state = ScraperState()
+#     state = ScraperState()
 
-    p, browser, context, page = await create_browser_session(url)
+#     p, browser, context, page = await create_browser_session(url)
     
-    try:
-        # global API interception
-        await attach_global_interceptor(page, state)
+#     try:
+#         # global API interception
+#         await attach_global_interceptor(page, state)
 
-        # initial HTML extraction
-        await extract_from_initial_html(page, state)
+#         # initial HTML extraction
+#         await extract_from_initial_html(page, state)
 
-        # interactive UI exploration
-        await interact_and_collect(page, state)
+#         # interactive UI exploration
+#         await interact_and_collect(page, state)
 
-        # map discovery
-        await discover_map_entities(page, state)
+#         # map discovery
+#         await discover_map_entities(page, state)
 
-        # merge + dedupe
-        final = deduplicate_dealers(
-            state.api_dealers +
-            state.html_dealers +
-            state.popup_dealers
-        )
+#         # merge + dedupe
+#         final = deduplicate_dealers(
+#             state.api_dealers +
+#             state.html_dealers +
+#             state.popup_dealers
+#         )
 
-        return final
+#         return final
     
-    finally:
-        await browser.close()
-        await p.stop()
-
+#     finally:
+#         await browser.close()
+#         await p.stop()
+ 
 async def scrape_dealers(url: str, search_queries: list[str] | None = None) -> list[dict]:
     print("URL : ", url)
     print(f"\n{'='*60}\nScraping: {url}\n{'='*60}")
