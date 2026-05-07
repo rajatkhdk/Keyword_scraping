@@ -238,9 +238,9 @@ def is_important(url):
     "showroom",
     "dealer",
     "distributor",
-    "dealership",
     "map",
-    "branch"
+    "branch",
+    "network"
     ]
 
     url = url.lower()
@@ -253,14 +253,17 @@ def rank_links(links):
     for url in links:
         score = 0
 
-        if "contact" in url:
+        if "dealer" or "location" or "network" or "branch" or "distributor" or "showroom" in url:
             score += 5
-        if "dealer" in url:
+            
+        if "contact" in url:
             score += 4
+        
         if "about" in url:
             score += 3
-        if "location" in url:
-            score += 3
+
+        if "become" in url:
+            score -= 2
 
         scored.append((score, url))
 

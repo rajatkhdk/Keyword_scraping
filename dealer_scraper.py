@@ -1,596 +1,541 @@
-# """
-# Nepal Car Dealer Scraper
-# Extracts dealer name, address, phone from car brand websites.
-# Handles: static HTML, JS-rendered pages, tables, cards, lists, and API interception.
-
-# Requirements:
-#     pip install playwright beautifulsoup4 requests lxml
-#     playwright install chromium
-# """
-
-# import re
-# import json
-# import time
-# import asyncio
-# from urllib.parse import urljoin, urlparse
-# from bs4 import BeautifulSoup
-# from playwright.async_api import async_playwright
-
-
-# # ─────────────────────────────────────────────
-# # REGEX PATTERNS
-# # ─────────────────────────────────────────────
-
-# PHONE_PATTERNS = [
-#     # Nepal numbers: 01-XXXXXXX, 9XXXXXXXXX, +977-XX-XXXXXXX
-#     r'\+977[\s\-]?\d{2}[\s\-]?\d{6,7}',
-#     r'\b01[\s\-]?\d{7}\b',                  # Kathmandu landline
-#     r'\b0\d{2}[\s\-]?\d{6,7}\b',            # Other city landlines
-#     r'\b9[78]\d{8}\b',                       # Mobile (98XXXXXXXX, 97XXXXXXXX)
-#     r'\b9[0-9]{9}\b',                        # General 10-digit mobile
-# ]
-
-# EMAIL_PATTERN = r'[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}'
-
-# # Keywords that hint a container holds dealer info
-# DEALER_KEYWORDS = [
-#     'dealer', 'showroom', 'outlet', 'branch', 'service center',
-#     'authorized', 'distributor', 'contact', 'location', 'address'
-# ]
-
-# # ─────────────────────────────────────────────
-# # UTILITIES
-# # ─────────────────────────────────────────────
-
-# def extract_phones(text: str) -> list[str]:
-#     found = []
-#     for pattern in PHONE_PATTERNS:
-#         matches = re.findall(pattern, text)
-#         found.extend(matches)
-#     # Deduplicate while preserving order
-#     seen = set()
-#     result = []
-#     for p in found:
-#         clean = re.sub(r'[\s\-]', '', p)
-#         if clean not in seen:
-#             seen.add(clean)
-#             result.append(p.strip())
-#     return result
-
-
-# def extract_emails(text: str) -> list[str]:
-#     return list(set(re.findall(EMAIL_PATTERN, text)))
-
-
-# def clean_text(text: str) -> str:
-#     return re.sub(r'\s+', ' ', text).strip()
-
-
-# def score_dealer_container(text: str) -> int:
-#     """Score how likely a block of text is a dealer entry."""
-#     text_lower = text.lower()
-#     score = 0
-#     for kw in DEALER_KEYWORDS:
-#         if kw in text_lower:
-#             score += 2
-#     if extract_phones(text):
-#         score += 5
-#     if re.search(r'\b(kathmandu|pokhara|lalitpur|bhaktapur|chitwan|biratnagar|butwal|narayanghat|hetauda|dharan)\b', text_lower):
-#         score += 3
-#     return score
-
-
-# # ─────────────────────────────────────────────
-# # STRATEGY 1: Parse static / rendered HTML
-# # ─────────────────────────────────────────────
-
-# def parse_dealers_from_html(html: str, base_url: str = '') -> list[dict]:
-#     """
-#     Tries multiple sub-strategies to extract dealer cards from HTML.
-#     Returns a list of dealer dicts.
-#     """
-#     soup = BeautifulSoup(html, 'lxml')
-#     dealers = []
-
-#     # Remove noise
-#     for tag in soup(['script', 'style', 'nav', 'footer', 'header']):
-#         tag.decompose()
-
-#     # ── Sub-strategy A: Table rows ──
-#     dealers += _parse_tables(soup)
-
-#     # ── Sub-strategy B: Repeated card/block elements ──
-#     if not dealers:
-#         dealers += _parse_card_blocks(soup)
-
-#     # ── Sub-strategy C: List items ──
-#     if not dealers:
-#         dealers += _parse_lists(soup)
-
-#     # ── Sub-strategy D: Fallback — scan all text blocks ──
-#     if not dealers:
-#         dealers += _parse_generic_blocks(soup)
-
-#     return dealers
-
-
-# def _parse_tables(soup) -> list[dict]:
-#     dealers = []
-#     for table in soup.find_all('table'):
-#         headers = [clean_text(th.get_text()) for th in table.find_all('th')]
-#         for row in table.find_all('tr'):
-#             cells = [clean_text(td.get_text()) for td in row.find_all('td')]
-#             if not cells:
-#                 continue
-#             if len(cells) < 2:
-#                 continue
-#             dealer = _build_dealer_from_cells(headers, cells)
-#             if dealer:
-#                 dealers.append(dealer)
-#     return dealers
-
-
-# def _build_dealer_from_cells(headers: list, cells: list) -> dict | None:
-#     """Map table cells to dealer fields using header names."""
-#     dealer = {'name': '', 'address': '', 'phone': [], 'email': []}
-#     all_text = ' '.join(cells)
-
-#     phones = extract_phones(all_text)
-#     emails = extract_emails(all_text)
-#     if not phones and not emails:
-#         return None  # Probably not a dealer row
-
-#     # Try to map by headers
-#     for i, header in enumerate(headers):
-#         if i >= len(cells):
-#             break
-#         h = header.lower()
-#         val = cells[i]
-#         if any(k in h for k in ['name', 'dealer', 'showroom', 'outlet']):
-#             dealer['name'] = val
-#         elif any(k in h for k in ['address', 'location', 'city']):
-#             dealer['address'] = val
-#         elif any(k in h for k in ['phone', 'tel', 'mobile', 'contact']):
-#             dealer['phone'] = extract_phones(val) or extract_phones(all_text)
-#         elif any(k in h for k in ['email', 'mail']):
-#             dealer['email'] = extract_emails(val)
-
-#     # Fallback: first cell is usually name
-#     if not dealer['name'] and cells:
-#         dealer['name'] = cells[0]
-#     if not dealer['address'] and len(cells) > 1:
-#         dealer['address'] = cells[1]
-#     if not dealer['phone']:
-#         dealer['phone'] = phones
-#     if not dealer['email']:
-#         dealer['email'] = emails
-
-#     return dealer if dealer['name'] or dealer['phone'] else None
-
-
-# def _parse_card_blocks(soup) -> list[dict]:
-#     """Look for repeated sibling elements that look like dealer cards."""
-#     dealers = []
-#     candidates = []
-
-#     # Common card container selectors
-#     for selector in [
-#         '[class*="dealer"]', '[class*="showroom"]', '[class*="location"]',
-#         '[class*="branch"]', '[class*="outlet"]', '[class*="card"]',
-#         '[class*="store"]', '[class*="contact"]', 'article', '.item'
-#     ]:
-#         try:
-#             elements = soup.select(selector)
-#         except Exception:
-#             continue
-#         if len(elements) >= 2:
-#             candidates.extend(elements)
-
-#     seen_texts = set()
-#     for el in candidates:
-#         text = clean_text(el.get_text(separator=' '))
-#         if text in seen_texts or len(text) < 20:
-#             continue
-#         seen_texts.add(text)
-#         if score_dealer_container(text) < 3:
-#             continue
-#         dealer = _extract_dealer_from_block(el, text)
-#         if dealer:
-#             dealers.append(dealer)
-
-#     return dealers
-
-
-# def _parse_lists(soup) -> list[dict]:
-#     dealers = []
-#     for ul in soup.find_all(['ul', 'ol']):
-#         items = ul.find_all('li')
-#         if len(items) < 2:
-#             continue
-#         for li in items:
-#             text = clean_text(li.get_text(separator=' '))
-#             if score_dealer_container(text) < 3:
-#                 continue
-#             dealer = _extract_dealer_from_block(li, text)
-#             if dealer:
-#                 dealers.append(dealer)
-#     return dealers
-
-
-# def _parse_generic_blocks(soup) -> list[dict]:
-#     """Last resort: find any div/section with phone numbers."""
-#     dealers = []
-#     seen = set()
-#     for tag in soup.find_all(['div', 'section', 'p']):
-#         text = clean_text(tag.get_text(separator=' '))
-#         if text in seen or len(text) < 30 or len(text) > 800:
-#             continue
-#         seen.add(text)
-#         phones = extract_phones(text)
-#         if not phones:
-#             continue
-#         dealer = {
-#             'name': _guess_name_from_block(tag, text),
-#             'address': _guess_address_from_text(text),
-#             'phone': phones,
-#             'email': extract_emails(text),
-#         }
-#         dealers.append(dealer)
-#     return dealers
-
-
-# def _extract_dealer_from_block(el, full_text: str) -> dict | None:
-#     phones = extract_phones(full_text)
-#     emails = extract_emails(full_text)
-
-#     name = _guess_name_from_block(el, full_text)
-#     address = _guess_address_from_text(full_text)
-
-#     if not name and not phones:
-#         return None
-
-#     return {
-#         'name': name,
-#         'address': address,
-#         'phone': phones,
-#         'email': emails,
-#     }
-
-
-# def _guess_name_from_block(el, full_text: str) -> str:
-#     # Look for heading tags inside the element
-#     for heading in el.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'strong', 'b']):
-#         name = clean_text(heading.get_text())
-#         if name and len(name) < 100:
-#             return name
-#     # First line heuristic
-#     lines = [l.strip() for l in full_text.splitlines() if l.strip()]
-#     if lines:
-#         candidate = lines[0]
-#         # Skip if it looks like a phone number or address
-#         if not extract_phones(candidate) and len(candidate) < 80:
-#             return candidate
-#     return ''
-
-
-# def _guess_address_from_text(text: str) -> str:
-#     # Look for Nepal city/district names
-#     cities = [
-#         'Kathmandu', 'Pokhara', 'Lalitpur', 'Bhaktapur', 'Chitwan',
-#         'Biratnagar', 'Butwal', 'Narayanghat', 'Hetauda', 'Dharan',
-#         'Birgunj', 'Janakpur', 'Dhangadhi', 'Nepalgunj', 'Itahari',
-#         'Birtamod', 'Damak', 'Tansen', 'Baglung', 'Palpa'
-#     ]
-#     # Find sentences containing a city name
-#     sentences = re.split(r'[,\n|•]', text)
-#     for sent in sentences:
-#         for city in cities:
-#             if city.lower() in sent.lower():
-#                 candidate = clean_text(sent)
-#                 if len(candidate) < 200:
-#                     return candidate
-#     return ''
-
-
-# # ─────────────────────────────────────────────
-# # STRATEGY 2: Intercept XHR/Fetch API calls
-# # ─────────────────────────────────────────────
-
-# async def intercept_api_calls(url: str) -> list[dict]:
-#     """
-#     Load page with Playwright, intercept any JSON responses that look
-#     like dealer/location data.
-#     """
-#     captured_dealers = []
-#     api_responses = []
-
-#     async with async_playwright() as p:
-#         browser = await p.chromium.launch(headless=False)
-#         context = await browser.new_context(
-#             user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-#         )
-#         page = await context.new_page()
-
-#         async def handle_response(response):
-#             try:
-#                 content_type = response.headers.get('content-type', '')
-#                 if 'json' in content_type:
-#                     body = await response.json()
-#                     text = json.dumps(body)
-#                     # Check if it contains dealer-like data
-#                     if any(k in text.lower() for k in ['dealer', 'showroom', 'phone', 'address', 'location']):
-#                         api_responses.append({'url': response.url, 'data': body})
-#             except Exception:
-#                 pass
-
-#         page.on('response', handle_response)
-
-#         await page.goto(url, wait_until='networkidle', timeout=30000)
-#         await page.wait_for_timeout(3000)  # Wait for lazy loads
-
-#         # Also get the rendered HTML for static parsing
-#         html = await page.content()
-
-#         await browser.close()
-
-#     # Try to parse captured API responses
-#     for resp in api_responses:
-#         dealers = _extract_dealers_from_json(resp['data'])
-#         captured_dealers.extend(dealers)
-
-#     return captured_dealers, html
-
-
-# def _extract_dealers_from_json(data, depth=0) -> list[dict]:
-#     """Recursively search JSON for objects with dealer-like fields."""
-#     dealers = []
-#     if depth > 5:
-#         return dealers
-
-#     if isinstance(data, list):
-#         for item in data:
-#             dealers.extend(_extract_dealers_from_json(item, depth + 1))
-#     elif isinstance(data, dict):
-#         keys_lower = {k.lower(): k for k in data.keys()}
-#         # Check if this dict looks like a dealer record
-#         has_phone = any(k in keys_lower for k in ['phone', 'tel', 'mobile', 'contact_no', 'phone_no'])
-#         has_name = any(k in keys_lower for k in ['name', 'dealer', 'showroom', 'title'])
-#         has_address = any(k in keys_lower for k in ['address', 'location', 'city', 'district'])
-
-#         if has_phone or (has_name and has_address): # use or instead of and
-#             dealer = {
-#                 'name': '',
-#                 'address': '',
-#                 'phone': [],
-#                 'email': [],
-#             }
-#             for field, keys in [
-#                 ('name', ['name', 'dealer_name', 'showroom_name', 'title', 'dealer']),
-#                 ('address', ['address', 'full_address', 'location', 'city', 'district']),
-#                 ('phone', ['phone', 'phone_no', 'tel', 'mobile', 'contact_no', 'telephone']),
-#                 ('email', ['email', 'email_address', 'mail']),
-#             ]:
-#                 for key in keys:
-#                     if key in keys_lower:
-#                         val = data[keys_lower[key]]
-#                         if field in ('phone', 'email'):
-#                             if isinstance(val, list):
-#                                 dealer[field] = [str(v) for v in val]
-#                             elif val:
-#                                 dealer[field] = [str(val)]
-#                         else:
-#                             dealer[field] = str(val) if val else ''
-#                         break
-
-#             # Fallback phone extraction from stringified record
-#             if not dealer['phone']:
-#                 dealer['phone'] = extract_phones(json.dumps(data))
-
-#             dealers.append(dealer)
-#         else:
-#             # Recurse into values
-#             for v in data.values():
-#                 dealers.extend(_extract_dealers_from_json(v, depth + 1))
-
-#     return dealers
-
-
-# # ─────────────────────────────────────────────
-# # STRATEGY 3: Map / search bar interaction
-# # ─────────────────────────────────────────────
-
-# async def interact_map_or_search(url: str, search_queries: list[str] = None) -> list[dict]:
-#     """
-#     For sites with interactive maps or search bars:
-#     - Clicks map markers to reveal popups
-#     - OR submits search queries and parses results
-#     """
-#     dealers = []
-
-#     async with async_playwright() as p:
-#         browser = await p.chromium.launch(headless=True)
-#         page = await browser.new_page()
-#         await page.goto(url, wait_until='networkidle', timeout=30000)
-#         await page.wait_for_timeout(2000)
-
-#         # ── Try clicking map markers ──
-#         marker_selectors = [
-#             '.leaflet-marker-icon',
-#             '[class*="marker"]',
-#             '[class*="pin"]',
-#             'img[src*="marker"]',
-#             'img[src*="pin"]',
-#             '[data-lat]',
-#             '[data-lng]',
-#         ]
-
-#         for selector in marker_selectors:
-#             try:
-#                 markers = await page.query_selector_all(selector)
-#                 if not markers:
-#                     continue
-#                 print(f"  Found {len(markers)} markers with selector: {selector}")
-#                 for i, marker in enumerate(markers[:50]):  # Cap at 50
-#                     try:
-#                         await marker.click(timeout=3000)
-#                         await page.wait_for_timeout(800)
-#                         # Look for popup content
-#                         popup_html = ''
-#                         for popup_sel in ['.leaflet-popup-content', '[class*="popup"]', '[class*="tooltip"]', '[class*="infowindow"]']:
-#                             popup = await page.query_selector(popup_sel)
-#                             if popup:
-#                                 popup_html = await popup.inner_html()
-#                                 break
-#                         if popup_html:
-#                             soup = BeautifulSoup(popup_html, 'lxml')
-#                             text = clean_text(soup.get_text(separator=' '))
-#                             dealer = {
-#                                 'name': _guess_name_from_block(soup, text),
-#                                 'address': _guess_address_from_text(text),
-#                                 'phone': extract_phones(text),
-#                                 'email': extract_emails(text),
-#                             }
-#                             if dealer['name'] or dealer['phone']:
-#                                 dealers.append(dealer)
-#                     except Exception as e:
-#                         continue
-#                 if dealers:
-#                     break
-#             except Exception:
-#                 continue
-
-#         # ── Try search bar ──
-#         if not dealers and search_queries:
-#             search_selectors = [
-#                 'input[type="search"]',
-#                 'input[placeholder*="search" i]',
-#                 'input[placeholder*="location" i]',
-#                 'input[placeholder*="dealer" i]',
-#                 'input[placeholder*="city" i]',
-#                 '#search', '.search-input', '[name="search"]',
-#             ]
-#             for query in search_queries:
-#                 for sel in search_selectors:
-#                     try:
-#                         inp = await page.query_selector(sel)
-#                         if not inp:
-#                             continue
-#                         await inp.click()
-#                         await inp.fill(query)
-#                         await inp.press('Enter')
-#                         await page.wait_for_timeout(2000)
-#                         html = await page.content()
-#                         new_dealers = parse_dealers_from_html(html)
-#                         dealers.extend(new_dealers)
-#                         break
-#                     except Exception:
-#                         continue
-
-#         await browser.close()
-
-#     return dealers
-
-
-# # ─────────────────────────────────────────────
-# # MAIN SCRAPER ORCHESTRATOR
-# # ─────────────────────────────────────────────
-
-# async def scrape_dealers(url: str, search_queries: list[str] = None) -> list[dict]:
-#     """
-#     Main entry point. Tries all strategies in order of reliability.
-#     Returns a deduplicated list of dealer dicts.
-#     """
-#     print(f"\n{'='*60}")
-#     print(f"Scraping: {url}")
-#     print('='*60)
-
-#     all_dealers = []
-
-#     # Strategy 1 + 2: Load page, intercept APIs, parse rendered HTML
-#     print("→ Strategy 1/2: Loading page & intercepting API calls...")
+import re
+import json
+import asyncio
+from urllib.parse import urlparse
+from bs4 import BeautifulSoup, NavigableString, Tag
+from playwright.async_api import async_playwright
+from keywords_scraping.contact_regex import _block_to_dealer, extract_phones, extract_emails, _walk_up_to_card, BLOCK_TAGS, clean
+from keywords_scraping.html_parser import parse_dealers_from_html, extract_from_initial_html, extract_popup_data, _parse_google_mymaps_panel
+from keywords_scraping.map_scrape import get_selected_option, is_placeholder, is_select_meaningful, _try_map_and_search, discover_map_entities, deduplicate_dealers
+from keywords_scraping.json_parser import _extract_dealers_from_json
+
+import os
+# import logging
+
+from dataclasses import dataclass, field
+
+# print("RUNNING FILE:", __file__)
+# print("CWD:", os.getcwd())
+
+# # 1. Force the log file to be in the same folder as this script
+# script_dir = os.path.dirname(os.path.abspath(__file__))
+# log_path = os.path.join(script_dir, "scraper_log.txt")
+
+# # 2. Advanced config: Get the root logger and clear existing handlers
+# logger = logging.getLogger("scrape_logger")
+# logger.setLevel(logging.INFO)
+# logger.propagate = False
+
+# # Clear any handlers that might have been set by imports
+# if logger.hasHandlers():
+#     logger.handlers.clear()
+
+# # 3. Create File Handler (the log file)
+# try:
+#     file_handler = logging.FileHandler(log_path, mode='w', encoding='utf-8')
+# except Exception as e:
+#     print("FileHandler failed:", e)
+# file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+
+# # 4. Create Stream Handler (the terminal output)
+# stream_handler = logging.StreamHandler()
+# stream_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+
+# logger.setLevel(logging.DEBUG)
+
+# # 5. Add both to the logger
+# logger.addHandler(file_handler)
+# logger.addHandler(stream_handler)
+# print("FileHandler created at:", log_path)
+
+# print(f"DEBUG: Log file should be created at: {log_path}")
+
+# logger.info("Logger initialized successfully")
+
+# file_handler.flush()
+# print("LOG FILE EXISTS:", os.path.exists(log_path))
+
+# print("PATH:", log_path)
+# print("EXISTS DIR:", os.path.exists(script_dir))
+
+@dataclass
+class ScraperState:
+    api_dealers: list = field(default_factory=list)
+    html_dealers: list = field(default_factory=list)
+    popup_dealers: list = field(default_factory=list)
+
+    discovered_urls: set = field(default_factory=set)
+    visited_urls: set = field(default_factory=set)
+
+    intercepted_responses: list = field(default_factory=list)
+
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Save and load html
+# ─────────────────────────────────────────────────────────────────────────────
+# def save_html(path: str, html: str):
+#     with open(path, "w", encoding="utf-8") as f:
+#         f.write(html)
+
+# def load_html(path: str) -> str | None:
+#     if os.path.exists(path):
+#         with open(path, "r", encoding="utf-8") as f:
+#             return f.read()
+#     return None
+
+
+
+
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PLAYWRIGHT LOADER
+# ─────────────────────────────────────────────────────────────────────────────
+
+async def create_browser_session(url: str):
+    p = await async_playwright().start()
+
+    browser = await p.chromium.launch(
+        headless=False,
+        slow_mo=100,
+    )
+
+    context = await browser.new_context(
+        user_agent=(
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+            'AppleWebKit/537.36'
+        )
+    )
+
+    page = await context.new_page()
+
+    await page.goto(
+        url,
+        wait_until='networkidle',
+        timeout=45000,
+    )
+
+    return p, browser, context, page
+
+async def attach_global_interceptor(page, state: ScraperState):
+
+    async def handle_response(response):
+        try:
+            ct = response.headers.get('content-type','')
+            if 'json' not in ct:
+                return
+            
+            url_lower = response.url.lower()
+
+            IMPORTANT_KEYWORDS = [
+                'dealer',
+                'showroom',
+                'location',
+                'branch',
+                'store',
+                'map',
+                'marker',
+                'contact',
+                'address',
+                'network',
+            ]
+
+            if not any(k in url_lower for k in IMPORTANT_KEYWORDS):
+                return
+            body = await response.json()
+
+            state.intercepted_responses.append({
+                'url': response.url,
+                'data': body,
+            })
+
+            dealers = _extract_dealers_from_json(body)
+
+            if dealers:
+                state.api_dealers.extend(dealers)
+
+        except Exception as e:
+            # logger.debug(f'[API] interceptor error: {e}')
+            print(f'[API] interceptor error: {e}')
+
+    page.on('response', handle_response)
+
+async def _load_page(url: str):
+    api_dealers = []
+    p = await async_playwright().start()
+    browser = await p.chromium.launch(headless=False, slow_mo=300)
+    context = await browser.new_context(
+        user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+    )
+    page = await context.new_page()
+
+    async def on_response(resp):
+        try:
+            ct = resp.headers.get('content-type', '')
+            if 'json' in ct:
+                body = await resp.json()
+                txt = json.dumps(body).lower()
+                if any(k in txt for k in ['dealer','showroom','phone','address','location', 'contact']):
+                    api_dealers.extend(_extract_dealers_from_json(body))
+        except Exception:
+            pass
+
+    page.on('response', on_response)
+    await page.goto(url, wait_until='networkidle', timeout=30000)
+    await page.wait_for_timeout(3000)
+    # html = await page.content()
+    # await browser.close()
+    return page, browser, api_dealers, p
+
+
+async def is_full_dataset(page):
+    selects = await page.query_selector_all("select")
+
+    for select in selects:
+        selected = await get_selected_option(select)
+
+        # if ANY select is actively filtering → dataset is NOT full
+        if not is_placeholder(selected):
+            return False
+
+    return True
+ 
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SEARCH AND SELECT 
+# ─────────────────────────────────────────────────────────────────────────────
+
+async def find_submit_button(page):
+    buttons = await page.query_selector_all("button, input[type='button'], input[type='submit']")
+
+    for btn in buttons:
+        try:
+            text = (await btn.inner_text()).strip().lower()
+
+            if any(k in text for k in [
+                "search", "submit", "apply", "filter", "go", "find"
+            ]):
+                return btn
+        except:
+            continue
+
+    return None
+
+async def interact_and_collect(page, api_dealers):
+    print("→ Smart adaptive scraping...")
+
+    collected = []
+
+    # STEP 1: baseline
+    html = await page.content()
+    collected.extend(parse_dealers_from_html(html))
+
+    # STEP 2: if already full dataset → STOP
+    if await is_full_dataset(page):
+        print("[STOP] Full dataset detected.")
+        return collected
+
+    selects = await page.query_selector_all("select")
+
+    # STEP 3: explore only meaningful selects
+    for select in selects:
+
+        if not await is_select_meaningful(page, select):
+            print("[SKIP] meaningless select")
+            continue
+
+        options = await select.query_selector_all("option")
+
+        for opt in options:
+            text = (await opt.inner_text()).strip().lower()
+
+            if is_placeholder(text):
+                continue
+
+            value = await opt.get_attribute("value")
+
+            # 1. apply filter
+            # await select.select_option(value=value)
+            await select.evaluate(
+                """
+                (el, value) => {
+
+                    const nativeSetter =
+                        Object.getOwnPropertyDescriptor(
+                            window.HTMLSelectElement.prototype,
+                            'value'
+                        ).set;
+
+                    nativeSetter.call(el, value);
+
+                    el.dispatchEvent(
+                        new Event('change', {
+                            bubbles: true
+                        })
+                    );
+
+                    el.dispatchEvent(
+                        new Event('input', {
+                            bubbles: true
+                        })
+                    );
+                }
+                """,
+                value
+            )
+
+            # 2. IMPORTANT: trigger UI update
+            btn = await find_submit_button(page)
+
+            if btn:
+                try:
+                    await btn.click()
+                    await page.wait_for_load_state("networkidle")
+                except:
+                    await page.wait_for_timeout(1500)
+            else:
+                # fallback for reactive UIs
+                await page.wait_for_timeout(1500)
+
+            html = await page.content()
+            collected.extend(parse_dealers_from_html(html))
+
+    return collected
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ORCHESTRATOR
+# ─────────────────────────────────────────────────────────────────────────────
+
+def normalize_phones(phone_field):
+    if not phone_field:
+        return []
+
+    # STEP 1: unify input type
+    if isinstance(phone_field, list):
+        raw = phone_field
+    else:
+        raw = [phone_field]
+
+    numbers = []
+
+    for item in raw:
+        if not item:
+            continue
+
+        # STEP 2: split on ALL possible separators
+        parts = re.split(r"[,\|;/\n]", str(item))
+
+        for p in parts:
+            digits = re.sub(r"\D", "", p)
+
+            # ignore junk / invalid numbers
+            if len(digits) < 7:
+                continue
+
+            numbers.append(digits)
+
+    # STEP 3: deduplicate + stable ordering
+    return sorted(set(numbers))
+
+async def scrape_discovered_urls(page, state):
+
+    for url in state.discovered_urls:
+
+        if url in state.visited_urls:
+            continue
+
+        try:
+            state.visited_urls.add(url)
+
+            # logger.info(f'[DETAIL] scraping: {url}')
+            print(f'[DETAIL] scraping: {url}')
+
+            await page.goto(
+                url,
+                wait_until='networkidle',
+                timeout=30000,
+            )
+
+            html = await page.content()
+
+            dealers = parse_dealers_from_html(html)
+
+            if dealers:
+                state.html_dealers.extend(dealers)
+
+        except Exception as e:
+            # logger.debug(f'[DETAIL] failed: {e}')
+            print(f'[DETAIL] failed: {e}')
+
+
+
+# async def scrape_dealers(url: str):
+
+#     state = ScraperState()
+
+#     p, browser, context, page = await create_browser_session(url)
+    
 #     try:
-#         api_dealers, html = await intercept_api_calls(url)
-#         if api_dealers:
-#             print(f"  ✓ Found {len(api_dealers)} dealers via API interception")
-#             all_dealers.extend(api_dealers)
-#         else:
-#             print("  No JSON API data captured, parsing HTML...")
-#             html_dealers = parse_dealers_from_html(html, url)
-#             print(f"  ✓ Found {len(html_dealers)} dealers from HTML")
-#             all_dealers.extend(html_dealers)
-#     except Exception as e:
-#         print(f"  ✗ Strategy 1/2 failed: {e}")
+#         # global API interception
+#         await attach_global_interceptor(page, state)
 
-#     # Strategy 3: Map markers / search bar (if no dealers found yet)
-#     if not all_dealers:
-#         print("→ Strategy 3: Trying map markers / search bar interaction...")
-#         nepal_cities = search_queries or [
-#             'Kathmandu', 'Pokhara', 'Lalitpur', 'Chitwan',
-#             'Biratnagar', 'Butwal', 'Dharan', 'Birgunj'
-#         ]
-#         try:
-#             map_dealers = await interact_map_or_search(url, nepal_cities)
-#             print(f"  ✓ Found {len(map_dealers)} dealers via map/search")
-#             all_dealers.extend(map_dealers)
-#         except Exception as e:
-#             print(f"  ✗ Strategy 3 failed: {e}")
+#         # initial HTML extraction
+#         await extract_from_initial_html(page, state)
 
-#     # Deduplicate by phone number
-#     seen_phones = set()
-#     unique_dealers = []
-#     for d in all_dealers:
-#         key = tuple(sorted(d.get('phone', []))) or d.get('name', '')
-#         if key and key not in seen_phones:
-#             seen_phones.add(key)
-#             unique_dealers.append(d)
+#         # interactive UI exploration
+#         await interact_and_collect(page, state)
 
-#     print(f"\n✅ Total unique dealers found: {len(unique_dealers)}")
-#     return unique_dealers
+#         # map discovery
+#         await discover_map_entities(page, state)
+
+#         # merge + dedupe
+#         final = deduplicate_dealers(
+#             state.api_dealers +
+#             state.html_dealers +
+#             state.popup_dealers
+#         )
+
+#         return final
+    
+#     finally:
+#         await browser.close()
+#         await p.stop()
+ 
+async def scrape_dealers(url: str, search_queries: list[str] | None = None) -> list[dict]:
+    print("URL : ", url)
+    print(f"\n{'='*60}\nScraping: {url}\n{'='*60}")
+
+    queries = search_queries or [
+        'Kathmandu','Pokhara','Lalitpur','Chitwan',
+        'Biratnagar','Butwal','Dharan','Birgunj',
+    ]
+
+    print("→ Loading page & intercepting API calls...")
+    page, browser, api_dealers, p = await _load_page(url)
+
+    # ─────────────────────────────────────────────
+    # STEP 1: UI INTERACTION (IMPORTANT FIX)
+    # ─────────────────────────────────────────────
+    print("→ Running UI interactions...")
+    ui_dealers = await interact_and_collect(page, api_dealers)
+
+    # wait for final JS updates
+    await page.wait_for_timeout(3000)
+
+    # ─────────────────────────────────────────────
+    # STEP 2: FINAL HTML SNAPSHOT
+    # ─────────────────────────────────────────────
+    html = await page.content()
+
+    # USE_CACHE = True
+    # cache_file = "page5.html"
+
+    # html = None
+    # # Try loading cached HTML first
+    # if USE_CACHE:
+    #     html = load_html(cache_file)
+
+    # if html:
+    #     print("📂 Using cached HTML (page5.html)")
+    # else:
+    #     print("🌐 Fetching fresh HTML...")
+    #     html = await page.content()
+    #     save_html(cache_file, html)
+    #     print("💾 Saved HTML to page5.html")
+
+    # close browser safely
+    await browser.close()
+    await p.stop()
+
+    # ─────────────────────────────────────────────
+    # STEP 3: COLLECT DATA
+    # ─────────────────────────────────────────────
+
+    dealers = []
+
+    print(f"  ✓ API dealers: {len(api_dealers)}")
+    dealers.extend(api_dealers)
+
+    print(f"  ✓ UI dealers: {len(ui_dealers)}")
+    dealers.extend(ui_dealers)
+
+    html_dealers = parse_dealers_from_html(html)
+    print(f"  ✓ HTML dealers: {len(html_dealers)}")
+    dealers.extend(html_dealers)
+
+    # fallback only if NOTHING worked
+    if not dealers:
+        print("→ Trying map/search fallback...")
+        dealers = await _try_map_and_search(url, queries)
+        print(f"  ✓ {len(dealers)} dealers from map/search")
+
+    # ─────────────────────────────────────────────
+    # STEP 4: CLEAN DEDUPLICATION (VERY IMPORTANT FIX)
+    # ─────────────────────────────────────────────
+
+    # Deduplicate by normalised phone set, keeping the most complete record
+    phone_to_best_dealer = {}
+    # seen, unique = set(), []
+    for d in dealers:
+        # Create a unique key from normalized phone numbers
+        # phone_key = frozenset(re.sub(r'\D', '', p) for p in d.get('phone', []))
+
+        phone_list = normalize_phones(d.get('phone'))
+        if not phone_list:
+                    continue
+        phone_key = tuple(phone_list)  # stable + hashable
+        
+
+        # Calculate a completeness score (count non-empty values)
+        # Counts keys that have a truth value (not none, empty sting, or empty)
+        current_score = sum(1 for value in d.values() if value)
+
+        if phone_key not in phone_to_best_dealer:
+            phone_to_best_dealer[phone_key] = d
+        else:
+            # Compare current score with the one already saved
+            existing_dealer = phone_to_best_dealer[phone_key]
+            existing_score = sum(1 for value in existing_dealer.values() if value)
+
+            if current_score > existing_score:
+                phone_to_best_dealer[phone_key] = d
+
+    return list(phone_to_best_dealer.values())
+
+    
 
 
-# # ─────────────────────────────────────────────
-# # CLI ENTRY POINT
-# # ─────────────────────────────────────────────
+# ─────────────────────────────────────────────────────────────────────────────
+# CLI
+# ─────────────────────────────────────────────────────────────────────────────
 
-# async def main():
-#     import sys
+async def main():
+    import sys
+    urls = sys.argv[1:] if len(sys.argv) > 1 else []
+    if not urls:
+        print("Usage: python dealer_scraper.py <url1> [url2] ...")
+        # logger.info("Usage: python dealer_scraper.py <url1> [url2] ...")
+        return
 
-#     # Example URLs for Nepal car brands — replace with actual URLs
-#     test_urls = [
-#         # "https://www.hyundai.com.np/dealers",
-#         # "https://www.toyota.com.np/dealer-locator",
-#         # "https://www.kia.com.np/find-a-dealer",
-#     ]
+    results = {}
+    for url in urls:
+        domain = urlparse(url).netloc
+        dealers = await scrape_dealers(url)
+        results[domain] = dealers
+        print(f"\n── Dealers from {domain} ──")
+        # logger.info(f"\n── Dealers from {domain} ──")
+        for i, d in enumerate(dealers, 1):
+            print(f"\n[{i}] {d['name']}")
+            print(f"    Address : {d['address']}")
+            print(f"    Phone   : {', '.join(d['phone'])}")
+            print(f"    Email   : {', '.join(d['email'])}")
 
-#     if len(sys.argv) > 1:
-#         test_urls = sys.argv[1:]
-
-#     if not test_urls:
-#         print("Usage: python dealer_scraper.py <url1> [url2] ...")
-#         print("\nExample:")
-#         print("  python dealer_scraper.py https://www.hyundai.com.np/dealers")
-#         return
-
-#     results = {}
-#     for url in test_urls:
-#         domain = urlparse(url).netloc
-#         dealers = await scrape_dealers(url)
-#         results[domain] = dealers
-
-#         # Print results
-#         print(f"\n── Dealers from {domain} ──")
-#         for i, d in enumerate(dealers, 1):
-#             print(f"\n[{i}] {d['name']}")
-#             print(f"    Address : {d['address']}")
-#             print(f"    Phone   : {', '.join(d['phone'])}")
-#             print(f"    Email   : {', '.join(d['email'])}")
-
-#     # Save to JSON
-#     output_file = 'dealers_output.json'
-#     with open(output_file, 'w', encoding='utf-8') as f:
-#         json.dump(results, f, ensure_ascii=False, indent=2)
-#     print(f"\n💾 Saved to {output_file}")
+    out = 'dealers_output.json'
+    with open(out, 'w', encoding='utf-8') as f:
+        json.dump(results, f, ensure_ascii=False, indent=2)
+    print(f"\n💾 Saved to {out}")
 
 
-# if __name__ == '__main__':
-#     asyncio.run(main())
+if __name__ == '__main__':
+    asyncio.run(main())
