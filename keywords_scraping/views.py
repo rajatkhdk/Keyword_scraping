@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .forms import SearchForm, URLForm
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import SearchForm, URLForm, CarBrandForm
 from .models import CarBrand, BrandDetails
 from keywords_scraping.ddgs_search import get_urls
 from keywords_scraping.extract_data_1 import extract_basic_info, fetch_soup, get_pages_to_scrape
@@ -454,3 +454,84 @@ def table(request):
     data = BrandDetails.objects.select_related("brand").all()
 
     return render(request, "admin/table.html", {"data": data})
+
+def carbrands(request):
+
+    search = request.GET.get("search", "").strip()
+
+    data = CarBrand.objects.all().order_by("name")
+
+    if search:
+        data = data.filter(name__icontains=search)
+
+    context = {
+        "data": data,
+        "search": search,
+    }
+
+    return render(request, "admin/car_brand.html", context)
+
+
+# placeholder views for now
+
+def add_carbrand(request):
+    
+    if request.method == "POST":
+
+        form = CarBrandForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect("car_brand")
+
+    else:
+        form = CarBrandForm()
+
+    return render(
+        request,
+        "admin/add_car_brand.html",
+        {"form": form}
+    )
+
+
+def edit_carbrand(request, id):
+    brand = get_object_or_404(
+        CarBrand,
+        id=id
+    )
+
+    if request.method == "POST":
+
+        form = CarBrandForm(
+            request.POST,
+            instance=brand
+        )
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect("car_brand")
+
+    else:
+
+        form = CarBrandForm(
+            instance=brand
+        )
+
+    return render(
+        request,
+        "admin/edit_car_brand.html",
+        {
+            "form": form,
+            "brand": brand,
+        }
+    )
+
+
+def delete_carbrand(request, id):
+    brand = get_object_or_404(CarBrand, id=id)
+
+    brand.delete()
+
+    return redirect("car_brand")

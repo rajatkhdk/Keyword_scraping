@@ -27,5 +27,10 @@ urlpatterns = [
     path('index/data', views.data, name='data'),
     path('table/', views.table, name='table'),
 
+    path('carbrands/', views.carbrands, name='car_brand'),
+    path('carbrands/add/', views.add_carbrand, name='add_car_brand'),
+    path('carbrands/<int:id>/edit/', views.edit_carbrand, name='edit_car_brand'),
+    path('carbrands/<int:id>/delete/', views.delete_carbrand, name='delete_car_brand'),
+
     path('brand-autocomplete/', BrandAutocomplete.as_view(), name='brand-autocomplete')
 ]
