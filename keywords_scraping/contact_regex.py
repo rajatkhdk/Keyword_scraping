@@ -183,12 +183,12 @@ def _extract_name(block: Tag) -> str:
 
     BUSINESS_SIGNALS = r'\b(pvt|ltd|private|limited|traders|motors|auto|group|enterprise|suppliers|trading)\b'
 
-    # 1. Heading / strong / bold tags
-    for tag_name in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'b']:
-        for el in block.find_all(tag_name):
-            t = clean(el.get_text())
-            if t and 5 < len(t) < 120 and not extract_phones(t):
-                return t
+    # # 1. Heading / strong / bold tags
+    # for tag_name in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'b']:
+    #     for el in block.find_all(tag_name):
+    #         t = clean(el.get_text())
+    #         if t and 5 < len(t) < 120 and not extract_phones(t):
+    #             return t
 
     # 2. First capitalised line that isn't phone/email/address
     for line in lines:
