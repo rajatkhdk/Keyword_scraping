@@ -163,7 +163,7 @@ Car Brand Scraper
             </thead>
 
             <tbody>
-                {% for dealer in data.dealers %}
+                {% for dealer in data.dealers.all %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
 
@@ -340,7 +340,7 @@ Car Brand Scraper
             </thead>
 
             <tbody>
-                {% for dealer in data.dealers %}
+                {% for dealer in data.dealers.all %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
 

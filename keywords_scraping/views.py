@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SearchForm, URLForm, CarBrandForm
-from .models import CarBrand, BrandDetails
+from .models import CarBrand, BrandDetails, Dealers
 from keywords_scraping.ddgs_search import get_urls
 from keywords_scraping.extract_data_1 import extract_basic_info, fetch_soup, get_pages_to_scrape
 from dealer_scraper_1 import scrape_dealers
@@ -238,9 +238,31 @@ def search_view(request):
                         "linkedin": result.get("linkedin"),
                         "tiktok": result.get("tiktok"),
                         "youtube": result.get("youtube"),
-                        "dealers": result.get("dealers"),
+                        # "dealers": result.get("dealers"),
                     }
                 )
+
+                # Save dealers separately
+
+                dealers = result.get("dealers", [])
+
+                # remove previous dealers first
+                obj.dealers.all().delete()
+
+                dealer_objects = []
+
+                for d in dealers:
+                    dealer_objects.append(
+                        Dealers(
+                             brand_detail = obj,
+                             name = d.get("name", ""),
+                             address = d.get("address", ""),
+                             phones = d.get("phones", []),
+                             emails = d.get("emails", []), 
+                        )
+                    )
+
+                Dealers.objects.bulk_create(dealer_objects)
 
                 # clear session after save
                 request.session.pop("scraped_data", None)
@@ -391,9 +413,31 @@ def scrape_url_view(request):
                         "linkedin": result.get("linkedin"),
                         "tiktok": result.get("tiktok"),
                         "youtube": result.get("youtube"),
-                        "dealers": result.get("dealers"),
+                        # "dealers": result.get("dealers"),
                     }
                 )
+
+                # Save dealers separately
+
+                dealers = result.get("dealers", [])
+
+                # remove previous dealers first
+                obj.dealers.all().delete()
+
+                dealer_objects = []
+
+                for d in dealers:
+                    dealer_objects.append(
+                        Dealers(
+                             brand_detail = obj,
+                             name = d.get("name", ""),
+                             address = d.get("address", ""),
+                             phones = d.get("phone", []),
+                             emails = d.get("email", []), 
+                        )
+                    )
+
+                Dealers.objects.bulk_create(dealer_objects)
 
                 # clear session after save
                 request.session.pop("scraped_data", None)
@@ -443,7 +487,7 @@ def scrape_url_view(request):
         "pending_save": False,
         "show_save_button": False
     })
-
+ 
 def index(request):
     return render(request, "admin/index.html")
 
