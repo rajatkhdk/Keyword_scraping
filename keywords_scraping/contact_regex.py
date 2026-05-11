@@ -177,48 +177,198 @@ def _walk_up_to_card(phone_tag: Tag) -> Tag | None:
 # ─────────────────────────────────────────────────────────────────────────────
 
 # Find and extract the dealer name containing line
+# def _extract_name(block: Tag) -> str:
+#     text = _text_of(block)
+#     lines = [l.strip() for l in text.splitlines() if l.strip()]
+
+#     BUSINESS_SIGNALS = r'\b(pvt|ltd|private|limited|traders|motors|auto|group|enterprise|suppliers|trading)\b'
+
+#     # # 1. Heading / strong / bold tags
+#     # for tag_name in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'b']:
+#     #     for el in block.find_all(tag_name):
+#     #         t = clean(el.get_text())
+#     #         if t and 5 < len(t) < 120 and not extract_phones(t):
+#     #             return t
+
+#     # 2. First capitalised line that isn't phone/email/address
+#     for line in lines:
+#         line = line.strip()
+#         if not line or len(line) < 3 or len(line) > 120:
+#             continue
+#         if extract_phones(line) or EMAIL_RE.search(line):
+#             continue
+#         if re.search(BUSINESS_SIGNALS, line, re.I):
+#             return line
+#         if _has_address_signal(line):
+#             continue
+#         if re.match(r'[A-Z]', line):
+#             return line
+#     return ''
+ 
 def _extract_name(block: Tag) -> str:
-    text = _text_of(block)
-    lines = [l.strip() for l in text.splitlines() if l.strip()]
 
-    BUSINESS_SIGNALS = r'\b(pvt|ltd|private|limited|traders|motors|auto|group|enterprise|suppliers|trading)\b'
+    lines = [
+        clean(l) for l in _text_line(block) if clean(l)      
+    ]
 
-    # # 1. Heading / strong / bold tags
-    # for tag_name in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'b']:
-    #     for el in block.find_all(tag_name):
-    #         t = clean(el.get_text())
-    #         if t and 5 < len(t) < 120 and not extract_phones(t):
-    #             return t
+    if not lines:
+        return ""
+    
+    BUSINESS_SIGNALS = re.compile(
+        r'\b('
+        r'pvt|ltd|private|limited|'
+        r'trader|motor|auto|group|'
+        r'enterprise|supplier|trading|'
+        r'showroom|dealer|automobiles'
+        r')\b',
+        re.I
+    )
 
-    # 2. First capitalised line that isn't phone/email/address
+    BAD_SIGNALS = re.compile(
+        r'\b('
+        r'contact|call|phone|email|'
+        r'direction|location|map|'
+        r'click|view|details|'
+        r'book|test drive|'
+        r'open|close|website'
+        r')\b',
+        re.I
+    )
+
+    candidates = []
+
     for line in lines:
-        line = line.strip()
-        if not line or len(line) < 3 or len(line) > 120:
+
+        score = 0
+
+        line = clean(line)
+
+        heading_lines = {
+            clean(t.get_text())
+            for t in block.find_all(
+                ['h1','h2','h3','h4','h5','strong','b']
+            )
+        }
+
+        if len(line) < 3 or len(line) > 120:
             continue
-        if extract_phones(line) or EMAIL_RE.search(line):
+
+        if extract_phones(line):
             continue
-        if re.search(BUSINESS_SIGNALS, line, re.I):
-            return line
-        if _has_address_signal(line):
+
+        if EMAIL_RE.search(line):
             continue
-        if re.match(r'[A-Z]', line):
-            return line
-    return ''
+
+        if BUSINESS_SIGNALS.search(line):
+            score += 50
+
+        if re.match(r'^[A-Z]', line):
+            score += 20
+
+        words = line.split()
+
+        if 2 <= len(words) <= 8:
+            score += 15
+
+        if line in heading_lines:
+            score += 10
+
+        if BAD_SIGNALS.search(line):
+            score -= 40
+        
+
+        # # penalize address-like lines
+        # if _has_address_signal(line):
+        #     score -= 15
+
+        # penalize ALL CAPS
+        if line.isupper():
+            score -= 10
+
+        candidates.append((score, line))
+
+    if not candidates:
+        return ""
+
+    candidates.sort(reverse=True)
+
+    best_score, best_line = candidates[0]
+
+    # reject low confidence
+    if best_score < 20:
+        return ""
+
+    return best_line
 
 # Find and extract the address containing line
-def _extract_address(block: Tag) -> str:
-    # 1. Semantic <address> tag
-    addr_tag = block.find('address')
-    if addr_tag:
-        return clean(addr_tag.get_text())
+# def _extract_address(block: Tag) -> str:
+#     # 1. Semantic <address> tag
+#     addr_tag = block.find('address')
+#     if addr_tag:
+#         return clean(addr_tag.get_text())
 
-    # 3. Line containing a Nepal place name
+#     # 3. Line containing a Nepal place name
+#     for line in _text_line(block):
+#         line = line.strip()
+#         if _has_address_signal(line) and not extract_phones(line):
+#             return line
+
+#     return ''
+ 
+def extract_location_tokens(text):
+
+    found = []
+
+    text = clean(text).lower()
+
+    for match in LOCATION_REGEX.finditer(text):
+
+        token = clean(match.group(0))
+
+        if token:
+            found.append(token)
+
+    # dedupe preserve order
+    seen = set()
+
+    final = []
+
+    for f in found:
+
+        key = f.lower()
+
+        if key in seen:
+            continue
+
+        seen.add(key)
+
+        final.append(f)
+
+    return final
+
+def _extract_address(block: Tag):
+
+    best = []
+
     for line in _text_line(block):
-        line = line.strip()
-        if _has_address_signal(line) and not extract_phones(line):
-            return line
 
-    return ''
+        line = clean(line)
+
+        if not line:
+            continue
+
+        if extract_phones(line):
+            continue
+
+        tokens = extract_location_tokens(line)
+
+        if len(tokens) > len(best):
+            best = tokens
+
+    if not best:
+        return ""
+
+    return ", ".join(best)
 
 # creates a dictionary with name + address _ phone + email
 def _block_to_dealer(block: Tag) -> dict:

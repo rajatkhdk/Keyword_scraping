@@ -14,50 +14,6 @@ import os
 
 from dataclasses import dataclass, field
 
-# print("RUNNING FILE:", __file__)
-# print("CWD:", os.getcwd())
-
-# # 1. Force the log file to be in the same folder as this script
-# script_dir = os.path.dirname(os.path.abspath(__file__))
-# log_path = os.path.join(script_dir, "scraper_log.txt")
-
-# # 2. Advanced config: Get the root logger and clear existing handlers
-# logger = logging.getLogger("scrape_logger")
-# logger.setLevel(logging.INFO)
-# logger.propagate = False
-
-# # Clear any handlers that might have been set by imports
-# if logger.hasHandlers():
-#     logger.handlers.clear()
-
-# # 3. Create File Handler (the log file)
-# try:
-#     file_handler = logging.FileHandler(log_path, mode='w', encoding='utf-8')
-# except Exception as e:
-#     print("FileHandler failed:", e)
-# file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-
-# # 4. Create Stream Handler (the terminal output)
-# stream_handler = logging.StreamHandler()
-# stream_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-
-# logger.setLevel(logging.DEBUG)
-
-# # 5. Add both to the logger
-# logger.addHandler(file_handler)
-# logger.addHandler(stream_handler)
-# print("FileHandler created at:", log_path)
-
-# print(f"DEBUG: Log file should be created at: {log_path}")
-
-# logger.info("Logger initialized successfully")
-
-# file_handler.flush()
-# print("LOG FILE EXISTS:", os.path.exists(log_path))
-
-# print("PATH:", log_path)
-# print("EXISTS DIR:", os.path.exists(script_dir))
-
 @dataclass
 class ScraperState:
     api_dealers: list = field(default_factory=list)
@@ -68,26 +24,6 @@ class ScraperState:
     visited_urls: set = field(default_factory=set)
 
     intercepted_responses: list = field(default_factory=list)
-
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Save and load html
-# ─────────────────────────────────────────────────────────────────────────────
-# def save_html(path: str, html: str):
-#     with open(path, "w", encoding="utf-8") as f:
-#         f.write(html)
-
-# def load_html(path: str) -> str | None:
-#     if os.path.exists(path):
-#         with open(path, "r", encoding="utf-8") as f:
-#             return f.read()
-#     return None
-
-
-
-
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # PLAYWRIGHT LOADER
@@ -534,7 +470,7 @@ async def main():
     out = 'dealers_output.json'
     with open(out, 'w', encoding='utf-8') as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
-    print(f"\n💾 Saved to {out}")
+    print(f"\nSaved to {out}")
 
 
 if __name__ == '__main__':

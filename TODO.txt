@@ -1,0 +1,3 @@
+optimize extract:
+i. name
+ii. address
