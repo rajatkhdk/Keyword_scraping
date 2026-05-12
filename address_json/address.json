@@ -7751,5 +7751,84 @@
       "district": "kathmandu",
       "province": "bagmati pradesh"
     }
+  ],
+  "gairidhara": [
+    {
+      "name": "gairidhara",
+      "type": "locality",
+      "municipality": "kathmandu",
+      "district": "kathmandu",
+      "province": "bagmati pradesh"
+    }
+  ],
+
+  "dhumbarahi": [
+    {
+      "name": "dhumbarahi",
+      "type": "locality",
+      "municipality": "kathmandu",
+      "district": "kathmandu",
+      "province": "bagmati pradesh"
+    }
+  ],
+
+  "jawalakhel": [
+    {
+      "name": "jawalakhel",
+      "type": "locality",
+      "municipality": "lalitpur",
+      "district": "lalitpur",
+      "province": "bagmati pradesh"
+    }
+  ],
+
+  "kalanki": [
+    {
+      "name": "kalanki",
+      "type": "locality",
+      "municipality": "kathmandu",
+      "district": "kathmandu",
+      "province": "bagmati pradesh"
+    }
+  ],
+
+  "thapathali": [
+    {
+      "name": "thapathali",
+      "type": "locality",
+      "municipality": "kathmandu",
+      "district": "kathmandu",
+      "province": "bagmati pradesh"
+    }
+  ],
+
+  "birtamode": [
+    {
+      "name": "birtamode",
+      "type": "municipality",
+      "municipality": "birtamode",
+      "district": "jhapa",
+      "province": "koshi pradesh"
+    }
+  ],
+
+  "dhangadi": [
+    {
+      "name": "dhangadhi",
+      "type": "metropolitan",
+      "municipality": "dhangadhi",
+      "district": "kailali",
+      "province": "sudurpashchim pradesh"
+    }
+  ],
+
+  "janakpur": [
+    {
+      "name": "janakpur",
+      "type": "sub-metropolitan",
+      "municipality": "janakpurdham",
+      "district": "dhanusha",
+      "province": "madhesh pradesh"
+    }
   ]
 }

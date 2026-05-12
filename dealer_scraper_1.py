@@ -2,15 +2,10 @@ import re
 import json
 import asyncio
 from urllib.parse import urlparse
-from bs4 import BeautifulSoup, NavigableString, Tag
 from playwright.async_api import async_playwright
-from keywords_scraping.contact_regex import _block_to_dealer, extract_phones, extract_emails, _walk_up_to_card, BLOCK_TAGS, clean
-from keywords_scraping.html_parser import parse_dealers_from_html, extract_from_initial_html, extract_popup_data, _parse_google_mymaps_panel
-from keywords_scraping.map_scrape import get_selected_option, is_placeholder, is_select_meaningful, _try_map_and_search, discover_map_entities, deduplicate_dealers
+from keywords_scraping.html_parser import parse_dealers_from_html
+from keywords_scraping.map_scrape import get_selected_option, is_placeholder, is_select_meaningful, _try_map_and_search
 from keywords_scraping.json_parser import _extract_dealers_from_json
-
-import os
-# import logging
 
 from dataclasses import dataclass, field
 
@@ -120,8 +115,6 @@ async def _load_page(url: str):
     page.on('response', on_response)
     await page.goto(url, wait_until='networkidle', timeout=30000)
     await page.wait_for_timeout(3000)
-    # html = await page.content()
-    # await browser.close()
     return page, browser, api_dealers, p
 
 
@@ -192,7 +185,6 @@ async def interact_and_collect(page, api_dealers):
             value = await opt.get_attribute("value")
 
             # 1. apply filter
-            # await select.select_option(value=value)
             await select.evaluate(
                 """
                 (el, value) => {
@@ -363,22 +355,6 @@ async def scrape_dealers(url: str, search_queries: list[str] | None = None) -> l
     # STEP 2: FINAL HTML SNAPSHOT
     # ─────────────────────────────────────────────
     html = await page.content()
-
-    # USE_CACHE = True
-    # cache_file = "page5.html"
-
-    # html = None
-    # # Try loading cached HTML first
-    # if USE_CACHE:
-    #     html = load_html(cache_file)
-
-    # if html:
-    #     print("📂 Using cached HTML (page5.html)")
-    # else:
-    #     print("🌐 Fetching fresh HTML...")
-    #     html = await page.content()
-    #     save_html(cache_file, html)
-    #     print("💾 Saved HTML to page5.html")
 
     # close browser safely
     await browser.close()

@@ -67,7 +67,7 @@ def clean(text: str) -> str:
 # CORE: Phone-anchored DOM walker
 # ─────────────────────────────────────────────────────────────────────────────
 
-BLOCK_TAGS = {'div', 'section', 'article', 'li', 'tr', 'td', 'aside', 'figure', 'main', 'p', 'address'}
+BLOCK_TAGS = {'div', 'section', 'article', 'li', 'tr', 'aside', 'figure', 'main', 'p', 'address'}
 
 STOP_TAGS = {'body', 'html', 'form'}
 
