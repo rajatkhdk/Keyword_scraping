@@ -9,6 +9,7 @@ import re
 from dal import autocomplete
 from keywords_scraping.utility import deduplicate_contacts, standardize_dealers, normalize_phone, normalize_email
 from django.db import transaction
+import json
 
 def build_context(form, **kwargs):
     context = {
@@ -862,9 +863,56 @@ def data(request):
     return render(request, "admin/data.html")
 
 def table(request):
-    data = BrandDetails.objects.select_related("brand").all()
+    search = request.GET.get('search', '')
+    data = BrandDetails.objects.select_related("brand").prefetch_related("dealers").all()
 
-    return render(request, "admin/table.html", {"data": data})
+    if search:
+        data = data.filter(brand__name__icontains=search)
+
+    table_data = []
+
+    for item in data:
+        dealers = item.dealers.all()
+
+        dealer_list = [
+            {
+                "id":      dealer.id,
+                "name":    dealer.name or '',
+                "address": dealer.address or '',
+                "phones":  dealer.phones or [],
+                "emails":  dealer.emails or [],
+            }
+            for dealer in dealers
+        ]
+
+        social_links = {
+            "facebook":  item.facebook,
+            "instagram": item.instagram,
+            "twitter":   item.twitter,
+            "linkedin":  item.linkedin,
+            "youtube":   item.youtube,
+            "tiktok":    item.tiktok,
+        }
+        active_socials = {k: v for k, v in social_links.items() if v}
+
+        table_data.append({
+            "id":            item.id,
+            "dealer_key":    f"d_{item.id}",   # ← clean string ID for template
+            "social_key":    f"s_{item.id}",   # ← clean string ID for template
+            "brand_name":    item.brand.name if item.brand else '',
+            "website":       item.website or '',
+            "phones":        item.phones or [],
+            "emails":        item.emails or [],
+            "dealers_count": dealers.count(),
+            "dealers":       dealer_list,
+            "socials":       active_socials,
+            "has_social":    bool(active_socials),
+        })
+
+    return render(request, "admin/table.html", {
+        "table_data": table_data,
+        "search":     search,
+    })
 
 def carbrands(request):
 
