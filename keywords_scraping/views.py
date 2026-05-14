@@ -10,6 +10,14 @@ from dal import autocomplete
 from keywords_scraping.utility import deduplicate_contacts, standardize_dealers, normalize_phone, normalize_email
 from django.db import transaction
 import json
+from openpyxl import Workbook
+from django.http import HttpResponse
+
+from reportlab.platypus import (SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak)
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.pagesizes import letter
+
 
 def build_context(form, **kwargs):
     context = {
@@ -994,3 +1002,374 @@ def delete_carbrand(request, id):
     brand.delete()
 
     return redirect("car_brand")
+
+def export_excel(request):
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Brand Details"
+
+    headers = [
+        "Brand",
+        "Website",
+        "Phones",
+        "Emails",
+        "Dealer Name",
+        "Dealer Address",
+        "Dealer Phones",
+        "Dealer Emails",
+        "Facebook",
+        "Instagram",
+        "Youtube",
+        "Twitter",
+        "Linkedin",
+        "Tiktok"
+    ]
+
+    ws.append(headers)
+
+    brands = BrandDetails. objects.select_related(
+        "brand"
+    ).prefetch_related("dealers")
+
+    for brand in brands:
+
+        socials = {
+            "facebook": brand.facebook or [],
+            "instagram": brand.instagram or [],
+            "youtube": brand.youtube or [],
+            "twitter": brand.twitter or [],
+            "linkedin": brand.linkedin or [],
+            "tiktok": brand.tiktok or [],
+        }
+
+        dealers = brand.dealers.all()
+
+        if dealers.exists():
+
+            for dealer in dealers:
+
+                ws.append([
+                    brand.brand.name,
+                    brand.website,
+
+                    ", ".join(brand.phones or []),
+                    ", ".join(brand.emails or []),
+
+                    dealer.name,
+                    dealer.address,
+
+                    ", ".join(dealer.phones or []),
+                    ", ".join(dealer.emails or []),
+
+                    ", ".join(socials["facebook"]),
+                    ", ".join(socials["instagram"]),
+                    ", ".join(socials["youtube"]),
+                    ", ".join(socials["twitter"]),
+                    ", ".join(socials["linkedin"]),
+                    ", ".join(socials["tiktok"]),
+                ])
+
+        else:
+
+             ws.append([
+                brand.brand.name,
+                brand.website,
+
+                ", ".join(brand.phones or []),
+                ", ".join(brand.emails or []),
+
+                "",
+                "",
+                "",
+                "",
+
+                ", ".join(socials["facebook"]),
+                ", ".join(socials["instagram"]),
+                ", ".join(socials["youtube"]),
+            ])
+
+    response = HttpResponse(
+        content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
+    response["Content-Disposition"] = (
+        'attachment; filename="brand_details.xlsx"'
+    )
+
+    wb.save(response)
+
+    return response
+
+def export_pdf(request):
+
+    # ─────────────────────────────
+    # Response
+    # ─────────────────────────────
+    response = HttpResponse(
+        content_type="application/pdf"
+    )
+
+    response["Content-Disposition"] = (
+        'attachment; filename="brand_details.pdf"'
+    )
+
+    # ─────────────────────────────
+    # Document
+    # ─────────────────────────────
+    doc = SimpleDocTemplate(
+        response,
+        pagesize=letter,
+        rightMargin=25,
+        leftMargin=25,
+        topMargin=25,
+        bottomMargin=20,
+    )
+
+    # ─────────────────────────────
+    # Styles
+    # ─────────────────────────────
+    styles = getSampleStyleSheet()
+
+    cell_style = styles["BodyText"]
+
+    cell_style.fontName = "Helvetica"
+    cell_style.fontSize = 8
+    cell_style.leading = 10
+
+    heading_style = styles["Heading3"]
+
+    elements = []
+
+    # ─────────────────────────────
+    # Helper Functions
+    # ─────────────────────────────
+    def p(text):
+
+        """
+        Safe paragraph wrapper
+        """
+
+        if isinstance(text, list):
+            text = "<br/>".join(
+                str(x) for x in text if x
+            )
+
+        text = text or "-"
+
+        return Paragraph(
+            str(text),
+            cell_style
+        )
+
+
+    def create_table(data, col_widths, header_color):
+
+        table = Table(
+            data,
+            colWidths=col_widths,
+            repeatRows=1,
+        )
+
+        table.setStyle(TableStyle([
+
+            # Header
+            ("BACKGROUND", (0,0), (-1,0), header_color),
+
+            ("TEXTCOLOR", (0,0), (-1,0), colors.black),
+
+            ("FONTNAME", (0,0), (-1,0), "Helvetica-Bold"),
+
+            # Body
+            ("FONTNAME", (0,1), (-1,-1), "Helvetica"),
+
+            ("FONTSIZE", (0,0), (-1,-1), 8),
+
+            ("LEADING", (0,0), (-1,-1), 10),
+
+            ("VALIGN", (0,0), (-1,-1), "TOP"),
+
+            ("WORDWRAP", (0,0), (-1,-1), "CJK"),
+
+            # Padding
+            ("TOPPADDING", (0,0), (-1,-1), 6),
+
+            ("BOTTOMPADDING", (0,0), (-1,-1), 6),
+
+            ("LEFTPADDING", (0,0), (-1,-1), 5),
+
+            ("RIGHTPADDING", (0,0), (-1,-1), 5),
+
+            # Grid
+            ("GRID", (0,0), (-1,-1), 1, colors.grey),
+
+        ]))
+
+        return table
+
+    # ─────────────────────────────
+    # Query
+    # ─────────────────────────────
+    brands = (
+        BrandDetails.objects
+        .select_related("brand")
+        .prefetch_related("dealers")
+    )
+
+    # ─────────────────────────────
+    # Generate PDF
+    # ─────────────────────────────
+    for brand in brands:
+
+        # ==========================
+        # BRAND TITLE
+        # ==========================
+        elements.append(
+            Paragraph(
+                f"<b>{brand.brand.name}</b>",
+                styles["Heading1"]
+            )
+        )
+
+        elements.append(Spacer(1, 10))
+
+        # ==========================
+        # BASIC INFO TABLE
+        # ==========================
+        basic_rows = [
+
+            [p("Field"), p("Value")],
+
+            [p("Website"), p(brand.website)],
+
+            [p("Phones"), p(brand.phones)],
+
+            [p("Emails"), p(brand.emails)],
+        ]
+
+        basic_table = create_table(
+            data=basic_rows,
+            col_widths=[120, 380],
+            header_color=colors.lightgrey,
+        )
+
+        elements.append(basic_table)
+
+        elements.append(Spacer(1, 15))
+
+        # ==========================
+        # SOCIAL TABLE
+        # ==========================
+        elements.append(
+            Paragraph(
+                "<b>Social Links</b>",
+                heading_style
+            )
+        )
+
+        social_rows = [
+            [p("Platform"), p("Links")]
+        ]
+
+        socials = {
+            "Facebook": brand.facebook,
+            "Instagram": brand.instagram,
+            "Twitter": brand.twitter,
+            "LinkedIn": brand.linkedin,
+            "Youtube": brand.youtube,
+            "TikTok": brand.tiktok,
+        }
+
+        has_socials = False
+
+        for platform, links in socials.items():
+
+            if links:
+
+                has_socials = True
+
+                social_rows.append([
+                    p(platform),
+                    p(links),
+                ])
+
+        if not has_socials:
+
+            social_rows.append([
+                p("-"),
+                p("No Social Links"),
+            ])
+
+        social_table = create_table(
+            data=social_rows,
+            col_widths=[120, 380],
+            header_color=colors.lightblue,
+        )
+
+        elements.append(social_table)
+
+        elements.append(Spacer(1, 15))
+
+        # ==========================
+        # DEALER TABLE
+        # ==========================
+        elements.append(
+            Paragraph(
+                "<b>Dealers</b>",
+                heading_style
+            )
+        )
+
+        dealer_rows = [[
+            p("Name"),
+            p("Address"),
+            p("Phones"),
+            p("Emails"),
+        ]]
+
+        dealers = brand.dealers.all()
+
+        if dealers.exists():
+
+            for dealer in dealers:
+
+                dealer_rows.append([
+
+                    p(dealer.name),
+
+                    p(dealer.address),
+
+                    p(dealer.phones),
+
+                    p(dealer.emails),
+                ])
+
+        else:
+
+            dealer_rows.append([
+                p("No Dealers Found"),
+                p(""),
+                p(""),
+                p(""),
+            ])
+
+        dealer_table = create_table(
+            data=dealer_rows,
+            col_widths=[100, 220, 110, 110],
+            header_color=colors.lightgreen,
+        )
+
+        elements.append(dealer_table)
+
+        elements.append(Spacer(1, 25))
+
+        # Optional page break
+        elements.append(PageBreak())
+
+    # ─────────────────────────────
+    # Build PDF
+    # ─────────────────────────────
+    doc.build(elements)
+
+    return response
+
