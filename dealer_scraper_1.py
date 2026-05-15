@@ -413,6 +413,8 @@ async def scrape_dealers(url: str, search_queries: list[str] | None = None) -> l
             if current_score > existing_score:
                 phone_to_best_dealer[phone_key] = d
 
+    # print("Phone to best dealers", list(phone_to_best_dealer.values()))
+
     return list(phone_to_best_dealer.values())
 
     
