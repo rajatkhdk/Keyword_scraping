@@ -8,6 +8,8 @@ class CarBrand(models.Model):
     logo = models.URLField(null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         self.name = self.name.strip()
@@ -45,9 +47,45 @@ class BrandDetails(models.Model):
     youtube = models.JSONField(null=True, default=list, blank=True)
     tiktok = models.JSONField(null=True, default=list, blank=True)
 
-    dealers = models.JSONField(default=list, blank=True)
+    # dealers = models.JSONField(default=list, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.brand.name
+    
+class Dealers(models.Model):
+
+    # brand = models.ForeignKey(CarBrand, on_delete=models.CASCADE, related_name = 'dealers')
+    brand_detail = models.ForeignKey(BrandDetails, on_delete=models.CASCADE, related_name = 'dealers')
+    name = models.CharField(max_length=255, blank=True)
+    address = models.TextField(blank=True)
+    phones = models.JSONField(default=list, blank=True)
+    emails = models.JSONField(default=list, blank=True)
+
+    source_url = models.URLField(blank=True, null=True)
+
+    source_type = models.CharField(
+        max_length=100,
+        blank=True
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+
+        ordering = ['name']
+
+        # unique_together = (
+        #     'brand_detail',
+        #     'name',
+        #     'address',
+        # )
+
+    def __str__(self):
+
+        return f"{self.brand_detail.brand.name} - {self.name}"

@@ -2,61 +2,12 @@ import re
 import json
 import asyncio
 from urllib.parse import urlparse
-from bs4 import BeautifulSoup, NavigableString, Tag
 from playwright.async_api import async_playwright
-from keywords_scraping.contact_regex import _block_to_dealer, extract_phones, extract_emails, _walk_up_to_card, BLOCK_TAGS, clean
-from keywords_scraping.html_parser import parse_dealers_from_html, extract_from_initial_html, extract_popup_data, _parse_google_mymaps_panel
-from keywords_scraping.map_scrape import get_selected_option, is_placeholder, is_select_meaningful, _try_map_and_search, discover_map_entities, deduplicate_dealers
+from keywords_scraping.html_parser import parse_dealers_from_html
+from keywords_scraping.map_scrape import get_selected_option, is_placeholder, is_select_meaningful, _try_map_and_search
 from keywords_scraping.json_parser import _extract_dealers_from_json
 
-import os
-# import logging
-
 from dataclasses import dataclass, field
-
-# print("RUNNING FILE:", __file__)
-# print("CWD:", os.getcwd())
-
-# # 1. Force the log file to be in the same folder as this script
-# script_dir = os.path.dirname(os.path.abspath(__file__))
-# log_path = os.path.join(script_dir, "scraper_log.txt")
-
-# # 2. Advanced config: Get the root logger and clear existing handlers
-# logger = logging.getLogger("scrape_logger")
-# logger.setLevel(logging.INFO)
-# logger.propagate = False
-
-# # Clear any handlers that might have been set by imports
-# if logger.hasHandlers():
-#     logger.handlers.clear()
-
-# # 3. Create File Handler (the log file)
-# try:
-#     file_handler = logging.FileHandler(log_path, mode='w', encoding='utf-8')
-# except Exception as e:
-#     print("FileHandler failed:", e)
-# file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-
-# # 4. Create Stream Handler (the terminal output)
-# stream_handler = logging.StreamHandler()
-# stream_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-
-# logger.setLevel(logging.DEBUG)
-
-# # 5. Add both to the logger
-# logger.addHandler(file_handler)
-# logger.addHandler(stream_handler)
-# print("FileHandler created at:", log_path)
-
-# print(f"DEBUG: Log file should be created at: {log_path}")
-
-# logger.info("Logger initialized successfully")
-
-# file_handler.flush()
-# print("LOG FILE EXISTS:", os.path.exists(log_path))
-
-# print("PATH:", log_path)
-# print("EXISTS DIR:", os.path.exists(script_dir))
 
 @dataclass
 class ScraperState:
@@ -68,26 +19,6 @@ class ScraperState:
     visited_urls: set = field(default_factory=set)
 
     intercepted_responses: list = field(default_factory=list)
-
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Save and load html
-# ─────────────────────────────────────────────────────────────────────────────
-# def save_html(path: str, html: str):
-#     with open(path, "w", encoding="utf-8") as f:
-#         f.write(html)
-
-# def load_html(path: str) -> str | None:
-#     if os.path.exists(path):
-#         with open(path, "r", encoding="utf-8") as f:
-#             return f.read()
-#     return None
-
-
-
-
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # PLAYWRIGHT LOADER
@@ -184,8 +115,6 @@ async def _load_page(url: str):
     page.on('response', on_response)
     await page.goto(url, wait_until='networkidle', timeout=30000)
     await page.wait_for_timeout(3000)
-    # html = await page.content()
-    # await browser.close()
     return page, browser, api_dealers, p
 
 
@@ -256,7 +185,6 @@ async def interact_and_collect(page, api_dealers):
             value = await opt.get_attribute("value")
 
             # 1. apply filter
-            # await select.select_option(value=value)
             await select.evaluate(
                 """
                 (el, value) => {
@@ -428,22 +356,6 @@ async def scrape_dealers(url: str, search_queries: list[str] | None = None) -> l
     # ─────────────────────────────────────────────
     html = await page.content()
 
-    # USE_CACHE = True
-    # cache_file = "page5.html"
-
-    # html = None
-    # # Try loading cached HTML first
-    # if USE_CACHE:
-    #     html = load_html(cache_file)
-
-    # if html:
-    #     print("📂 Using cached HTML (page5.html)")
-    # else:
-    #     print("🌐 Fetching fresh HTML...")
-    #     html = await page.content()
-    #     save_html(cache_file, html)
-    #     print("💾 Saved HTML to page5.html")
-
     # close browser safely
     await browser.close()
     await p.stop()
@@ -534,7 +446,7 @@ async def main():
     out = 'dealers_output.json'
     with open(out, 'w', encoding='utf-8') as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
-    print(f"\n💾 Saved to {out}")
+    print(f"\nSaved to {out}")
 
 
 if __name__ == '__main__':

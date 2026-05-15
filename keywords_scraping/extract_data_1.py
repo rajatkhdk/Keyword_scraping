@@ -229,54 +229,156 @@ def extract_internal_links(soup, base_url):
 
     return list(links)
 
+IMPORTANT_KEYWORDS = {
+    "dealer": 10,
+    "showroom": 10,
+    "location": 9,
+    "branch": 9,
+    "network": 9,
+    "distributor": 8,
+    "store": 8,
+    "find-us": 8,
+    "locator": 8,
+    "outlet": 8,
+
+    "contact": 7,
+    "about": 6,
+
+    "service": 3,
+    "support": 2,
+}
+
+BAD_KEYWORDS = [
+    "become",
+    "career",
+    "job",
+    "news",
+    "blog",
+    "privacy",
+    "terms",
+    "login",
+    "signup",
+]
+
+
+def simplify_url(url):
+    """
+    https://linkedin.com/about
+    -> https://linkedin.com
+    """
+
+    parsed = urlparse(url)
+
+    return f"{parsed.scheme}://{parsed.netloc}"
+
 # Check if the internal links contain the keywords that are most likely to have the required data
 def is_important(url):
-    KEYWORDS = [
-    "contact",
-    "about",
-    "location",
-    "showroom",
-    "dealer",
-    "distributor",
-    "map",
-    "branch",
-    "network"
-    ]
+    # KEYWORDS = [
+    # "contact",
+    # "about",
+    # "location",
+    # "showroom",
+    # "dealer",
+    # "distributor",
+    # "map",
+    # "branch",
+    # "network"
+    # ]
 
     url = url.lower()
-    return any(k in url for k in KEYWORDS)
+
+    if any(bad in url for bad in BAD_KEYWORDS):
+        return False
+    
+    return any(k in url for k in IMPORTANT_KEYWORDS)
 
 # rank all the internal links using scores prioritizing certain keywords
 def rank_links(links):
     scored = []
 
     for url in links:
+
+        url_lower = url.lower()
         score = 0
 
-        if "dealer" or "location" or "network" or "branch" or "distributor" or "showroom" in url:
-            score += 5
-            
-        if "contact" in url:
-            score += 4
-        
-        if "about" in url:
-            score += 3
+        # keyword scoring
+        for keyword, weight in IMPORTANT_KEYWORDS.items():
 
-        if "become" in url:
-            score -= 2
+            if keyword in url_lower:
+                score += weight
+
+        # shorter URLs usually better
+        score -= len(url) / 200
+
+        # penalize deep nested URLs
+        depth = url.count("/")
+        score -= depth * 0.3
 
         scored.append((score, url))
 
-    scored.sort(reverse=True)
+    scored.sort(key=lambda x: x[0], reverse=True)
+
     return [url for score, url in scored]
+
+    #     if "dealer" or "location" or "network" or "branch" or "distributor" or "showroom" in url:
+    #         score += 5
+            
+    #     if "contact" in url:
+    #         score += 4
+        
+    #     if "about" in url:
+    #         score += 3
+
+    #     if "become" in url:
+    #         score -= 2
+
+    #     scored.append((score, url))
+
+    # scored.sort(reverse=True)
+    # return [url for score, url in scored]
 
 # get internal link, checks if they are important and ranks them and returns top 5 links
 def get_pages_to_scrape(homepage_soup, base_url):
     links = extract_internal_links(homepage_soup, base_url)
-    filtered = [l for l in links if is_important(l)]
-    ranked = rank_links(filtered)
+    print("Links : ", links)
+    # remove duplicates
+    links = list(dict.fromkeys(links))
+    # STEP 1: SIMPLE ROOT URL
+    simple_url = simplify_url(base_url)
+    important_links = [
+        l for l in links
+        if is_important(l)
+    ]
 
-    return ranked[:5]  # limit crawl depth
+    print("IMPORTANT:", important_links)
+
+    # ----------------------------------------
+    # STEP 3: RANK
+    # ----------------------------------------
+
+    ranked = rank_links(important_links)
+
+    print("RANKED:", ranked)
+
+    # ----------------------------------------
+    # STEP 4: FINAL ORDER
+    # root url always first
+    # ----------------------------------------
+
+    final = [simple_url]
+
+    for url in ranked:
+
+        if url not in final:
+            final.append(url)
+
+    return final[:10]
+    # filtered = [l for l in links if is_important(l)]
+    # print("filtered : ", filtered)
+    # ranked = rank_links(filtered)
+    # print("ranked : ", ranked)
+
+    # return ranked[:5]  # limit crawl depth
 
 SOCIAL_PATTERNS = {
     "facebook": ["facebook.com"],

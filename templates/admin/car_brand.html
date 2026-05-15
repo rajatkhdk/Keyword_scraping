@@ -1,0 +1,227 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+
+{% block title %}
+Car Brands
+{% endblock %}
+
+{% block extrastyle %}
+
+<style>
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.brand-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #f5f5f5;
+    padding: 5px;
+}
+
+.table td,
+.table th {
+    vertical-align: middle !important;
+}
+
+.search-box {
+    max-width: 300px;
+}
+
+.empty-state {
+    padding: 60px 20px;
+    text-align: center;
+    color: #777;
+}
+
+.action-buttons a {
+    margin-right: 5px;
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <div class="container-fluid">
+
+            <div class="page-header">
+
+                <div class="page-title">
+                    Car Brands
+                </div>
+
+                <a href="{% url 'add_car_brand' %}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    Add Brand
+                </a>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="content">
+
+        <div class="container-fluid">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <form method="GET">
+
+                        <div class="input-group search-box">
+
+                            <input
+                                type="text"
+                                name="search"
+                                class="form-control"
+                                placeholder="Search brand..."
+                                value="{{ search }}"
+                            >
+
+                            <div class="input-group-append">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="card-body p-0">
+
+                    {% if data %}
+
+                    <div class="table-responsive">
+
+                        <table class="table table-bordered table-hover">
+
+                            <thead class="thead-light">
+
+                                <tr>
+                                    <th width="80">Logo</th>
+                                    <th>Name</th>
+                                    <th>Slug</th>
+                                    <th>Created</th>
+                                    <th width="180">Actions</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                {% for brand in data %}
+
+                                <tr>
+
+                                    <td>
+
+                                        {% if brand.logo %}
+
+                                        <img
+                                            src="{{ brand.logo }}"
+                                            class="brand-logo"
+                                            alt="{{ brand.name }}"
+                                        >
+
+                                        {% else %}
+
+                                        <div class="brand-logo d-flex align-items-center justify-content-center">
+                                            N/A
+                                        </div>
+
+                                        {% endif %}
+
+                                    </td>
+
+                                    <td>
+                                        <strong>{{ brand.name }}</strong>
+                                    </td>
+
+                                    <td>
+                                        {{ brand.slug }}
+                                    </td>
+
+                                    <td>
+                                        {{ brand.created_at|date:"M d, Y" }}
+                                    </td>
+
+                                    <td class="action-buttons">
+
+                                        <a
+                                            href="{% url 'edit_car_brand' brand.id %}"
+                                            class="btn btn-sm btn-info"
+                                        >
+                                            <i class="fas fa-edit"></i>
+                                            Edit
+                                        </a>
+
+                                        <a
+                                            href="{% url 'delete_car_brand' brand.id %}"
+                                            class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Delete this brand?')"
+                                        >
+                                            <i class="fas fa-trash"></i>
+                                            Delete
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    {% else %}
+
+                    <div class="empty-state">
+
+                        <h4>No car brands found</h4>
+
+                        <p>
+                            Start by adding your first car brand.
+                        </p>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}
+
+{% block extrascript %}
+{% endblock %}

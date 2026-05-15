@@ -1,312 +1,146 @@
 {
-  "suzuki.com.np": [
+  "kia.com.np": [
     {
-      "name": "",
-      "address": "Thapathali, Kathmandu Metropolitan City",
+      "name": "Continental Trading Enterprises Pvt. Ltd.",
+      "address": "gairidhara",
       "phone": [
-        "01-4245361"
+        "01-452645",
+        "01-4526475"
+      ],
+      "email": []
+    },
+    {
+      "name": "Continental Trading Enterprises Pvt. Ltd.",
+      "address": "dhumbarahi",
+      "phone": [
+        "9801013900",
+        "9801166932"
+      ],
+      "email": []
+    },
+    {
+      "name": "Continental Trading Enterprises Pvt. Ltd.",
+      "address": "jawalakhel",
+      "phone": [
+        "9802304084",
+        "9802304082"
+      ],
+      "email": []
+    },
+    {
+      "name": "Punyata Trading",
+      "address": "kalanki",
+      "phone": [
+        "9802378578"
+      ],
+      "email": []
+    },
+    {
+      "name": "Carina Motors",
+      "address": "bhaktapur",
+      "phone": [
+        "9802343421",
+        "9801061305"
+      ],
+      "email": []
+    },
+    {
+      "name": "Continental Trading Enterprises Pvt. Ltd.",
+      "address": "birtamode",
+      "phone": [
+        "9705427582"
+      ],
+      "email": []
+    },
+    {
+      "name": "Om Sai Moto Corp Pvt. Ltd",
+      "address": "itahari",
+      "phone": [
+        "025-589377",
+        "9852085085"
+      ],
+      "email": []
+    },
+    {
+      "name": "Continental Trading Enterprises Pvt. Ltd.",
+      "address": "biratnagar",
+      "phone": [
+        "9709151939"
+      ],
+      "email": []
+    },
+    {
+      "name": "Ace Overseas",
+      "address": "pokhara",
+      "phone": [
+        "061-435501",
+        "9856022609"
+      ],
+      "email": []
+    },
+    {
+      "name": "Lavish Mobility",
+      "address": "bharatpur, chitwan",
+      "phone": [
+        "056-590671",
+        "9855061046"
+      ],
+      "email": []
+    },
+    {
+      "name": "Continental Trading Enterprises Pvt. Ltd.",
+      "address": "butwal",
+      "phone": [
+        "9857042499"
+      ],
+      "email": []
+    },
+    {
+      "name": "Joshi Auto Villa",
+      "address": "dang",
+      "phone": [
+        "9857834284"
+      ],
+      "email": []
+    },
+    {
+      "name": "Kisan Trading Concern",
+      "address": "dhangadi",
+      "phone": [
+        "091-410292",
+        "9801720721"
+      ],
+      "email": []
+    },
+    {
+      "name": "Luxury Auto Pvt. Ltd.",
+      "address": "janakpur",
+      "phone": [
+        "9801960473"
+      ],
+      "email": []
+    },
+    {
+      "name": "Varun Motors",
+      "address": "bhairahawa",
+      "phone": [
+        "9801023291"
       ],
       "email": []
     },
     {
       "name": "",
-      "address": "Dhobighat, Lalitpur Metropolitian City",
+      "address": "",
       "phone": [
-        "01-5188490"
+        "500 0123"
       ],
       "email": []
     },
     {
       "name": "",
-      "address": "BP Chowk, Ghorahi Sub-Metropolitian City",
+      "address": "",
       "phone": [
-        "082-563433"
-      ],
-      "email": [
-        "suzuki.dang@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Naya Bazar, Pokhara Metropolitian City",
-      "phone": [
-        "061-537009"
-      ],
-      "email": [
-        "batasmaruti@batas.org.np"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Madhyapur Thimi, Madhyapur Thimi",
-      "phone": [
-        "01-6618519"
-      ],
-      "email": [
-        "brbmotorcorp@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "RAM JANAKI",
-      "phone": [
-        "041-521338"
-      ],
-      "email": []
-    },
-    {
-      "name": "",
-      "address": "Butwal, Butwal Sub-Metropolitian City",
-      "phone": [
-        "071-438233"
-      ],
-      "email": [
-        "automartinternational@yahoo.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Jeetpur, Maharajgunj",
-      "phone": [
-        "076-550412"
-      ],
-      "email": [
-        "sagarmatha.suzuki@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Balkumari, Lalitpur Metropolitian City",
-      "phone": [
-        "01-5532418",
-        "01-5532419"
-      ],
-      "email": [
-        "anup.baral@narayaniauto.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Lahan, Lahan",
-      "phone": [
-        "033-564732"
-      ],
-      "email": [
-        "gupta.organization888@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Naxal, Kathmandu Metropolitan City",
-      "phone": [
-        "01-4534660"
-      ],
-      "email": [
-        "paramdumotors@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Kalanki, Kathmandu Metropolitan City",
-      "phone": [
-        "01-5234062"
-      ],
-      "email": [
-        "kdauto.suzuki@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Tansen, Tansen",
-      "phone": [
-        "075-590010"
-      ],
-      "email": [
-        "laxmiautomobiles.tansen@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Ramrekha, Baglung",
-      "phone": [
-        "068-522004"
-      ],
-      "email": [
-        "debenmotors2@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Singamangal, Kathmandu Metropolitan City",
-      "phone": [
-        "01-4490873"
-      ],
-      "email": [
-        "prabishatrading@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Basundhara, Kathmandu Metropolitan City",
-      "phone": [
-        "01-4956877"
-      ],
-      "email": [
-        "abtmotorspl@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "AIT NAXAL",
-      "phone": [
-        "01-4430192",
-        "01-4426198"
-      ],
-      "email": [
-        "sales.naxal@cg.holdings"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Janaki, Nepalgunj Sub-Metropolitian City",
-      "phone": [
-        "081-403036"
-      ],
-      "email": [
-        "yhimanshu295@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Chowraha, Dhangadhi Sub-Metropolitian City",
-      "phone": [
-        "091-410078"
-      ],
-      "email": [
-        "raj.puskarojha@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Biratnagar, Biratnagar Metropolitian City",
-      "phone": [
-        "021-460137"
-      ],
-      "email": [
-        "gm@ritikbajaj.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Dharan, Dharan Sub-Metropolitian City",
-      "phone": [
-        "025-578600",
-        "9852045340"
-      ],
-      "email": [
-        "raimotors77@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Manigram, Tillotama",
-      "phone": [
-        "071-560973",
-        "9857035973"
-      ],
-      "email": [
-        "pathakmotorgroup@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Madhyapur Thimi, Madhyapur Thimi",
-      "phone": [
-        "01-6633522",
-        "9851061028"
-      ],
-      "email": [
-        "kpsautomobiles2021@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Birtamod, Birtamod",
-      "phone": [
-        "9852672021"
-      ],
-      "email": [
-        "ratradersauto@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Bharatpur, Airport Road, Bharatpur Metropolitian City",
-      "phone": [
-        "9803853123"
-      ],
-      "email": [
-        "saadhvi.intl@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Naxal, Kathmandu Metropolitan City",
-      "phone": [
-        "9851030333"
-      ],
-      "email": [
-        "info@sirogenics.com.np"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Balaju, Kathmandu Metropolitan City",
-      "phone": [
-        "01-4952388",
-        "9801989199"
-      ],
-      "email": [
-        "nancyautomobiles.frontdesk@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Bouddha, Kathmandu Metropolitan City",
-      "phone": [
-        "01-5923643",
-        "9801908289"
-      ],
-      "email": [
-        "nancyautomobiles.frontdesk@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Balkumari, Lalitpur Metropolitian City",
-      "phone": [
-        "01-5445891",
-        "9801200825"
-      ],
-      "email": [
-        "aitbalkumari@cg.holdings"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Biratnagar, Biratnagar Metropolitian City",
-      "phone": [
-        "021-465128"
-      ],
-      "email": [
-        "autopalacebrt@gmail.com"
-      ]
-    },
-    {
-      "name": "",
-      "address": "Birgunj, Birgunj Metropolitian City",
-      "phone": [
-        "9704598000"
+        "980 1571"
       ],
       "email": []
     }

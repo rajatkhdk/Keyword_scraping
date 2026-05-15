@@ -1,0 +1,143 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+
+{% block title %}
+Add Car Brand
+{% endblock %}
+
+{% block extrastyle %}
+
+<style>
+
+    .form-wrapper {
+        max-width: 750px;
+        margin: auto;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+
+    .preview-box {
+        width: 110px;
+        height: 110px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .preview-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <div class="container-fluid">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <h1 class="m-0">Add Car Brand</h1>
+
+                <a href="{% url 'car_brand' %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back
+                </a>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="content">
+
+        <div class="container-fluid form-wrapper">
+
+            <div class="card card-primary">
+
+                <div class="card-header">
+                    <h3 class="card-title">Brand Details</h3>
+                </div>
+
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <div class="card-body">
+
+                        <!-- NAME -->
+                        <div class="form-group">
+                            <label>Brand Name</label>
+                            {{ form.name }}
+                            {{ form.name.errors }}
+                        </div>
+
+                        <!-- SLUG -->
+                        <div class="form-group">
+                            <label>Slug</label>
+                            {{ form.slug }}
+                            <small class="text-muted">
+                                Leave empty for auto-generation
+                            </small>
+                            {{ form.slug.errors }}
+                        </div>
+
+                        <!-- LOGO -->
+                        <div class="form-group">
+                            <label>Logo URL</label>
+                            {{ form.logo }}
+                            <small class="text-muted">
+                                Paste image URL (optional)
+                            </small>
+                            {{ form.logo.errors }}
+                        </div>
+
+                        <!-- LIVE PREVIEW -->
+                        <div class="form-group">
+                            <label>Preview</label>
+
+                            <div class="preview-box">
+                                {% if form.instance.logo %}
+                                    <img src="{{ form.instance.logo }}">
+                                {% else %}
+                                    <i class="fas fa-car text-muted"></i>
+                                {% endif %}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Create Brand
+                        </button>
+
+                        <a href="{% url 'car_brand' %}" class="btn btn-secondary">
+                            Cancel
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

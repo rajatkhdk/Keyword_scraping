@@ -1,531 +1,476 @@
-{% extends 'admin/base.html' %} 
-{% load static %} 
-{% block title %} 
-Car Brand Scraper{% endblock %} 
-{% block extrastyle %}
-<!-- Google Font: Source Sans Pro -->
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
-/>
-<!-- Font Awesome -->
-<link
-  rel="stylesheet"
-  href="{% static 'admin/plugins/fontawesome-free/css/all.min.css' %}"
-/>
-<!-- DataTables -->
-<link
-  rel="stylesheet"
-  href="{% static 'admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}"
-/>
-<link
-  rel="stylesheet"
-  href="{% static 'admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}"
-/>
-<link
-  rel="stylesheet"
-  href="{% static 'admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}"
-/>
-<!-- Theme style -->
-<link rel="stylesheet" href="{% static 'admin/dist/css/adminlte.min.css' %}" />
-{% endblock %} 
-{% block content %}
-<div class="content-wrapper">
-  
-  <!-- /.card -->
+{% extends 'admin/base.html' %}
+{% load static %}
 
-  <div class="card">
-    <div class="card-header">
-      <h3 class="card-title">DataTable with default features</h3>
-    </div>
-    <!-- /.card-header -->
-    <div class="card-body">
-      <table id="example1" class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th>Brand</th>
-            <th>Website</th>
-            <th>Instagram</th>
-            <th>Youtube</th>
-            <th>Dealers</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for item in data %}
-          <tr>
-            <td>{{item.brand.name}}</td>
-            <td>{{item.website}}</td>
-            <td>{{item.instagram}}</td>
-            <td>{{item.youtube}}</td>
-            <td>{{item.dealers}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-        {% comment %}
-        <tbody>
-          {% for item in data %}
-          <tr>
-            <td>{{item.keyword}}</td>
-            <td>{{item.website}}</td>
-            <td>{{item.facebook}}</td>
-            <td>{{item.instagram}}</td>
-            <td>{{item.youtube}}</td>
-          </tr>
-          <tr>
-            <td>Trident</td>
-            <td>Internet Explorer 5.0</td>
-            <td>Win 95+</td>
-            <td>5</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>Trident</td>
-            <td>Internet Explorer 5.5</td>
-            <td>Win 95+</td>
-            <td>5.5</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Trident</td>
-            <td>Internet Explorer 6</td>
-            <td>Win 98+</td>
-            <td>6</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Trident</td>
-            <td>Internet Explorer 7</td>
-            <td>Win XP SP2+</td>
-            <td>7</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Trident</td>
-            <td>AOL browser (AOL desktop)</td>
-            <td>Win XP</td>
-            <td>6</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Firefox 1.0</td>
-            <td>Win 98+ / OSX.2+</td>
-            <td>1.7</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Firefox 1.5</td>
-            <td>Win 98+ / OSX.2+</td>
-            <td>1.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Firefox 2.0</td>
-            <td>Win 98+ / OSX.2+</td>
-            <td>1.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Firefox 3.0</td>
-            <td>Win 2k+ / OSX.3+</td>
-            <td>1.9</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Camino 1.0</td>
-            <td>OSX.2+</td>
-            <td>1.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Camino 1.5</td>
-            <td>OSX.3+</td>
-            <td>1.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Netscape 7.2</td>
-            <td>Win 95+ / Mac OS 8.6-9.2</td>
-            <td>1.7</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Netscape Browser 8</td>
-            <td>Win 98SE+</td>
-            <td>1.7</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Netscape Navigator 9</td>
-            <td>Win 98+ / OSX.2+</td>
-            <td>1.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.0</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td>1</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.1</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td>1.1</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.2</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td>1.2</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.3</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td>1.3</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.4</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td>1.4</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.5</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td>1.5</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.6</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td>1.6</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.7</td>
-            <td>Win 98+ / OSX.1+</td>
-            <td>1.7</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Mozilla 1.8</td>
-            <td>Win 98+ / OSX.1+</td>
-            <td>1.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Seamonkey 1.1</td>
-            <td>Win 98+ / OSX.2+</td>
-            <td>1.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Gecko</td>
-            <td>Epiphany 2.20</td>
-            <td>Gnome</td>
-            <td>1.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Webkit</td>
-            <td>Safari 1.2</td>
-            <td>OSX.3</td>
-            <td>125.5</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Webkit</td>
-            <td>Safari 1.3</td>
-            <td>OSX.3</td>
-            <td>312.8</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Webkit</td>
-            <td>Safari 2.0</td>
-            <td>OSX.4+</td>
-            <td>419.3</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Webkit</td>
-            <td>Safari 3.0</td>
-            <td>OSX.4+</td>
-            <td>522.1</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Webkit</td>
-            <td>OmniWeb 5.5</td>
-            <td>OSX.4+</td>
-            <td>420</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Webkit</td>
-            <td>iPod Touch / iPhone</td>
-            <td>iPod</td>
-            <td>420.1</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Webkit</td>
-            <td>S60</td>
-            <td>S60</td>
-            <td>413</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Opera 7.0</td>
-            <td>Win 95+ / OSX.1+</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Opera 7.5</td>
-            <td>Win 95+ / OSX.2+</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Opera 8.0</td>
-            <td>Win 95+ / OSX.2+</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Opera 8.5</td>
-            <td>Win 95+ / OSX.2+</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Opera 9.0</td>
-            <td>Win 95+ / OSX.3+</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Opera 9.2</td>
-            <td>Win 88+ / OSX.3+</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Opera 9.5</td>
-            <td>Win 88+ / OSX.3+</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Opera for Wii</td>
-            <td>Wii</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Nokia N800</td>
-            <td>N800</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Presto</td>
-            <td>Nintendo DS browser</td>
-            <td>Nintendo DS</td>
-            <td>8.5</td>
-            <td>C/A<sup>1</sup></td>
-          </tr>
-          <tr>
-            <td>KHTML</td>
-            <td>Konqureror 3.1</td>
-            <td>KDE 3.1</td>
-            <td>3.1</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>KHTML</td>
-            <td>Konqureror 3.3</td>
-            <td>KDE 3.3</td>
-            <td>3.3</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>KHTML</td>
-            <td>Konqureror 3.5</td>
-            <td>KDE 3.5</td>
-            <td>3.5</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Tasman</td>
-            <td>Internet Explorer 4.5</td>
-            <td>Mac OS 8-9</td>
-            <td>-</td>
-            <td>X</td>
-          </tr>
-          <tr>
-            <td>Tasman</td>
-            <td>Internet Explorer 5.1</td>
-            <td>Mac OS 7.6-9</td>
-            <td>1</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>Tasman</td>
-            <td>Internet Explorer 5.2</td>
-            <td>Mac OS 8-X</td>
-            <td>1</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>Misc</td>
-            <td>NetFront 3.1</td>
-            <td>Embedded devices</td>
-            <td>-</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>Misc</td>
-            <td>NetFront 3.4</td>
-            <td>Embedded devices</td>
-            <td>-</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>Misc</td>
-            <td>Dillo 0.8</td>
-            <td>Embedded devices</td>
-            <td>-</td>
-            <td>X</td>
-          </tr>
-          <tr>
-            <td>Misc</td>
-            <td>Links</td>
-            <td>Text only</td>
-            <td>-</td>
-            <td>X</td>
-          </tr>
-          <tr>
-            <td>Misc</td>
-            <td>Lynx</td>
-            <td>Text only</td>
-            <td>-</td>
-            <td>X</td>
-          </tr>
-          <tr>
-            <td>Misc</td>
-            <td>IE Mobile</td>
-            <td>Windows Mobile 6</td>
-            <td>-</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>Misc</td>
-            <td>PSP browser</td>
-            <td>PSP</td>
-            <td>-</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>Other browsers</td>
-            <td>All others</td>
-            <td>-</td>
-            <td>-</td>
-            <td>U</td>
-          </tr>
-        </tbody>
-        {% endcomment %}
-        <tfoot>
-          <tr>
-            <th>Brand</th>
-            <th>Website</th>
-            <th>Instagram</th>
-            <th>Youtube</th>
-            <th>Dealers</th>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-    <!-- /.card-body -->
-  </div>
-  <!-- /.card -->
+{% block title %}Car Brands{% endblock %}
+
+{% block extrastyle %}
+<style>
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.table td,
+.table th {
+    vertical-align: middle !important;
+}
+
+.search-box {
+    max-width: 300px;
+}
+
+.empty-state {
+    padding: 60px 20px;
+    text-align: center;
+    color: #777;
+}
+
+.dealer-btn {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+.dealer-btn:hover { background: #0056b3; }
+
+.social-btn {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+.social-btn:hover { background: #1e7e34; }
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+.modal-overlay.active { display: flex; }
+
+.modal-box {
+    background: #fff;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 860px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #555;
+    line-height: 1;
+    padding: 0 4px;
+}
+.modal-close-btn:hover { color: #000; }
+
+.modal-body {
+    overflow-y: auto;
+    padding: 20px;
+    flex: 1;
+}
+
+.modal-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+.modal-table th {
+    background: #f4f4f4;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid #ddd;
+}
+.modal-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+}
+.modal-table tr:last-child td { border-bottom: none; }
+.modal-table tr:hover td { background: #fafafa; }
+
+.social-platform-title {
+    font-weight: 700;
+    text-transform: capitalize;
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: #333;
+}
+.social-platform-block { margin-bottom: 20px; }
+
+.social-link {
+    display: block;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 13px;
+    margin-bottom: 4px;
+    word-break: break-all;
+}
+.social-link:hover { text-decoration: underline; }
+
+.empty-text { color: #aaa; }
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="content-wrapper">
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="page-header">
+                <div class="page-title">Brand Details</div>
+                <a href="{% url 'add_car_brand' %}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Brand
+                </a>
+                <a href="{% url 'export_excel' %}" class="btn btn-success">
+                    Export Excel
+                </a>
+                <a href="{% url 'export_pdf' %}"
+                class="btn btn-danger">
+                    Export PDF
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card">
+
+                <div class="card-header">
+                    <form method="GET">
+                        <div class="input-group search-box">
+                            <input
+                                type="text"
+                                name="search"
+                                class="form-control"
+                                placeholder="Search brand..."
+                                value="{{ search }}"
+                            >
+                            <div class="input-group-append">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-body p-0">
+
+                    {% if table_data %}
+
+                        {# ── JSON data embedded as safe script tags ── #}
+                        {% for row in table_data %}
+                            {{ row.dealers|json_script:row.dealer_key }}
+                            {{ row.socials|json_script:row.social_key }}
+                        {% endfor %}
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Brand</th>
+                                        <th>Website</th>
+                                        <th>Phones</th>
+                                        <th>Emails</th>
+                                        <th>Dealers</th>
+                                        <th>Socials</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for row in table_data %}
+                                    <tr>
+
+                                        <td>{{ row.brand_name }}</td>
+
+                                        <td>
+                                            {% if row.website %}
+                                                <a href="{{ row.website }}" target="_blank">
+                                                    {{ row.website }}
+                                                </a>
+                                            {% else %}
+                                                <span class="empty-text">-</span>
+                                            {% endif %}
+                                        </td>
+
+                                        <td>
+                                            {% if row.phones %}
+                                                {% for phone in row.phones %}
+                                                    <div>{{ phone }}</div>
+                                                {% endfor %}
+                                            {% else %}
+                                                <span class="empty-text">-</span>
+                                            {% endif %}
+                                        </td>
+
+                                        <td>
+                                            {% if row.emails %}
+                                                {% for email in row.emails %}
+                                                    <div>{{ email }}</div>
+                                                {% endfor %}
+                                            {% else %}
+                                                <span class="empty-text">-</span>
+                                            {% endif %}
+                                        </td>
+
+                                        <td>
+                                            <button
+                                                class="dealer-btn open-dealer-modal"
+                                                data-key="{{ row.dealer_key }}"
+                                                data-brand="{{ row.brand_name|escapejs }}"
+                                            >
+                                                {{ row.dealers_count }} Dealers
+                                            </button>
+                                        </td>
+
+                                        <td>
+                                            {% if row.has_social %}
+                                                <button
+                                                    class="social-btn open-social-modal"
+                                                    data-key="{{ row.social_key }}"
+                                                    data-brand="{{ row.brand_name|escapejs }}"
+                                                >
+                                                    View Socials
+                                                </button>
+                                            {% else %}
+                                                <span class="empty-text">-</span>
+                                            {% endif %}
+                                        </td>
+
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    {% else %}
+
+                        <div class="empty-state">
+                            <h4>No car brands found</h4>
+                            <p>Start by scraping your first car brand.</p>
+                        </div>
+
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+
 </div>
-{% endblock %} 
+
+
+<!-- ══ DEALER MODAL ══ -->
+<div class="modal-overlay" id="dealerModal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h5 class="modal-header-title" id="dealerModalTitle">Dealers</h5>
+            <button class="modal-close-btn" id="closeDealerModal">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <table class="modal-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phones</th>
+                        <th>Emails</th>
+                    </tr>
+                </thead>
+                <tbody id="dealerTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- ══ SOCIAL MODAL ══ -->
+<div class="modal-overlay" id="socialModal">
+    <div class="modal-box" style="max-width:560px">
+        <div class="modal-header">
+            <h5 class="modal-header-title" id="socialModalTitle">Social Links</h5>
+            <button class="modal-close-btn" id="closeSocialModal">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body" id="socialLinksContainer"></div>
+    </div>
+</div>
+
+{% endblock %}
+
 
 {% block extrascript %}
-<!-- jQuery -->
-<script src="{% static 'admin/plugins/jquery/jquery.min.js' %}"></script>
-<!-- Bootstrap 4 -->
-<script src="{% static 'admin/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<!-- DataTables  & Plugins -->
-<script src="{% static 'admin/plugins/datatables/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
-<script src="{% static 'admin/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
-<script src="{% static 'admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
-<script src="{% static 'admin/plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
-<script src="{% static 'admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
-<script src="{% static 'admin/plugins/jszip/jszip.min.js' %}"></script>
-<script src="{% static 'admin/plugins/pdfmake/pdfmake.min.js' %}"></script>
-<script src="{% static 'admin/plugins/pdfmake/vfs_fonts.js' %}"></script>
-<script src="{% static 'admin/plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
-<script src="{% static 'admin/plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
-<script src="{% static 'admin/plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
-<!-- AdminLTE App -->
-<script src="{% static 'admin/dist/js/adminlte.min.js' %}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{% static 'admin/dist/js/demo.js' %}"></script>
-<!-- Page specific script -->
 <script>
-  $(function () {
-    $("#example1")
-      .DataTable({
-        responsive: true,
-        lengthChange: false,
-        autoWidth: false,
-        buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
-      })
-      .buttons()
-      .container()
-      .appendTo("#example1_wrapper .col-md-6:eq(0)");
-    $("#example2").DataTable({
-      paging: true,
-      lengthChange: false,
-      searching: false,
-      ordering: true,
-      info: true,
-      autoWidth: false,
-      responsive: true,
+
+function getJSON(key) {
+    const el = document.getElementById(key);
+    if (!el) {
+        console.error("No element found with id:", key);
+        return null;
+    }
+    try {
+        return JSON.parse(el.textContent);
+    } catch(e) {
+        console.error("JSON parse error for key:", key, e);
+        return null;
+    }
+}
+
+function openModal(el)  { el.classList.add("active"); }
+function closeModal(el) { el.classList.remove("active"); }
+
+const dealerModal     = document.getElementById("dealerModal");
+const socialModal     = document.getElementById("socialModal");
+const dealerTableBody = document.getElementById("dealerTableBody");
+const socialContainer = document.getElementById("socialLinksContainer");
+
+
+// ── Dealer modal ──────────────────────────────────────────
+document.querySelectorAll(".open-dealer-modal").forEach(btn => {
+    btn.addEventListener("click", function () {
+
+        const key     = this.dataset.key;
+        const brand   = this.dataset.brand;
+        const dealers = getJSON(key);
+
+        if (!dealers) {
+            alert("Could not load dealer data.");
+            return;
+        }
+
+        document.getElementById("dealerModalTitle").textContent =
+            brand + " Dealers";
+
+        dealerTableBody.innerHTML = dealers.length
+            ? dealers.map(d => `
+                <tr>
+                    <td>${d.name    || "<span class='empty-text'>-</span>"}</td>
+                    <td>${d.address || "<span class='empty-text'>-</span>"}</td>
+                    <td>${
+                        d.phones && d.phones.length
+                        ? d.phones.map(p => `<div>${p}</div>`).join("")
+                        : "<span class='empty-text'>-</span>"
+                    }</td>
+                    <td>${
+                        d.emails && d.emails.length
+                        ? d.emails.map(e => `<div>${e}</div>`).join("")
+                        : "<span class='empty-text'>-</span>"
+                    }</td>
+                </tr>
+            `).join("")
+            : `<tr><td colspan="4" class="empty-text" style="text-align:center">
+                No dealers found
+               </td></tr>`;
+
+        openModal(dealerModal);
     });
-  });
+});
+
+
+// ── Social modal ──────────────────────────────────────────
+document.querySelectorAll(".open-social-modal").forEach(btn => {
+    btn.addEventListener("click", function () {
+
+        const key     = this.dataset.key;
+        const brand   = this.dataset.brand;
+        const socials = getJSON(key);
+
+        if (!socials || !Object.keys(socials).length) {
+            alert("Could not load social data.");
+            return;
+        }
+
+        document.getElementById("socialModalTitle").textContent =
+            brand + " Social Links";
+
+        socialContainer.innerHTML = Object.entries(socials)
+            .map(([platform, value]) => {
+                const links = Array.isArray(value) ? value : [value];
+                return `
+                    <div class="social-platform-block">
+                        <p class="social-platform-title">${platform}</p>
+                        ${links.map(link => `
+                            <a href="${link}" target="_blank" class="social-link">
+                                ${link}
+                            </a>
+                        `).join("")}
+                    </div>
+                `;
+            }).join("");
+
+        openModal(socialModal);
+    });
+});
+
+
+// ── Close buttons ─────────────────────────────────────────
+document.getElementById("closeDealerModal")
+    .addEventListener("click", () => closeModal(dealerModal));
+
+document.getElementById("closeSocialModal")
+    .addEventListener("click", () => closeModal(socialModal));
+
+[dealerModal, socialModal].forEach(modal => {
+    modal.addEventListener("click", e => {
+        if (e.target === modal) closeModal(modal);
+    });
+});
+
+document.addEventListener("keydown", e => {
+    if (e.key === "Escape") {
+        closeModal(dealerModal);
+        closeModal(socialModal);
+    }
+});
+
 </script>
 {% endblock %}
