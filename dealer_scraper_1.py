@@ -70,6 +70,7 @@ async def attach_global_interceptor(page, state: ScraperState):
                 'contact',
                 'address',
                 'network',
+                'locate',
             ]
 
             if not any(k in url_lower for k in IMPORTANT_KEYWORDS):
@@ -113,7 +114,7 @@ async def _load_page(url: str):
             pass
 
     page.on('response', on_response)
-    await page.goto(url, wait_until='networkidle', timeout=30000)
+    await page.goto(url, wait_until='domcontentloaded', timeout=30000)
     await page.wait_for_timeout(3000)
     return page, browser, api_dealers, p
 

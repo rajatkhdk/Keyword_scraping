@@ -60,7 +60,7 @@ def find_best_url(results, brand):
 # finds all the urls based on keyword and ranks them
 def get_urls(brand):
     with DDGS() as ddgs:
-        results = list(ddgs.text(f"{brand} Nepal official", max_results=15))
+        results = list(ddgs.text(f"{brand} automobiles Nepal official", max_results=15))
 
     ranked = find_best_url(results, brand)
     # for score, url, title, body in ranked:

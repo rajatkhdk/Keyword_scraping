@@ -240,6 +240,7 @@ IMPORTANT_KEYWORDS = {
     "find-us": 8,
     "locator": 8,
     "outlet": 8,
+    "locate": 8,
 
     "contact": 7,
     "about": 6,

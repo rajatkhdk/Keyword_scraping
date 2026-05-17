@@ -257,7 +257,7 @@ def scrape_dealers_sync(url):
 def is_dealer_page(url, html):
     url = url.lower()
 
-    if (any(k in url for k in ["dealer", "showroom", "location", "branch", "network"])
+    if (any(k in url for k in ["dealer", "showroom", "location", "branch", "network", "locate", 'store'])
     and "become" not in url):
         print("dealer")
         return True

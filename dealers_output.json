@@ -1,154 +1,86 @@
 {
-  "laxmihyundai.com": [
+  "atherenergy.com.np": [
     {
-      "name": "Hyundai Kathmandu-Thapathali",
-      "address": "Thapathali, Kathmandu",
+      "name": "Service Centre",
+      "address": "sallaghari",
       "phone": [
-        "01-5911553, 01-5911554, 01-5911556, 01-5911457, 01-5911558, 01-5911568, 9801239277"
+        "9851356195"
       ],
-      "email": [
-        "care.service@laxmihyundai.com"
-      ]
+      "email": []
     },
     {
-      "name": "Hyundai Kathmandu-Naxal",
-      "address": "Naxal, Kathmandu",
+      "name": "Experience Centre",
+      "address": "naxal",
       "phone": [
-        "01-4513934, 01-4513942, 9801201082"
+        "9851354106",
+        "9851360764"
       ],
-      "email": [
-        "care.bs@laxmihyundai.com"
-      ]
+      "email": []
     },
     {
-      "name": "Hyundai EV",
-      "address": "Thapathali",
+      "name": "Nayabazar Road",
+      "address": "pokhara",
       "phone": [
-        "01-5912626, 01-5913636, 9801239277"
+        "985-6082019"
       ],
-      "email": [
-        "sales.ev@laxmihyundai.com"
-      ]
+      "email": []
     },
     {
-      "name": "Hyundai Nepal Eastern Pvt. Ltd.",
-      "address": "Itahari - 5, Sunsari",
+      "name": "Experience Centre",
+      "address": "chitwan",
       "phone": [
-        "025-588486, 9801239293"
+        "9869238397",
+        "9864263386"
       ],
-      "email": [
-        "sanjay.shakya@laxmihyundai.com"
-      ]
+      "email": []
     },
     {
-      "name": "L.I. Motor Pvt. Ltd.",
-      "address": "Pokhara",
+      "name": "Service Centre",
+      "address": "chitwan",
       "phone": [
-        "061-537426, 9801201010, 9801240155"
+        "9869308240"
       ],
-      "email": [
-        "showroom@limotors.com"
-      ]
+      "email": []
     },
     {
-      "name": "Pinnacle Trading Concern Pvt. Ltd.",
-      "address": "Bharatpur, Chitwan",
+      "name": "Charging Station",
+      "address": "kalanki",
       "phone": [
-        "056-522776, 9801353761, 9801353765"
+        "9851354103"
       ],
-      "email": [
-        "pinnacletradingconcern@gmail.com"
-      ]
+      "email": []
     },
     {
-      "name": "Siddhi Vinayak Moto Corp Pvt. Ltd.",
-      "address": "Kalikanagar, Butwal",
+      "name": "Experience Centre",
+      "address": "butwal",
       "phone": [
-        "071-415278, 9801943959, 9801943958"
+        "9851402391"
       ],
-      "email": [
-        "hyundai@siddhivinayakmoto.com"
-      ]
+      "email": []
     },
     {
-      "name": "New Rider Auto World Pvt. Ltd.",
-      "address": "Ghorahi, Dang",
+      "name": "Kheti khola, Paschim line",
+      "address": "itahari",
       "phone": [
-        "082-563634, 9801347966, 9801347967"
+        "9851406109"
       ],
-      "email": [
-        "hyundaidang@gmail.com"
-      ]
+      "email": []
     },
     {
-      "name": "Him Intercontinental Pvt. Ltd",
-      "address": "Nepalgunj",
+      "name": "Service Centre",
+      "address": "pokhara",
       "phone": [
-        "081-550427, 9802546481"
+        "9856007979"
       ],
-      "email": [
-        "himauto2015@gmail.com, info@himauto.com.np"
-      ]
+      "email": []
     },
     {
-      "name": "Dinesh 4 Wheels Pvt. Ltd.",
-      "address": "Dhangadhi",
+      "name": "Mills Area, Janakpur-11, Madhesh Pradesh,",
+      "address": "janakpur",
       "phone": [
-        "091-524492, 9802540105"
+        "9854086430"
       ],
-      "email": [
-        "dinesh4wheels@gmail.com"
-      ]
-    },
-    {
-      "name": "L.I. Motors Pvt. Ltd.",
-      "address": "Murli Chowk, Parsa",
-      "phone": [
-        "9707086115, 9807086116"
-      ],
-      "email": [
-        "sanjay.kayastha@laxmihyundai.com"
-      ]
-    },
-    {
-      "name": "Hyundai Nepal Eastern Pvt. Ltd.",
-      "address": "Airport Mode, Biratnagar, Kanchanbari",
-      "phone": [
-        "9802369339, 021-466609"
-      ],
-      "email": [
-        "dealer.tsi2@laxmihyundai.com"
-      ]
-    },
-    {
-      "name": "Alliance Motors",
-      "address": "Birtamode",
-      "phone": [
-        "023-541495, 9802672044, 9802672041"
-      ],
-      "email": [
-        "hambirtamode@gmail.com"
-      ]
-    },
-    {
-      "name": "Jagat Motors Pvt. Ltd.",
-      "address": "Bhairahawa",
-      "phone": [
-        "071-575428, 9802608803, 9802608801"
-      ],
-      "email": [
-        "info@jagatmotors.com.np"
-      ]
-    },
-    {
-      "name": "Laxmi Intercontinental Pvt. Ltd",
-      "address": "Bhaktapur",
-      "phone": [
-        "01-6635266, 01-6637147, 9801201016"
-      ],
-      "email": [
-        "suresh.shrestha@laxmihyundai.com"
-      ]
+      "email": []
     }
   ]
 }
