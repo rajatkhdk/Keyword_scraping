@@ -31,7 +31,7 @@ Car Brand Scraper
 <div class="content-wrapper">
 <div class="container">
 
-    <h2>🔍 Car Brand Search</h2>
+    <h2>Car Brand Search</h2>
 
     <!-- ================= SEARCH FORM ================= -->
     <div class="box">
@@ -55,7 +55,7 @@ Car Brand Scraper
     {% if existing and data %}
     <div class="box">
 
-        <h3>📂 Existing Database Data</h3>
+        <h3>Existing Database Data</h3>
 
         <p>
             <strong>Website:</strong>
@@ -213,14 +213,14 @@ Car Brand Scraper
         <p>No dealers found</p>
         {% endif %}
 
-        <!-- 🔥 SCRAPE NEW BUTTON -->
+        <!-- SCRAPE NEW BUTTON -->
         <form method="POST">
             {% csrf_token %}
 
             <input type="hidden" name="brand" value="{{ form.brand.value }}">
 
             <button type="submit" name="scrape_new" value="1">
-                🔄 Scrape New Data
+                Scrape New Data
             </button>
         </form>
 
@@ -232,7 +232,7 @@ Car Brand Scraper
     {% if data and not existing %}
     <div class="box">
 
-        <h3>📊 Scraped Data Preview</h3>
+        <h3>Scraped Data Preview</h3>
 
         <p>
             <strong>Website:</strong>
@@ -390,7 +390,7 @@ Car Brand Scraper
         <p>No dealers found</p>
         {% endif %}
 
-        <!-- 💾 SAVE BUTTON -->
+        <!-- SAVE BUTTON -->
         {% if pending_save %}
         <form method="POST">
 
@@ -400,7 +400,7 @@ Car Brand Scraper
             <input type="hidden" name="confirm_save" value="1">
 
             <button type="submit">
-                💾 Save to Database
+                Save to Database
             </button>
 
         </form>
