@@ -257,7 +257,7 @@ def scrape_dealers_sync(url):
 def is_dealer_page(url, html):
     url = url.lower()
 
-    if (any(k in url for k in ["dealer", "showroom", "location", "branch", "network"])
+    if (any(k in url for k in ["dealer", "showroom", "location", "branch", "network", "locate", 'store'])
     and "become" not in url):
         print("dealer")
         return True
@@ -268,6 +268,25 @@ def is_dealer_page(url, html):
             return True
 
     return False
+
+def split_fields(value):
+
+    if not value:
+        return []
+    
+    if isinstance(value, list):
+
+        final = []
+
+        for item in value:
+            final.extend(split_fields(item))
+
+        return final
+    
+    # split string
+    parts = re.split(r"[,/|;\n]+", str(value))
+
+    return [ p.strip() for p in parts if p.strip()]
 
 def scrape_from_url(base_url, deep=True):
 
@@ -347,6 +366,7 @@ def scrape_from_url(base_url, deep=True):
                     try:
 
                         dealers = scrape_dealers_sync(page)
+                        # print("\n 1. dealers : ", dealers)
 
                         if dealers:
 
@@ -366,13 +386,17 @@ def scrape_from_url(base_url, deep=True):
                                     # STANDARDIZED
                                     "phones": [
                                         normalize_phone(p)
-                                        for p in dealer.get("phones", dealer.get("phone", []))
+                                        for p in split_fields(
+                                            dealer.get("phones", dealer.get("phone", []))
+                                        )
                                         if normalize_phone(p)
                                     ],
 
                                     "emails": [
                                         normalize_email(e)
-                                        for e in dealer.get("emails", dealer.get("email", []))
+                                        for e in split_fields(
+                                                dealer.get("emails", dealer.get("email", []))
+                                            )
                                         if normalize_email(e)
                                     ],
                                 }
@@ -389,6 +413,8 @@ def scrape_from_url(base_url, deep=True):
                                 all_dealers.append(
                                     standardized_dealer
                                 )
+
+                                # print("2. All dealers : ", all_dealers)
 
                     except Exception as dealer_error:
 
@@ -475,6 +501,8 @@ def scrape_from_url(base_url, deep=True):
 
         for dealer in all_dealers:
 
+            # print(" 3. Dealer : ", dealer)
+
             phones = tuple(sorted(
                 re.sub(r"\D", "", p)
                 for p in dealer.get("phones", [])
@@ -514,6 +542,9 @@ def scrape_from_url(base_url, deep=True):
 
             unique_dealers.append(dealer)
 
+            # print("Dealer : ", dealer)
+            # print("Unique Dealer : ", dealer)
+
         # =====================================================
         # STEP 5: FINAL OUTPUT
         # =====================================================
@@ -547,6 +578,8 @@ def scrape_from_url(base_url, deep=True):
             f"\nEmails: {len(final_result['emails'])}"
             f"\nDealers: {len(final_result['dealers'])}"
         )
+
+        # print("Final result : ", final_result)
 
         return final_result
 
@@ -840,7 +873,9 @@ def scrape_url_view(request):
                 deep=deep
             )
 
+            # print("Result -> scrape from url : ", result)
             result = process_scraped_data(result)
+            # print("Result -> process scraped data : ", result)
 
             # temporary session storage
             request.session["scraped_data"] = result
